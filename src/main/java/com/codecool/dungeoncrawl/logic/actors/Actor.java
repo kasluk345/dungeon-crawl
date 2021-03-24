@@ -7,7 +7,6 @@ import com.codecool.dungeoncrawl.logic.Drawable;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
-    private Tiles tile;
     private int health = 10;
 
     public Actor(Cell cell) {
@@ -19,13 +18,12 @@ public abstract class Actor implements Drawable {
         Cell nextCell = cell.getNeighbor(dx, dy);
         CellType nextCellType = nextCell.getType();
 
-        if (nextCellType.equals(CellType.FLOOR)) {
+        if (nextCellType.equals(CellType.FLOOR) || nextCellType.equals(CellType.ITEM)) {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
         }
-
-        }
+    }
 
 
     public int getHealth() {
