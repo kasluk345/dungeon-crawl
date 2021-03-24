@@ -1,10 +1,13 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
+import com.codecool.dungeoncrawl.Tiles;
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
+    private Tiles tile;
     private int health = 10;
 
     public Actor(Cell cell) {
@@ -14,17 +17,16 @@ public abstract class Actor implements Drawable {
 
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
+        CellType nextCellType = nextCell.getType();
 
-        if (nextCell.getTileName().equals("wall")) {
-//            System.out.println("wall");
-            cell.setActor(this);
-        }
-        else {
+        if (nextCellType.equals(CellType.FLOOR)) {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
         }
-    }
+
+        }
+
 
     public int getHealth() {
         return health;
