@@ -6,7 +6,6 @@ import com.codecool.dungeoncrawl.logic.CellType;
 public class Shield extends Item{
 
     public Shield(Cell cell) {
-
         super(cell);
         cell.setType(CellType.SHIELD);
     }

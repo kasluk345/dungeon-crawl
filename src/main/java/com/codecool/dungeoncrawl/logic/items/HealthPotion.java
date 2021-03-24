@@ -6,7 +6,6 @@ import com.codecool.dungeoncrawl.logic.CellType;
 public class HealthPotion extends Item{
 
     public HealthPotion(Cell cell) {
-
         super(cell);
     }
 
