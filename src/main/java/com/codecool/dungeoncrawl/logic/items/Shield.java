@@ -8,7 +8,7 @@ public class Shield extends Item{
     public Shield(Cell cell) {
 
         super(cell);
-        cell.setType(CellType.ITEM);
+        cell.setType(CellType.SHIELD);
     }
 
     @Override

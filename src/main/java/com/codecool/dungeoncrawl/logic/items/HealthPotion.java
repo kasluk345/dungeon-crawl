@@ -8,7 +8,6 @@ public class HealthPotion extends Item{
     public HealthPotion(Cell cell) {
 
         super(cell);
-        cell.setType(CellType.ITEM);
     }
 
     @Override
