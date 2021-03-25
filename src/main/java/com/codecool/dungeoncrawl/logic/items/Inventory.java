@@ -9,9 +9,10 @@ import java.util.List;
 
 public class Inventory {
 
-    public final List<Item> inventory;
+    public final ArrayList<Item> inventory;
 
     public Inventory() {
+
         inventory = new ArrayList<>();
     }
 
@@ -25,6 +26,25 @@ public class Inventory {
         }
     }
 
+    public int getSwordsCount() {
+        int counter = 0;
+        for (Item item : inventory) {
+            if (item.getClass().getSimpleName().equals("Sword")){
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    public int getShieldsCount() {
+        int counter = 0;
+        for (Item item : inventory) {
+            if (item.getClass().getSimpleName().equals("Shield")){
+                counter++;
+            }
+        }
+        return counter;
+    }
 
 
 }
