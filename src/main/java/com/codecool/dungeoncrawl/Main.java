@@ -22,6 +22,8 @@ public class Main extends Application {
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
+    Label attackLabel = new Label();
+    Label defenseLabel = new Label();
 
     public static void main(String[] args) {
         launch(args);
@@ -35,6 +37,14 @@ public class Main extends Application {
 
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
+
+        ui.add(new Label("Sword: "), 0, 1);
+        ui.add(attackLabel, 1, 1);
+
+        ui.add(new Label("Shield: "), 0, 2);
+        ui.add(defenseLabel, 1, 2);
+
+
 
         BorderPane borderPane = new BorderPane();
 
@@ -85,5 +95,10 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
+        attackLabel.setText("" + map.getPlayer().getAttack());
+        defenseLabel.setText("" + map.getPlayer().getDefence());
+
     }
+
+
 }
