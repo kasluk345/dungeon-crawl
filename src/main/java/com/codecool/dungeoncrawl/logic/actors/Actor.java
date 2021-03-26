@@ -1,9 +1,8 @@
 package com.codecool.dungeoncrawl.logic.actors;
-
-import com.codecool.dungeoncrawl.Tiles;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
+import com.codecool.dungeoncrawl.logic.battle.Battle;
 
 public abstract class Actor implements Drawable {
     protected Cell cell;
@@ -11,7 +10,6 @@ public abstract class Actor implements Drawable {
     private int attack;
     private int armor;
     private int defence;
-
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -21,15 +19,20 @@ public abstract class Actor implements Drawable {
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
         CellType nextCellType = nextCell.getType();
+        Battle battle = new Battle();
 
         if (nextCellType.equals(CellType.FLOOR)
-            ||nextCellType.equals(CellType.SWORD)
-            ||nextCellType.equals(CellType.SHIELD)
-            ||nextCellType.equals(CellType.HEALTHPOTION)
-            ||nextCellType.equals(CellType.ARMOR)){
+            || nextCellType.equals(CellType.SWORD)
+            || nextCellType.equals(CellType.SHIELD)
+            || nextCellType.equals(CellType.HEALTHPOTION)
+            || nextCellType.equals(CellType.ARMOR)){
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
+
+        }
+        if (nextCellType.equals(CellType.NPC)) {
+            battle.fight(this, nextCell.getActor());
         }
     }
 
@@ -65,8 +68,8 @@ public abstract class Actor implements Drawable {
         return armor;
     }
 
-    public void setArmor(int aromor) {
-        this.armor = aromor;
+    public void setArmor(int armor) {
+        this.armor = armor;
     }
 
     public int getDefence() {

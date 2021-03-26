@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
+import com.codecool.dungeoncrawl.logic.battle.Battle;
 import com.codecool.dungeoncrawl.logic.items.Inventory;
 
 public class Player extends Actor {
@@ -25,10 +26,6 @@ public class Player extends Actor {
     @Override
     public void move(int dx, int dy) {
         super.move(dx, dy);
-        System.out.println(inventory.getSwordsCount());
-        System.out.println(inventory.getShieldsCount());
-        System.out.println(inventory.getArmorCount());
-
 
         if (cell.getType().equals(CellType.SWORD)
                 || cell.getType().equals(CellType.SHIELD)
