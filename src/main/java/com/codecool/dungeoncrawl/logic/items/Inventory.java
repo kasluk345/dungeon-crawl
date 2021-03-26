@@ -29,7 +29,7 @@ public class Inventory {
     public int getSwordsCount() {
         int counter = 0;
         for (Item item : inventory) {
-            if (item.getClass().getSimpleName().equals("Sword")){
+            if (item.getClass().getSimpleName().equals("Sword")) {
                 counter++;
             }
         }
@@ -39,7 +39,7 @@ public class Inventory {
     public int getShieldsCount() {
         int counter = 0;
         for (Item item : inventory) {
-            if (item.getClass().getSimpleName().equals("Shield")){
+            if (item.getClass().getSimpleName().equals("Shield")) {
                 counter++;
             }
         }
@@ -47,4 +47,13 @@ public class Inventory {
     }
 
 
+    public int getArmorCount() {
+        int counter = 0;
+        for (Item item : inventory) {
+            if (item.getClass().getSimpleName().equals("Armor")) {
+                counter++;
+            }
+        }
+        return counter;
+    }
 }

@@ -9,6 +9,7 @@ public abstract class Actor implements Drawable {
     protected Cell cell;
     private int health;
     private int attack;
+    private int armor;
     private int defence;
 
 
@@ -24,7 +25,8 @@ public abstract class Actor implements Drawable {
         if (nextCellType.equals(CellType.FLOOR)
             ||nextCellType.equals(CellType.SWORD)
             ||nextCellType.equals(CellType.SHIELD)
-            ||nextCellType.equals(CellType.HEALTHPOTION)){
+            ||nextCellType.equals(CellType.HEALTHPOTION)
+            ||nextCellType.equals(CellType.ARMOR)){
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
@@ -59,6 +61,14 @@ public abstract class Actor implements Drawable {
         this.attack = attack;
     }
 
+    public int getArmor() {
+        return armor;
+    }
+
+    public void setArmor(int aromor) {
+        this.armor = aromor;
+    }
+
     public int getDefence() {
         return defence;
     }
@@ -67,3 +77,4 @@ public abstract class Actor implements Drawable {
         this.defence = defence;
     }
 }
+

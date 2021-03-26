@@ -1,16 +1,14 @@
 package com.codecool.dungeoncrawl.logic.items;
 
 import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.CellType;
 
-public class Shield extends Item{
-
-    public Shield(Cell cell) {
+public class Armor extends Item {
+    public Armor(Cell cell) {
         super(cell);
     }
 
     @Override
     public String getTileName() {
-        return "shield";
+        return "armor";
     }
 }

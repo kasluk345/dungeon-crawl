@@ -10,8 +10,6 @@ public class Skeleton extends Actor {
         cell.setType(CellType.NPC);
         this.setHealth(100);
         this.setAttack(20);
-        this.setDefence(50);
-
     }
 
     @Override

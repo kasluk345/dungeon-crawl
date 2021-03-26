@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.items.Armor;
 import com.codecool.dungeoncrawl.logic.items.HealthPotion;
 import com.codecool.dungeoncrawl.logic.items.Shield;
 import com.codecool.dungeoncrawl.logic.items.Sword;
@@ -50,10 +51,15 @@ public class MapLoader {
                             cell.setType(CellType.SHIELD);
                             new Shield(cell);
                             break;
-                        case 'h':
-                            cell.setType(CellType.HEALTHPOTION);
-                            new HealthPotion(cell);
+                        case 'a':
+                            cell.setType(CellType.ARMOR);
+                            new Armor(cell);
                             break;
+                        case 'h':
+                        cell.setType(CellType.HEALTHPOTION);
+                        new HealthPotion(cell);
+                        break;
+
 
 
                         default:
