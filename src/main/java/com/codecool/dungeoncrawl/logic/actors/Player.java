@@ -26,8 +26,6 @@ public class Player extends Actor {
     @Override
     public void move(int dx, int dy) {
         super.move(dx, dy);
-        Cell nextCell = cell.getNeighbor(dx, dy);
-        CellType nextCellType = nextCell.getType();
 
         if (cell.getType().equals(CellType.SWORD)
                 || cell.getType().equals(CellType.SHIELD)
@@ -40,12 +38,6 @@ public class Player extends Actor {
             this.setAttack(calculateAttack());
             this.setDefence(calculateDefense());
             this.setArmor(calculateArmor());
-        }
-
-        if (nextCellType.equals(CellType.NPC)) {
-            Battle battle = new Battle();
-            battle.fight(this, nextCell.getActor());
-
         }
     }
 

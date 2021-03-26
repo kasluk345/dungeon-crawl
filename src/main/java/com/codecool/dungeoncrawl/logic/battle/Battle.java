@@ -2,8 +2,6 @@ package com.codecool.dungeoncrawl.logic.battle;
 
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
-import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 
 public class Battle {
 
@@ -11,39 +9,36 @@ public class Battle {
     public Battle() {
     }
 
-    public void fight(Actor actor1, Actor actor2) {
-        if (actor1.getHealth() > 0 && actor2.getHealth() > 0) {
-            actor2.setHealth(getPlayerAttackResult(actor1, actor2));
-            actor1.setHealth(getEnemyAttackResult(actor1, actor2));
-        }
-        else if (actor1.getHealth() <= 0) {
-            actor1.getCell().setType(CellType.ARMOR);
+    public void fight(Actor player, Actor enemy) {
+        int playerHealth = getEnemyAttackResult(player, enemy);
+        int enemyHealth = getPlayerAttackResult(player, enemy);
+
+        if (playerHealth <= 0) {
             System.out.println("Game over");
+            System.exit(0);
         }
-        else if (actor2.getHealth() <= 0) {
-            actor2.getCell().setActor(null);
-            actor2.getCell().setType(CellType.FLOOR);
+        if (enemyHealth <= 0) {
+            enemy.getCell().setActor(null);
+            enemy.getCell().setType(CellType.FLOOR);
+        } else {
+            enemy.setHealth(getPlayerAttackResult(player, enemy));
+            player.setHealth(getEnemyAttackResult(player, enemy));
         }
-
     }
 
 
-    public int getPlayerAttackResult(Actor actor1, Actor actor2) {
-        int actor1Attack = actor1.getAttack();
-        int actor2Health = actor2.getHealth();
+    public int getPlayerAttackResult(Actor player, Actor enemy) {
+        int playerAttack = player.getAttack();
+        int enemyHealth = enemy.getHealth();
 
-        actor2Health = actor2Health - actor1Attack;
-
-        return actor2Health;
+        return enemyHealth - playerAttack;
     }
 
-    public int getEnemyAttackResult(Actor actor1, Actor actor2) {
-        int actor2Attack = actor2.getAttack();
-        int actor1Health = actor1.getHealth() + actor1.getArmor() + actor1.getDefence();
+    public int getEnemyAttackResult(Actor player, Actor enemy) {
+        int enemyAttack = enemy.getAttack();
+        int playerHealth = player.getHealth() + player.getArmor() + player.getDefence();
 
-        actor1Health = actor1Health - actor2Attack;
-
-        return actor1Health;
+        return playerHealth - enemyAttack;
     }
 
 
