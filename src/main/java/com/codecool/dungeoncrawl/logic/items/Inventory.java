@@ -21,6 +21,8 @@ public class Inventory {
         inventory.add(item);
     }
 
+    public void removeItem(Item item) {inventory.remove(item); }
+
     public void displayInventory() {
         for (Item item : inventory) {
             System.out.println(item);

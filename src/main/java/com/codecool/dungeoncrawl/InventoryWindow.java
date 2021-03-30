@@ -24,8 +24,8 @@ public class InventoryWindow {
         Label label = new Label();
         Text text = new Text();
         text.setText(message);
-        text.setFont(Font.font("Verdana", 20));
-        text.setFill(Color.RED);
+        text.setFont(Font.font("Verdana", 25));
+        text.setFill(Color.DARKMAGENTA);
         Button closeButton = new Button("Close");
         closeButton.setOnAction(e -> window.close());
 

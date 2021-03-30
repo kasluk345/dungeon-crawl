@@ -72,6 +72,7 @@ public class Player extends Actor {
         for (Key key : inventory.getKeysIds()) {
             if (key.getId() == nextCell.getDoor().getId()) {
                 nextCell.setType(CellType.DOOR);
+                inventory.removeItem(key);
             }
         }
     }
