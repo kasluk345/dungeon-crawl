@@ -17,7 +17,7 @@ public class Battle {
             System.out.println("Game over");
             System.exit(0);
         }
-        if (enemyHealth <= 0) {
+        else if (enemyHealth <= 0) {
             enemy.getCell().setActor(null);
             enemy.getCell().setType(CellType.FLOOR);
         }
@@ -44,12 +44,14 @@ public class Battle {
                 player.setArmor(0);
                 player.setHealth(playerHealth + playerArmor + playerDefence - enemyAttack);
                 return  playerHealth + playerArmor + playerDefence - enemyAttack;
-            } else {
+            }
+            else {
                 player.setArmor(playerArmor + playerDefence - enemyAttack);
                 player.setHealth(playerHealth);
                 return playerHealth;
             }
-        } else {
+        }
+        else {
             player.setDefence(playerDefence - enemyAttack);
         }
         player.setHealth(playerHealth);

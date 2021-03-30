@@ -46,6 +46,16 @@ public class Inventory {
         return counter;
     }
 
+    public ArrayList<Key> getKeysIds() {
+        ArrayList<Key> keyIDs = new ArrayList<>();
+        for (Item item : inventory) {
+            if (item.getClass().getSimpleName().equals("Key")) {
+                keyIDs.add((Key) item);
+            }
+        }
+        return keyIDs;
+    }
+
 
     public int getArmorCount() {
         int counter = 0;

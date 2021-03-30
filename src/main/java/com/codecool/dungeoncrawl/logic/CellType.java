@@ -8,7 +8,10 @@ public enum CellType {
     SWORD("sword"),
     SHIELD("shield"),
     HEALTHPOTION("health potion"),
-    ARMOR("armor");
+    ARMOR("armor"),
+    KEY("key"),
+    LOCKEDDOOR("locked door"),
+    DOOR("door");
 
     private final String tileName;
 
