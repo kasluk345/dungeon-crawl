@@ -20,9 +20,6 @@ public class Battle {
         if (enemyHealth <= 0) {
             enemy.getCell().setActor(null);
             enemy.getCell().setType(CellType.FLOOR);
-        } else {
-            enemy.setHealth(getPlayerAttackResult(player, enemy));
-            player.setHealth(getEnemyAttackResult(player, enemy));
         }
     }
 
@@ -31,15 +28,32 @@ public class Battle {
         int playerAttack = player.getAttack();
         int enemyHealth = enemy.getHealth();
 
+        enemy.setHealth(enemyHealth - playerAttack);
         return enemyHealth - playerAttack;
     }
 
     public int getEnemyAttackResult(Actor player, Actor enemy) {
         int enemyAttack = enemy.getAttack();
-        int playerHealth = player.getHealth() + player.getArmor() + player.getDefence();
+        int playerHealth = player.getHealth();
+        int playerArmor = player.getArmor();
+        int playerDefence = player.getDefence();
 
-        return playerHealth - enemyAttack;
+        if (enemyAttack >= playerDefence) {
+            player.setDefence(0);
+            if (enemyAttack >= playerDefence + playerArmor) {
+                player.setArmor(0);
+                player.setHealth(playerHealth + playerArmor + playerDefence - enemyAttack);
+                return  playerHealth + playerArmor + playerDefence - enemyAttack;
+            } else {
+                player.setArmor(playerArmor + playerDefence - enemyAttack);
+                player.setHealth(playerHealth);
+                return playerHealth;
+            }
+        } else {
+            player.setDefence(playerDefence - enemyAttack);
+        }
+        player.setHealth(playerHealth);
+        return playerHealth;
     }
-
-
 }
+
