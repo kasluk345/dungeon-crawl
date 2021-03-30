@@ -25,11 +25,14 @@ public abstract class Actor implements Drawable {
             || nextCellType.equals(CellType.SWORD)
             || nextCellType.equals(CellType.SHIELD)
             || nextCellType.equals(CellType.HEALTHPOTION)
-            || nextCellType.equals(CellType.ARMOR)){
+            || nextCellType.equals(CellType.ARMOR)
+            || nextCellType.equals(CellType.KEY)
+            || nextCellType.equals(CellType.DOOR)
+        )
+        {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
-
         }
         if (nextCellType.equals(CellType.NPC)) {
             battle.fight(this, nextCell.getActor());

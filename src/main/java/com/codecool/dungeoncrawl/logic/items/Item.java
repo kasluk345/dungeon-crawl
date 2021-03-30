@@ -7,18 +7,9 @@ import com.codecool.dungeoncrawl.logic.Drawable;
 public abstract class Item implements Drawable {
 
     private Cell cell;
-    private int id;
 
     public Item(Cell cell) {
          this.cell = cell;
          this.cell.setItem(this);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }
