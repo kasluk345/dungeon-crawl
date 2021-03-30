@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
+import com.codecool.dungeoncrawl.StartWindow;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Inventory;
@@ -11,6 +12,7 @@ public class Player extends Actor {
     private final static int START_ARMOR = 0;
     private final static int START_ATTACK = 20;
     private final static int START_DEFENSE = 0;
+    private String name = "";
 
     public Player(Cell cell) {
         super(cell);
@@ -18,6 +20,8 @@ public class Player extends Actor {
         this.setArmor(START_ARMOR);
         this.setAttack(START_ATTACK);
         this.setDefence(START_DEFENSE);
+        this.setName(StartWindow.handlePlayerName());
+        System.out.println(name);
     }
 
     @Override
@@ -83,5 +87,13 @@ public class Player extends Actor {
 
     public String getTileName() {
         return "player";
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 }
