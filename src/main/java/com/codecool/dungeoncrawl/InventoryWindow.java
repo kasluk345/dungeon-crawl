@@ -6,6 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -16,15 +19,18 @@ public class InventoryWindow {
 
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Inventory");
-        window.setMaxWidth(250);
+        window.setMaxWidth(500);
 
         Label label = new Label();
-        label.setText(message);
+        Text text = new Text();
+        text.setText(message);
+        text.setFont(Font.font("Verdana", 20));
+        text.setFill(Color.RED);
         Button closeButton = new Button("Close");
         closeButton.setOnAction(e -> window.close());
 
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(label, closeButton);
+        layout.getChildren().addAll(label, text, closeButton);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);

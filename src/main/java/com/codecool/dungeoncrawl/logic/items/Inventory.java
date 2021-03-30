@@ -28,8 +28,11 @@ public class Inventory {
     }
 
     public String toString() {
-        String inventoryString = inventory.stream().map(Object::toString)
-                .collect(Collectors.joining("\n"));
+        String inventoryString = "";
+
+        for (Item item : inventory) {
+            inventoryString += item.getName() + System.lineSeparator();
+        }
         return inventoryString;
     }
 
