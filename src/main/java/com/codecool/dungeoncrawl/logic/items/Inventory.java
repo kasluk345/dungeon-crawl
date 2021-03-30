@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.MapLoader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Inventory {
 
@@ -25,6 +26,13 @@ public class Inventory {
             System.out.println(item);
         }
     }
+
+    public String toString() {
+        String inventoryString = inventory.stream().map(Object::toString)
+                .collect(Collectors.joining("\n"));
+        return inventoryString;
+    }
+
 
     public int getSwordsCount() {
         int counter = 0;
