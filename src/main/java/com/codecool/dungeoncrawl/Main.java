@@ -1,8 +1,10 @@
 package com.codecool.dungeoncrawl;
 
+import com.codecool.dungeoncrawl.logic.AutoMove;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -15,7 +17,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class Main extends Application implements Runnable{
+
     GameMap map = MapLoader.loadMap();
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
@@ -32,6 +35,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
@@ -48,7 +52,6 @@ public class Main extends Application {
         ui.add(new Label("Defence: "), 0, 3);
         ui.add(defenseLabel, 1, 3);
 
-
         BorderPane borderPane = new BorderPane();
 
         borderPane.setCenter(canvas);
@@ -58,6 +61,20 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         refresh();
 
+        System.out.println(map.getPlayer().getX()+","+map.getPlayer().getX());
+        map.getPlayer().setInitPlayerPosition(map.getPlayer().getX(),map.getPlayer().getX());
+
+    //async move of enemy
+        /////Thread - by AutoMove class
+/*        Runnable ghostMove = new AutoMove(map.getGhost());
+        new Thread(ghostMove).start();*/
+        /////Thread - in Main class
+/*        Main autoRefresh = new Main();
+        Thread aRefresh = new Thread(autoRefresh);
+        aRefresh.start();*/
+        ///
+
+
         scene.setOnKeyPressed(this::onKeyPressed);
 
         primaryStage.setTitle("Dungeon Crawl");
@@ -65,8 +82,8 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
-        map.getGhost().getGhostPosition();
-        map.getGhost().move();
+        //map.getGhost().getGhostPosition();
+        //map.getGhost().move();
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().move(0, -1);
@@ -92,6 +109,7 @@ public class Main extends Application {
     }
 
     private void refresh() {
+        System.out.println("PLAYER position: "+map.getPlayer().getX()+","+map.getPlayer().getY());
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (int x = 0; x < map.getWidth(); x++) {
@@ -108,6 +126,20 @@ public class Main extends Application {
         armorLabel.setText("" + map.getPlayer().getArmor());
         attackLabel.setText("" + map.getPlayer().getAttack());
         defenseLabel.setText("" + map.getPlayer().getDefence());
+    }
+
+    @Override
+    public void run() {
+    while(true) {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("(Mclass)GHOST position: "+map.getGhost().getX()+","+map.getGhost().getY());
+        map.getGhost().move();
+        refresh();
+    }
     }
 
 

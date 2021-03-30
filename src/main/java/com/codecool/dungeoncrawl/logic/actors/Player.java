@@ -12,8 +12,7 @@ public class Player extends Actor {
     private final static int START_ATTACK = 20;
     private final static int START_DEFENSE = 0;
 
-
-
+    private static final int[] currentPlayerPosition = {-1,-1};
 
     public Player(Cell cell) {
         super(cell);
@@ -39,6 +38,7 @@ public class Player extends Actor {
             this.setDefence(calculateDefense());
             this.setArmor(calculateArmor());
         }
+        setCurrentPlayerPosition(dx,dy);
     }
 
     public int calculateAttack() {
@@ -56,6 +56,21 @@ public class Player extends Actor {
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public void setInitPlayerPosition(int dx,int dy) {
+        currentPlayerPosition[0] = dx;
+        currentPlayerPosition[1] = dy;
+    }
+
+    public void setCurrentPlayerPosition(int dx,int dy) {
+        currentPlayerPosition[0] += dx;
+        currentPlayerPosition[1] += dy;
+        System.out.println("CURRENt PLAYER position= "+currentPlayerPosition[0]+","+currentPlayerPosition[1]);
+    }
+
+    public static int[] getCurrentPlayerPosition() {
+        return currentPlayerPosition;
     }
 
     public String getTileName() {

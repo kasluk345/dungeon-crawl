@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
+import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 
@@ -24,10 +25,15 @@ public class Ghost extends Actor {
     }
 
     public void move() {
-        randX = random.nextInt(6)-3;
-        randY = random.nextInt(6)-3;
-        System.out.println("GHOST random: "+randX+","+randY);
-        super.move(randX,randY);
+        randX = random.nextInt(6)-3; //-3,3
+        randY = random.nextInt(6)-3; //-3,3
+
+        if (super.checkPosition(this, new int[] {randX,randY})) {
+            super.move(randX,randY);
+            //System.out.print("MOVING object is :"+ this.getClass().getSimpleName());
+            }
+        super.checkAround(new int[] {randX,randY});
+
     }
 
     public void getGhostPosition() {
@@ -35,4 +41,6 @@ public class Ghost extends Actor {
         int y = this.getY();
         System.out.println("GHOST position: "+x+","+y);
     }
+
+
 }
