@@ -12,29 +12,55 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class InventoryWindow {
+public class InventoryWindow extends Stage{
+    private final VBox layout;
 
-    public static void display(String message) {
-        Stage window = new Stage();
+    public InventoryWindow(String message) {
+        super();
+        super.initModality(Modality.APPLICATION_MODAL);
+        super.setTitle("Inventory");
+        super.setMaxWidth(500);
 
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Inventory");
-        window.setMaxWidth(500);
-
+        layout = new VBox(10);
         Label label = new Label();
+
         Text text = new Text();
         text.setText(message);
         text.setFont(Font.font("Verdana", 25));
         text.setFill(Color.DARKMAGENTA);
         Button closeButton = new Button("Close");
-        closeButton.setOnAction(e -> window.close());
+        closeButton.setOnAction(e -> super.close());
 
-        VBox layout = new VBox(10);
         layout.getChildren().addAll(label, text, closeButton);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
-        window.setScene(scene);
-        window.showAndWait();
+        super.setScene(scene);
+        super.showAndWait();
+
     }
+
+//    public static void display(String message) {
+//        Stage window = new Stage();
+//
+//        window.initModality(Modality.APPLICATION_MODAL);
+//        window.setTitle("Inventory");
+//        window.setMaxWidth(500);
+//
+//        Label label = new Label();
+//        Text text = new Text();
+//        text.setText(message);
+//        text.setFont(Font.font("Verdana", 25));
+//        text.setFill(Color.DARKMAGENTA);
+//        Button closeButton = new Button("Close");
+//        closeButton.setOnAction(e -> window.close());
+//
+//        VBox layout = new VBox(10);
+//        layout.getChildren().addAll(label, text, closeButton);
+//        layout.setAlignment(Pos.CENTER);
+//
+//        Scene scene = new Scene(layout);
+//        window.setScene(scene);
+//        window.showAndWait();
+//    }
 }

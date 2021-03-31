@@ -88,9 +88,9 @@ public class Main extends Application {
                 break;
             case I:
                 if (map.getPlayer().getInventory().toString() == "") {
-                    InventoryWindow.display("Inventory EMPTY");
+                    new InventoryWindow("Inventory EMPTY");
                 } else {
-                    InventoryWindow.display(map.getPlayer().getInventory().toString());
+                    new InventoryWindow(map.getPlayer().getInventory().toString());
                 }
         }
     }
