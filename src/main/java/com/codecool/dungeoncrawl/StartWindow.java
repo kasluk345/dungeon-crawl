@@ -5,7 +5,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -15,8 +14,6 @@ public class StartWindow {
 
     public static java.lang.String handlePlayerName() {
         Stage window = new Stage();
-        Label label = new Label();
-
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Dungeon Crawl 2021");
         window.setMaxWidth(500);
@@ -35,7 +32,6 @@ public class StartWindow {
         layout.setAlignment(Pos.CENTER);
 
         submit.setOnAction(new EventHandler<ActionEvent>() {
-
             public void handle(ActionEvent e) {
                 if ((name.getText() != null && !name.getText().isEmpty())) {
                     name.setText(name.getText());
@@ -46,8 +42,6 @@ public class StartWindow {
             }
         });
         clear.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
             public void handle(ActionEvent e) {
                 name.clear();
             }
