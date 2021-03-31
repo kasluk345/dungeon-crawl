@@ -2,33 +2,31 @@ package com.codecool.dungeoncrawl;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class StartWindow {
 
-    public static String handlePlayerName() {
+    public static java.lang.String handlePlayerName() {
         Stage window = new Stage();
         Label label = new Label();
 
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Dungeon Crawl 2021");
         window.setMaxWidth(500);
+        window.setMinWidth(500);
+        window.setMaxHeight(500);
+        window.setMinHeight(500);
 
         final TextField name = new TextField();
-        name.setPromptText("Enter your name.");
-        name.getText();
+        name.setText("Enter your name.");
         Button submit = new Button("Submit");
-
-
         Button clear = new Button("Clear");
 
 
