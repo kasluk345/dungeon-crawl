@@ -39,28 +39,4 @@ public class InventoryWindow extends Stage{
         super.showAndWait();
 
     }
-
-//    public static void display(String message) {
-//        Stage window = new Stage();
-//
-//        window.initModality(Modality.APPLICATION_MODAL);
-//        window.setTitle("Inventory");
-//        window.setMaxWidth(500);
-//
-//        Label label = new Label();
-//        Text text = new Text();
-//        text.setText(message);
-//        text.setFont(Font.font("Verdana", 25));
-//        text.setFill(Color.DARKMAGENTA);
-//        Button closeButton = new Button("Close");
-//        closeButton.setOnAction(e -> window.close());
-//
-//        VBox layout = new VBox(10);
-//        layout.getChildren().addAll(label, text, closeButton);
-//        layout.setAlignment(Pos.CENTER);
-//
-//        Scene scene = new Scene(layout);
-//        window.setScene(scene);
-//        window.showAndWait();
-//    }
 }

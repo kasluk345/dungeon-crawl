@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.items.Door;
 import com.codecool.dungeoncrawl.logic.items.Item;
 
 public class GameMap {
@@ -10,6 +11,7 @@ public class GameMap {
 
     private Player player;
     private Item item;
+    private Door door;
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
@@ -33,6 +35,8 @@ public class GameMap {
     public void setItem(Item item) {
         this.item = item;
     }
+    
+    public void setDoor(Door door) {this.door  = door; }
 
     public Player getPlayer() {
         return player;

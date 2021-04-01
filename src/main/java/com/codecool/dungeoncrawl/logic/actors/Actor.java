@@ -21,15 +21,10 @@ public abstract class Actor implements Drawable {
         CellType nextCellType = nextCell.getType();
         Battle battle = new Battle();
 
+
         if (nextCellType.equals(CellType.FLOOR)
-            || nextCellType.equals(CellType.SWORD)
-            || nextCellType.equals(CellType.SHIELD)
-            || nextCellType.equals(CellType.HEALTHPOTION)
-            || nextCellType.equals(CellType.ARMOR)
-            || nextCellType.equals(CellType.KEY)
-            || nextCellType.equals(CellType.DOOR)
-        )
-        {
+                || nextCellType.equals(CellType.DOOR)
+        ) {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
@@ -38,6 +33,20 @@ public abstract class Actor implements Drawable {
             battle.fight(this, nextCell.getActor());
         }
     }
+
+//    public void checkBattle(int dx, int dy) {
+//        Cell nextCell = cell.getNeighbor(dx, dy);
+//        if (nextCell.getActor() != null) {
+//            if (nextCell.getActor().getClass().getSimpleName().equals("Skeleton")) {
+//                Battle battle = new Battle();
+//                battle.fight(this, nextCell.getActor());
+//            }
+
+
+
+
+
+
 
     public Cell getCell() {
         return cell;

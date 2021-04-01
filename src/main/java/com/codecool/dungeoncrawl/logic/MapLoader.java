@@ -41,27 +41,27 @@ public class MapLoader {
                             map.setPlayer(new Player(cell));
                             break;
                         case 'm':
-                            cell.setType(CellType.SWORD);
+                            cell.setType(CellType.FLOOR);
                             new Sword(cell);
                             break;
                         case 't':
-                            cell.setType(CellType.SHIELD);
+                            cell.setType(CellType.FLOOR);
                             new Shield(cell);
                             break;
                         case 'a':
-                            cell.setType(CellType.ARMOR);
+                            cell.setType(CellType.FLOOR);
                             new Armor(cell);
                             break;
                         case 'h':
-                        cell.setType(CellType.HEALTHPOTION);
-                        new HealthPotion(cell);
-                        break;
+                            cell.setType(CellType.FLOOR);
+                            new HealthPotion(cell);
+                            break;
                         case 'd':
                             cell.setType(CellType.LOCKEDDOOR);
                             new Door(cell);
                             break;
                         case 'k':
-                            cell.setType(CellType.KEY);
+                            cell.setType(CellType.FLOOR);
                             new Key(cell);
                             break;
 
