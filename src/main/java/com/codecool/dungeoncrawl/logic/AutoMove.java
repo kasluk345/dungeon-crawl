@@ -5,36 +5,37 @@ import com.codecool.dungeoncrawl.logic.actors.Ghost;
 
 public class AutoMove implements Runnable{
 
-    private volatile boolean cancelled;
+    private volatile boolean onMove;
     private Ghost ghost;
+    private Main main;
 
-    public AutoMove(Ghost ghost) {
+    public AutoMove(Main main, Ghost ghost) {
         this.ghost = ghost;
+        this.main = main;
+        this.onMove = true;
     }
 
     @Override
     public void run() {
-        while (!cancelled) {
-            doStuff();
+        while (onMove) {
+            ghostMove();
         }
     }
 
-    public void cancel()
-    {
-        cancelled = true;
+    public void stopMove() { onMove = false; }
+
+    public boolean moveState() {
+        return onMove;
     }
 
-    public boolean isCancelled() {
-        return cancelled;
-    }
-
-    private void doStuff(){
+    private void ghostMove(){
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("(AMclass)GHOST position: "+ghost.getX()+","+ghost.getY());
+        System.out.println("GHOST position: "+ghost.getX()+","+ghost.getY());
         ghost.move();
+        main.refresh();
     }
 }

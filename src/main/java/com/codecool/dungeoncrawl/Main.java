@@ -17,7 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class Main extends Application implements Runnable{
+public class Main extends Application {
 
     GameMap map = MapLoader.loadMap();
     Canvas canvas = new Canvas(
@@ -61,19 +61,9 @@ public class Main extends Application implements Runnable{
         primaryStage.setScene(scene);
         refresh();
 
-        System.out.println(map.getPlayer().getX()+","+map.getPlayer().getX());
-        map.getPlayer().setInitPlayerPosition(map.getPlayer().getX(),map.getPlayer().getX());
-
-    //async move of enemy
-        /////Thread - by AutoMove class
-/*        Runnable ghostMove = new AutoMove(map.getGhost());
-        new Thread(ghostMove).start();*/
-        /////Thread - in Main class
-/*        Main autoRefresh = new Main();
-        Thread aRefresh = new Thread(autoRefresh);
-        aRefresh.start();*/
-        ///
-
+        //async move of enemy: Thread - by AutoMove class
+        Runnable ghostMove = new AutoMove(this,map.getGhost());
+        new Thread(ghostMove).start(); //comment this line to stop ghost
 
         scene.setOnKeyPressed(this::onKeyPressed);
 
@@ -82,8 +72,6 @@ public class Main extends Application implements Runnable{
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
-        //map.getGhost().getGhostPosition();
-        //map.getGhost().move();
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().move(0, -1);
@@ -108,8 +96,8 @@ public class Main extends Application implements Runnable{
         }
     }
 
-    private void refresh() {
-        System.out.println("PLAYER position: "+map.getPlayer().getX()+","+map.getPlayer().getY());
+    public synchronized void refresh() {
+       // System.out.println("PLAYER position: "+map.getPlayer().getX()+","+map.getPlayer().getY());
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (int x = 0; x < map.getWidth(); x++) {
@@ -117,6 +105,8 @@ public class Main extends Application implements Runnable{
                 Cell cell = map.getCell(x, y);
                 if (cell.getActor() != null) {
                     Tiles.drawTile(context, cell.getActor(), x, y);
+                }else if (cell.getItem() != null) {
+                    Tiles.drawTile(context, cell.getItem(),x, y);
                 } else {
                     Tiles.drawTile(context, cell, x, y);
                 }
@@ -127,20 +117,4 @@ public class Main extends Application implements Runnable{
         attackLabel.setText("" + map.getPlayer().getAttack());
         defenseLabel.setText("" + map.getPlayer().getDefence());
     }
-
-    @Override
-    public void run() {
-    while(true) {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println("(Mclass)GHOST position: "+map.getGhost().getX()+","+map.getGhost().getY());
-        map.getGhost().move();
-        refresh();
-    }
-    }
-
-
 }

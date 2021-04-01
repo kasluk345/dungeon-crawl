@@ -95,9 +95,15 @@ public abstract class Actor implements Drawable {
         return false;
     }
 
-    public boolean checkAround(int[] nextPosition) {
+    public boolean checkAround(Ghost ghost) {
         int[] playerPosition = Player.getCurrentPlayerPosition();
-        if(playerPosition==nextPosition) System.out.println("WALKA!!!");
+        int[] nextPosition ={ghost.getX(),ghost.getY()};
+        //System.out.println("PLAYERR position: "+playerPosition[0]+","+playerPosition[1]+" |GHOST: "+nextPosition[0]+","+nextPosition[1]);
+        if(playerPosition[0]==nextPosition[0] && playerPosition[1]==nextPosition[1]) {
+            System.out.println("WALKA!!!");
+            Battle battle = new Battle();
+            battle.fight(this, ghost);
+        }
         return true;
     }
 }

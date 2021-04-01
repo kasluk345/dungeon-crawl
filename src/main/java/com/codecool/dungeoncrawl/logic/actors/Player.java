@@ -26,6 +26,8 @@ public class Player extends Actor {
     public void move(int dx, int dy) {
         super.move(dx, dy);
 
+        setCurrentPlayerPosition(this.getX(),this.getY());
+
         if (cell.getType().equals(CellType.SWORD)
                 || cell.getType().equals(CellType.SHIELD)
                 || cell.getType().equals(CellType.HEALTHPOTION)
@@ -38,7 +40,9 @@ public class Player extends Actor {
             this.setDefence(calculateDefense());
             this.setArmor(calculateArmor());
         }
-        setCurrentPlayerPosition(dx,dy);
+
+
+
     }
 
     public int calculateAttack() {
@@ -58,15 +62,10 @@ public class Player extends Actor {
         return inventory;
     }
 
-    public void setInitPlayerPosition(int dx,int dy) {
+    public void setCurrentPlayerPosition(int dx,int dy) {
         currentPlayerPosition[0] = dx;
         currentPlayerPosition[1] = dy;
-    }
-
-    public void setCurrentPlayerPosition(int dx,int dy) {
-        currentPlayerPosition[0] += dx;
-        currentPlayerPosition[1] += dy;
-        System.out.println("CURRENt PLAYER position= "+currentPlayerPosition[0]+","+currentPlayerPosition[1]);
+        //System.out.println("CURRENt PLAYER position= "+currentPlayerPosition[0]+","+currentPlayerPosition[1]);
     }
 
     public static int[] getCurrentPlayerPosition() {
