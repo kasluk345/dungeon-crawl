@@ -1,5 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.logic.actors.Enemy;
+import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.Door;
 import com.codecool.dungeoncrawl.logic.items.Item;
@@ -12,6 +14,8 @@ public class GameMap {
     private Player player;
     private Item item;
     private Door door;
+    private Ghost ghost;
+    private Enemy enemy;
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
@@ -35,11 +39,25 @@ public class GameMap {
     public void setItem(Item item) {
         this.item = item;
     }
-    
-    public void setDoor(Door door) {this.door  = door; }
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void setGhost(Ghost ghost) {
+        this.ghost = ghost;
+    }
+
+    public Ghost getGhost() {
+        return ghost;
+    }
+
+    public void setEnemy(Enemy enemy) {
+        this.enemy = enemy;
+    }
+
+    public Enemy getEnemy() {
+        return enemy;
     }
 
     public int getWidth() {

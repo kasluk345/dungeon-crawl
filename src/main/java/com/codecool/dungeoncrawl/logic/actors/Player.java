@@ -15,6 +15,8 @@ public class Player extends Actor {
     private final static int START_DEFENSE = 0;
     private String name = "";
 
+    private static final int[] currentPlayerPosition = {-1,-1};
+
     public Player(Cell cell) {
         super(cell);
         this.setHealth(START_HEALTH);
@@ -27,6 +29,9 @@ public class Player extends Actor {
     @Override
     public void move(int dx, int dy) {
         super.move(dx, dy);
+
+        setCurrentPlayerPosition(this.getX(),this.getY());
+
         Cell nextCell = cell.getNeighbor(dx, dy);
 
         if (cell.getItem() != null) {
@@ -56,14 +61,6 @@ public class Player extends Actor {
                 || cell.getItem().getClass().getSimpleName().equals("Helmet")
                 | cell.getItem().getClass().getSimpleName().equals("Ring")
         ) {
-            inventory.addItem(cell.getItem());
-            cell.setItem(null);
-            inventory.displayInventory();
-            this.setAttack(calculateAttack());
-            this.setDefence(calculateDefense());
-            this.setArmor(calculateArmor());
-        }
-    }
 
     public void checkHeal() {
         if (cell.getItem() != null) {
@@ -93,6 +90,16 @@ public class Player extends Actor {
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public void setCurrentPlayerPosition(int dx,int dy) {
+        currentPlayerPosition[0] = dx;
+        currentPlayerPosition[1] = dy;
+        //System.out.println("CURRENt PLAYER position= "+currentPlayerPosition[0]+","+currentPlayerPosition[1]);
+    }
+
+    public static int[] getCurrentPlayerPosition() {
+        return currentPlayerPosition;
     }
 
     public String getTileName() {

@@ -37,14 +37,11 @@ public class Tiles {
         tileMap.put("health potion", new Tile(18, 25));
         tileMap.put("attack potion", new Tile(16, 30));
         tileMap.put("defense potion", new Tile(17, 25));
-
-
         tileMap.put("ring", new Tile(12, 28));
         tileMap.put("helmet", new Tile(3, 22));
         tileMap.put("gauntlet", new Tile(9, 22));
-
-
-
+        tileMap.put("ghost", new Tile(27, 6));
+        tileMap.put("enemy", new Tile(27, 2));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
