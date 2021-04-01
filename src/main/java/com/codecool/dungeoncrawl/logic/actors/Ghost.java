@@ -28,11 +28,12 @@ public class Ghost extends Actor {
         //go to random position in range +-3 cell
         randX = random.nextInt(6)-3; //-3,3
         randY = random.nextInt(6)-3; //-3,3
-        //randX = 3;
-        //randY = 3;
+        randX = 3;
+        randY = 3;
 
         if (super.checkPosition(this, new int[] {randX,randY})) {
             super.move(randX,randY);
+
             }
         super.checkAround(this);
     }

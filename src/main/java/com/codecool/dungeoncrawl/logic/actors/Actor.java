@@ -114,7 +114,7 @@ public abstract class Actor implements Drawable {
         if(playerPosition[0]==nextPosition[0] && playerPosition[1]==nextPosition[1]) {
             System.out.println("WALKA!!!");
             Battle battle = new Battle();
-            battle.fight(this, ghost);
+            battle.fight(cell.getActor(), ghost);
         }
         return true;
     }

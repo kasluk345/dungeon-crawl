@@ -59,8 +59,16 @@ public class Player extends Actor {
                 || cell.getItem().getClass().getSimpleName().equals("Key")
                 || cell.getItem().getClass().getSimpleName().equals("Gauntlet")
                 || cell.getItem().getClass().getSimpleName().equals("Helmet")
-                | cell.getItem().getClass().getSimpleName().equals("Ring")
+                || cell.getItem().getClass().getSimpleName().equals("Ring")
         ) {
+            inventory.addItem(cell.getItem());
+            cell.setItem(null);
+            inventory.displayInventory();
+            this.setAttack(calculateAttack());
+            this.setDefence(calculateDefense());
+            this.setArmor(calculateArmor());
+        }
+    }
 
     public void checkHeal() {
         if (cell.getItem() != null) {
@@ -74,7 +82,6 @@ public class Player extends Actor {
 
     public int calculateDefense() {
         return START_DEFENSE + inventory.getShieldsCount() * 20;
-
     }
 
     public void checkDoor(int dx, int dy) {
