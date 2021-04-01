@@ -66,7 +66,6 @@ public class Main extends Application {
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
-
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -89,9 +88,9 @@ public class Main extends Application {
                 break;
             case I:
                 if (map.getPlayer().getInventory().toString() == "") {
-                    InventoryWindow.display("Inventory EMPTY");
+                    new InventoryWindow("Inventory EMPTY");
                 } else {
-                    InventoryWindow.display(map.getPlayer().getInventory().toString());
+                    new InventoryWindow(map.getPlayer().getInventory().toString());
                 }
         }
     }
@@ -102,8 +101,11 @@ public class Main extends Application {
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
                 Cell cell = map.getCell(x, y);
-                if (cell.getActor() != null) {
+                if (cell.getActor() != null ) {
                     Tiles.drawTile(context, cell.getActor(), x, y);
+                }
+                else if (cell.getItem() != null ) {
+                    Tiles.drawTile(context, cell.getItem(), x, y);
                 } else {
                     Tiles.drawTile(context, cell, x, y);
                 }

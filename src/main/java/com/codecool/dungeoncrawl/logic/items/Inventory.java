@@ -21,6 +21,8 @@ public class Inventory {
         inventory.add(item);
     }
 
+    public void removeItem(Item item) {inventory.remove(item); }
+
     public void displayInventory() {
         for (Item item : inventory) {
             System.out.println(item);
@@ -28,8 +30,11 @@ public class Inventory {
     }
 
     public String toString() {
-        String inventoryString = inventory.stream().map(Object::toString)
-                .collect(Collectors.joining("\n"));
+        String inventoryString = "";
+
+        for (Item item : inventory) {
+            inventoryString += item.getName() + System.lineSeparator();
+        }
         return inventoryString;
     }
 

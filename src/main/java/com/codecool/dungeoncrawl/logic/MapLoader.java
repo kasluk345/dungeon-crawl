@@ -41,29 +41,51 @@ public class MapLoader {
                             map.setPlayer(new Player(cell));
                             break;
                         case 'm':
-                            cell.setType(CellType.SWORD);
+                            cell.setType(CellType.FLOOR);
                             new Sword(cell);
                             break;
                         case 't':
-                            cell.setType(CellType.SHIELD);
+                            cell.setType(CellType.FLOOR);
                             new Shield(cell);
                             break;
                         case 'a':
-                            cell.setType(CellType.ARMOR);
+                            cell.setType(CellType.FLOOR);
                             new Armor(cell);
                             break;
-                        case 'h':
-                        cell.setType(CellType.HEALTHPOTION);
-                        new HealthPotion(cell);
-                        break;
+                        case 'k':
+                            cell.setType(CellType.FLOOR);
+                            new Key(cell);
+                            break;
                         case 'd':
                             cell.setType(CellType.LOCKEDDOOR);
                             new Door(cell);
                             break;
-                        case 'k':
-                            cell.setType(CellType.KEY);
-                            new Key(cell);
+                        case 'h':
+                            cell.setType(CellType.FLOOR);
+                            new Helmet(cell);
                             break;
+                        case '1':
+                            cell.setType(CellType.FLOOR);
+                            new AttackPotion(cell);
+                            break;
+                        case '2':
+                            cell.setType(CellType.FLOOR);
+                            new HealthPotion(cell);
+                            break;
+                        case '3':
+                            cell.setType(CellType.FLOOR);
+                            new DefensePotion(cell);
+                            break;
+                        case 'g':
+                            cell.setType(CellType.FLOOR);
+                            new Gauntlet(cell);
+                            break;
+                        case 'r':
+                            cell.setType(CellType.FLOOR);
+                            new Ring(cell);
+                            break;
+
+
 
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

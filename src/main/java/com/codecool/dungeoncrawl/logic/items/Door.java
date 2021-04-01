@@ -3,7 +3,6 @@ package com.codecool.dungeoncrawl.logic.items;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.Drawable;
 
-import java.awt.dnd.DragGestureListener;
 
 public class Door implements Drawable {
     private static int count = 0;

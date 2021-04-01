@@ -30,11 +30,20 @@ public class Tiles {
         tileMap.put("skeleton", new Tile(29, 6));
         tileMap.put("sword", new Tile(0, 29));
         tileMap.put("shield", new Tile(5, 26));
-        tileMap.put("health potion", new Tile(18, 25));
         tileMap.put("armor", new Tile(0, 23));
         tileMap.put("locked door", new Tile(10, 9));
         tileMap.put("door", new Tile(16, 8));
         tileMap.put("key", new Tile(16, 23));
+        tileMap.put("health potion", new Tile(18, 25));
+        tileMap.put("attack potion", new Tile(16, 30));
+        tileMap.put("defense potion", new Tile(17, 25));
+
+
+        tileMap.put("ring", new Tile(12, 28));
+        tileMap.put("helmet", new Tile(3, 22));
+        tileMap.put("gauntlet", new Tile(9, 22));
+
+
 
     }
 

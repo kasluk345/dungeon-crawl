@@ -6,29 +6,37 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class InventoryWindow {
+public class InventoryWindow extends Stage{
+    private final VBox layout;
 
-    public static void display(String message) {
-        Stage window = new Stage();
+    public InventoryWindow(String message) {
+        super();
+        super.initModality(Modality.APPLICATION_MODAL);
+        super.setTitle("Inventory");
+        super.setMaxWidth(500);
 
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Inventory");
-        window.setMaxWidth(250);
-
+        layout = new VBox(10);
         Label label = new Label();
-        label.setText(message);
-        Button closeButton = new Button("Close");
-        closeButton.setOnAction(e -> window.close());
 
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll(label, closeButton);
+        Text text = new Text();
+        text.setText(message);
+        text.setFont(Font.font("Verdana", 25));
+        text.setFill(Color.DARKMAGENTA);
+        Button closeButton = new Button("Close");
+        closeButton.setOnAction(e -> super.close());
+
+        layout.getChildren().addAll(label, text, closeButton);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
-        window.setScene(scene);
-        window.showAndWait();
+        super.setScene(scene);
+        super.showAndWait();
+
     }
 }
