@@ -51,7 +51,11 @@ public class Player extends Actor {
         if (cell.getItem().getClass().getSimpleName().equals("Sword")
                 || cell.getItem().getClass().getSimpleName().equals("Shield")
                 || cell.getItem().getClass().getSimpleName().equals("Armor")
-                || cell.getItem().getClass().getSimpleName().equals("Key")) {
+                || cell.getItem().getClass().getSimpleName().equals("Key")
+                || cell.getItem().getClass().getSimpleName().equals("Gauntlet")
+                || cell.getItem().getClass().getSimpleName().equals("Helmet")
+                | cell.getItem().getClass().getSimpleName().equals("Ring")
+        ) {
             inventory.addItem(cell.getItem());
             cell.setItem(null);
             inventory.displayInventory();

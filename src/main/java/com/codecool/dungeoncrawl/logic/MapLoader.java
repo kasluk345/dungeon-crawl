@@ -52,18 +52,40 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             new Armor(cell);
                             break;
-                        case 'h':
+                        case 'k':
                             cell.setType(CellType.FLOOR);
-                            new HealthPotion(cell);
+                            new Key(cell);
                             break;
                         case 'd':
                             cell.setType(CellType.LOCKEDDOOR);
                             new Door(cell);
                             break;
-                        case 'k':
+                        case 'h':
                             cell.setType(CellType.FLOOR);
-                            new Key(cell);
+                            new Helmet(cell);
                             break;
+                        case '1':
+                            cell.setType(CellType.FLOOR);
+                            new AttackPotion(cell);
+                            break;
+                        case '2':
+                            cell.setType(CellType.FLOOR);
+                            new HealthPotion(cell);
+                            break;
+                        case '3':
+                            cell.setType(CellType.FLOOR);
+                            new DefensePotion(cell);
+                            break;
+                        case 'g':
+                            cell.setType(CellType.FLOOR);
+                            new Gauntlet(cell);
+                            break;
+                        case 'r':
+                            cell.setType(CellType.FLOOR);
+                            new Ring(cell);
+                            break;
+
+
 
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
