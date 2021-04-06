@@ -18,6 +18,8 @@ public class AutoMove implements Runnable{
     @Override
     public void run() {
         while (onMove) {
+            if(ghost.getHealth()<=0) { this.onMove=false;
+                System.out.println("GHOST has been eliminated!");break;}
             ghostMove();
         }
     }
@@ -34,7 +36,6 @@ public class AutoMove implements Runnable{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("GHOST position: "+ghost.getX()+","+ghost.getY());
         ghost.move();
         main.refresh();
     }
