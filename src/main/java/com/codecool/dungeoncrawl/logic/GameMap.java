@@ -6,6 +6,8 @@ import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.Door;
 import com.codecool.dungeoncrawl.logic.items.Item;
 
+import java.util.ArrayList;
+
 public class GameMap {
     private int width;
     private int height;
@@ -14,7 +16,7 @@ public class GameMap {
     private Player player;
     private Item item;
     private Door door;
-    private Ghost ghost;
+    private ArrayList<Ghost> ghosts = new ArrayList<Ghost>();
     private Enemy enemy;
 
     public GameMap(int width, int height, CellType defaultCellType) {
@@ -44,13 +46,13 @@ public class GameMap {
         return player;
     }
 
-    public void setGhost(Ghost ghost) {
-        this.ghost = ghost;
-    }
+/*    public void setGhost(Ghost ghost) { this.ghost = ghost; }
 
-    public Ghost getGhost() {
-        return ghost;
-    }
+    public Ghost getGhost() { return ghost; }*/
+
+    public void setGhosts(Ghost ghost) { this.ghosts.add(ghost); }
+
+    public ArrayList<Ghost> getGhosts() { return ghosts; }
 
     public void setEnemy(Enemy enemy) {
         this.enemy = enemy;

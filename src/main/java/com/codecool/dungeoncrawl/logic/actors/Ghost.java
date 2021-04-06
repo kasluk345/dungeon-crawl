@@ -13,11 +13,15 @@ public class Ghost extends Actor {
     private Random random = new Random();
     private int randX;
     private int randY;
+    private int id;
+    static int counter=0;
 
     public Ghost(Cell cell) {
         super(cell);
         this.setHealth(START_HEALTH);
         this.setAttack(START_ATTACK);
+        counter+=1;
+        this.id = counter;
     }
 
     @Override
@@ -46,6 +50,10 @@ public class Ghost extends Actor {
         int x = this.getX();
         int y = this.getY();
         System.out.println("GHOST position: "+x+","+y);
+    }
+
+    public int getGhostID() {
+        return this.id;
     }
 
 

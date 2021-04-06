@@ -66,7 +66,7 @@ public class Main extends Application {
         refresh();
 
         //async move of enemy: Thread - by AutoMove class
-        Runnable ghostMove = new AutoMove(this,map.getGhost());
+        Runnable ghostMove = new AutoMove(this,map.getGhosts());
         new Thread(ghostMove).start(); //comment this line to stop ghost
 
         scene.setOnKeyPressed(this::onKeyPressed);

@@ -88,14 +88,12 @@ public class MapLoader {
                             break;
                         case 'x':
                             cell.setType(CellType.FLOOR);
-                            map.setGhost(new Ghost(cell));
+                            map.setGhosts(new Ghost(cell));
                             break;
                         case 'e':
                             cell.setType(CellType.FLOOR);
                             map.setEnemy(new Enemy(cell));
                             break;
-
-
 
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

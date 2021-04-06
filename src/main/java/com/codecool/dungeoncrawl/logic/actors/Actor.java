@@ -27,7 +27,8 @@ public abstract class Actor implements Drawable {
             nextCell.setActor(this);
             cell = nextCell;
         }
-        if (nextCellType.equals(CellType.NPC)) {
+        //if player is around enemy, && - to prevent fight between enemies
+        if (nextCellType.equals(CellType.NPC) && this.getClass().equals(Player.class)) {
             battle.fight(this, nextCell.getActor());
             System.out.println("PLAYER attacked!");
         }
