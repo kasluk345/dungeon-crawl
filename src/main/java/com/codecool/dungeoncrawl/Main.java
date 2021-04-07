@@ -69,6 +69,9 @@ public class Main extends Application {
         Runnable ghostMove = new AutoMove(this,map.getGhosts());
         new Thread(ghostMove).start(); //comment this line to stop ghost
 
+        Runnable enemyAdvancedMove = new AutoMove(this,map.getAdvancedEnemy());
+        new Thread(enemyAdvancedMove).start(); //comment this line to stop
+
         scene.setOnKeyPressed(this::onKeyPressed);
 
         primaryStage.setTitle("Dungeon Crawl");

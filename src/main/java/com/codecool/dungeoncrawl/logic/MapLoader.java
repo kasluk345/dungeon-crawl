@@ -94,6 +94,10 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             map.setEnemy(new Enemy(cell));
                             break;
+                        case 'f':
+                            cell.setType(CellType.FLOOR);
+                            map.setEnemy(new Enemy(cell, true));
+                            break;
 
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

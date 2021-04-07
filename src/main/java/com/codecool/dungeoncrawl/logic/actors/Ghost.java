@@ -7,6 +7,8 @@ import com.codecool.dungeoncrawl.logic.battle.Battle;
 
 import java.util.Random;
 
+import static com.codecool.dungeoncrawl.logic.actors.Player.currentPlayerPosition;
+
 public class Ghost extends Actor {
     private final static int START_HEALTH = 50;
     private final static int START_ATTACK = 5;
@@ -56,5 +58,23 @@ public class Ghost extends Actor {
         return this.id;
     }
 
+    public void moveAdv() {
+        //go to random position in range +-3 cell
+        //randX = random.nextInt(6) - 3; //-3,3
+        //randY = random.nextInt(6) - 3; //-3,3
+        //randX = 0; randY = 0;
 
+        int[] playerPosition = currentPlayerPosition;
+        int[] myPosition = {this.getX(), this.getY()};
+        System.out.println("PLAYER position: "+playerPosition[0]+","+playerPosition[1]);
+        System.out.println("MY position: "+this.getX()+","+this.getY());
+
+        int[] newPosition = super.moveToPlayer(currentPlayerPosition,myPosition);
+
+        System.out.println("GO TO : "+newPosition[0]+","+newPosition[1]);
+
+        if (super.checkPosition(this, newPosition)) {
+            super.move(newPosition[0], newPosition[1]);
+        }
+    }
 }

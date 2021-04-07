@@ -17,7 +17,8 @@ public class GameMap {
     private Item item;
     private Door door;
     private ArrayList<Ghost> ghosts = new ArrayList<Ghost>();
-    private Enemy enemy;
+    private Enemy enemyBasic;
+    private Enemy enemyAdvanced;
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
@@ -55,11 +56,19 @@ public class GameMap {
     public ArrayList<Ghost> getGhosts() { return ghosts; }
 
     public void setEnemy(Enemy enemy) {
-        this.enemy = enemy;
+        if (!enemy.getEnemyType()) {
+            this.enemyBasic = enemy;
+        } else {
+            this.enemyAdvanced = enemy;
+        }
     }
 
     public Enemy getEnemy() {
-        return enemy;
+        return enemyBasic;
+    }
+
+    public Enemy getAdvancedEnemy() {
+        return enemyAdvanced;
     }
 
     public int getWidth() {

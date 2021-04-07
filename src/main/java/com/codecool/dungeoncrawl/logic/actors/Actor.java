@@ -4,6 +4,8 @@ import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.battle.Battle;
 
+import static com.codecool.dungeoncrawl.logic.actors.Player.currentPlayerPosition;
+
 public abstract class Actor implements Drawable {
     protected Cell cell;
     private int health;
@@ -125,6 +127,23 @@ public abstract class Actor implements Drawable {
             }
         }
         return null;
+    }
+
+    public int[] moveToPlayer(int[] playerPosition, int[] myPosition) {
+        int distanceX = currentPlayerPosition[0] - myPosition[0];
+        int distanceY = currentPlayerPosition[1] - myPosition[1];
+
+/*        if(distanceX < 0) {return new int[]{myPosition[0]-1,myPosition[1]};}
+        if(distanceX > 0) {return new int[]{myPosition[0]+1,myPosition[1]};}
+        if(distanceY < 0) {return new int[]{myPosition[0],myPosition[1]-1};}
+        if(distanceY > 0) {return new int[]{myPosition[0],myPosition[1]+1};}*/
+
+        if(distanceX < 0) {return new int[]{-1,0};}
+        if(distanceX > 0) {return new int[]{+1,0};}
+        if(distanceY < 0) {return new int[]{0,-1};}
+        if(distanceY > 0) {return new int[]{0,+1};}
+
+        return myPosition;
     }
 }
 

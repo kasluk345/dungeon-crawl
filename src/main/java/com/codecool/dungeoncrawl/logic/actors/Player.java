@@ -15,7 +15,7 @@ public class Player extends Actor {
     private final static int START_DEFENSE = 0;
     private String name = "";
 
-    private static final int[] currentPlayerPosition = {-1,-1};
+    public static final int[] currentPlayerPosition = {-1,-1};
 
     public Player(Cell cell) {
         super(cell);
