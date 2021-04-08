@@ -1,12 +1,7 @@
 package com.codecool.dungeoncrawl.logic.items;
 
-import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.CellType;
-import com.codecool.dungeoncrawl.logic.MapLoader;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Inventory {
 
@@ -29,12 +24,12 @@ public class Inventory {
     }
 
     public String toString() {
-        String inventoryString = "";
+        StringBuilder inventoryString = new StringBuilder();
 
         for (Item item : inventory) {
-            inventoryString += item.getName() + System.lineSeparator();
+            inventoryString.append(item.getName()).append(System.lineSeparator());
         }
-        return inventoryString;
+        return inventoryString.toString();
     }
 
 

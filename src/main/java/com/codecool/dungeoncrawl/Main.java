@@ -4,24 +4,17 @@ import com.codecool.dungeoncrawl.logic.AutoMove;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.logic.items.Inventory;
-import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.scene.control.*;
-import java.util.ArrayList;
-
-import java.awt.*;
 
 public class Main extends Application {
     GameMap map = MapLoader.loadMap();
@@ -72,6 +65,8 @@ public class Main extends Application {
         scene.setOnKeyPressed(this::onKeyPressed);
 
         primaryStage.setTitle("Dungeon Crawl");
+        StartWindow startWindow = new StartWindow();
+        map.getPlayer().setName(startWindow.getName());
         primaryStage.show();
     }
 
@@ -98,7 +93,7 @@ public class Main extends Application {
                 refresh();
                 break;
             case I:
-                if (map.getPlayer().getInventory().toString() == "") {
+                if (map.getPlayer().getInventory().toString().equals("")) {
                     new InventoryWindow("Inventory EMPTY");
                 } else {
                     new InventoryWindow(map.getPlayer().getInventory().toString());
