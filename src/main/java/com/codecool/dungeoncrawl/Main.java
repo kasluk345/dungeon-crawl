@@ -24,7 +24,7 @@ import java.util.List;
 
 
 public class Main extends Application {
-    GameMap map = MapLoader.loadMap();
+    GameMap map = MapLoader.loadMap("/map.txt");
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
@@ -78,8 +78,8 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
-        if (map.getPlayer().getX() == 1 && map.getPlayer().getY() == 7) {
-            map = MapLoader.loadMap2();
+        if (map.getPlayer().isNextLevel()) {
+            map = MapLoader.loadMap("/map2.txt");
             startEnemyMovement();
         }
 
@@ -131,6 +131,7 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
+        System.out.println(map.getPlayer().getHealth());
         armorLabel.setText("" + map.getPlayer().getArmor());
         attackLabel.setText("" + map.getPlayer().getAttack());
         defenseLabel.setText("" + map.getPlayer().getDefence());

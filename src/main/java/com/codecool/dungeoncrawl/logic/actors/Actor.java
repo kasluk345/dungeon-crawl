@@ -13,7 +13,7 @@ public abstract class Actor implements Drawable {
     private int armor;
     private int defence;
     private boolean playerIsDead = false;
-
+    private boolean isNextLevel = false;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -24,15 +24,16 @@ public abstract class Actor implements Drawable {
 
         Cell nextCell = cell.getNeighbor(dx, dy);
         CellType nextCellType = nextCell.getType();
-        Battle battle = new Battle();
+//        Battle battle = new Battle();
 
-        if ((nextCellType.equals(CellType.FLOOR) || nextCellType.equals(CellType.DOOR)) && nextCell.getActor() == null){
+        if ((nextCellType.equals(CellType.FLOOR) || nextCellType.equals(CellType.DOOR) || nextCellType.equals(CellType.PORTAL)) && nextCell.getActor() == null){
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
         }
         //if player is around enemy, && - to prevent fight between enemies
         if (nextCellType.equals(CellType.NPC) && this.getClass().equals(Player.class)) {
+            Battle battle = new Battle();
             battle.fight(this, nextCell.getActor());
         }
     }
@@ -136,6 +137,14 @@ public abstract class Actor implements Drawable {
 
     public void setPlayerIsDead(boolean playerIsDead) {
         this.playerIsDead = playerIsDead;
+    }
+
+    public boolean isNextLevel() {
+        return isNextLevel;
+    }
+
+    public void setNextLevel(boolean nextLevel) {
+        isNextLevel = nextLevel;
     }
 
     public int[] moveToPlayer(int[] playerPosition, int[] myPosition) {

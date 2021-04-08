@@ -3,13 +3,14 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.StartWindow;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
+import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.items.HealthPotion;
 import com.codecool.dungeoncrawl.logic.items.Inventory;
 import com.codecool.dungeoncrawl.logic.items.Key;
 
 public class Player extends Actor {
     private Inventory inventory = new Inventory();
-    private final static int START_HEALTH = 20;
+    private final static int START_HEALTH = 100;
     private final static int START_ARMOR = 0;
     private final static int START_ATTACK = 20;
     private final static int START_DEFENSE = 0;
@@ -23,7 +24,6 @@ public class Player extends Actor {
         this.setArmor(START_ARMOR);
         this.setAttack(START_ATTACK);
         this.setDefence(START_DEFENSE);
-        System.out.println(this.getName());
     }
 
     @Override
@@ -41,6 +41,10 @@ public class Player extends Actor {
         }
         else if (nextCell.getType().equals(CellType.LOCKEDDOOR)) {
             checkDoor(dx, dy);
+        }
+        else if (cell.getType().equals(CellType.PORTAL)) {
+            setNextLevel(true);
+
         }
     }
 
