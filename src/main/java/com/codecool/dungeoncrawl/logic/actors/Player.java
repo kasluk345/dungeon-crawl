@@ -23,7 +23,7 @@ public class Player extends Actor {
         this.setArmor(START_ARMOR);
         this.setAttack(START_ATTACK);
         this.setDefence(START_DEFENSE);
-        this.setName(new StartWindow().getName());
+        System.out.println(this.getName());
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.codecool.dungeoncrawl.logic.items;
 
 import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 
 import java.util.Random;
@@ -45,12 +44,9 @@ public abstract class Item implements Drawable {
     private int defenceBoost = 0;
     protected static final Random RANDOM = new Random();
 
-    private Cell cell;
-
     public Item(Cell cell) {
         this.name = generateName();
-        this.cell = cell;
-        this.cell.setItem(this);
+        cell.setItem(this);
     }
 
     protected String generateName(){

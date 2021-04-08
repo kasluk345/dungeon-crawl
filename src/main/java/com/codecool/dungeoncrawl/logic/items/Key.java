@@ -4,7 +4,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 
 public class Key extends Item{
     private static int count = 0;
-    private int id = 0;
+    private final int id;
 
 
     public Key(Cell cell) {

@@ -6,13 +6,11 @@ import com.codecool.dungeoncrawl.logic.Drawable;
 
 public class Door implements Drawable {
     private static int count = 0;
-    private final Cell cell;
-    private int id = 0;
+    private final int id;
 
 
     public Door(Cell cell) {
-        this.cell = cell;
-        this.cell.setDoor(this);
+        cell.setDoor(this);
         this.id = count++;
     }
     public int getId() {
