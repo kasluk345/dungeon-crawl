@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Enemy;
 import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.Player;
@@ -7,6 +8,7 @@ import com.codecool.dungeoncrawl.logic.items.Door;
 import com.codecool.dungeoncrawl.logic.items.Item;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameMap {
     private int width;
@@ -16,7 +18,7 @@ public class GameMap {
     private Player player;
     private Item item;
     private Door door;
-    private ArrayList<Ghost> ghosts = new ArrayList<Ghost>();
+    private ArrayList<Actor> ghosts = new ArrayList<Actor>();
     private Enemy enemyBasic;
     private Enemy enemyAdvanced;
 
@@ -53,7 +55,7 @@ public class GameMap {
 
     public void setGhosts(Ghost ghost) { this.ghosts.add(ghost); }
 
-    public ArrayList<Ghost> getGhosts() { return ghosts; }
+    public ArrayList<Actor> getGhosts() { return ghosts; }
 
     public void setEnemy(Enemy enemy) {
         if (!enemy.getEnemyType()) {
@@ -77,5 +79,12 @@ public class GameMap {
 
     public int getHeight() {
         return height;
+    }
+
+    public List<Actor> getEnemies() {
+        List<Actor> enemies = new ArrayList<>();
+        enemies.add(this.getAdvancedEnemy());
+        enemies.addAll(this.getGhosts());
+        return enemies;
     }
 }

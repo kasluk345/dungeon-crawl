@@ -1,80 +1,62 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.Main;
+import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Enemy;
 import com.codecool.dungeoncrawl.logic.actors.Ghost;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class AutoMove implements Runnable{
+public class AutoMove implements Runnable {
 
-    private volatile boolean ghostOnMove;
-    private volatile boolean enemyOnMove;
-    private ArrayList<Ghost> ghosts;
-    private Main main;
-    private Enemy advancedEnemy;
+    private final List<Actor> enemies;
+    private final Main main;
 
-    public AutoMove(Main main, ArrayList<Ghost> ghosts) {
-        this.ghosts = ghosts;
+
+    public AutoMove(Main main, List<Actor> enemies) {
+        this.enemies = enemies;
         this.main = main;
-        this.ghostOnMove = true;
     }
 
-    public AutoMove(Main main, Enemy advancedEnemy) {
-        System.out.println("ELOO");
-        this.advancedEnemy = advancedEnemy;
-        this.main = main;
-        this.enemyOnMove = true;
-    }
 
     @Override
     public void run() {
-        while (ghostOnMove || enemyOnMove) {
-            System.out.println(this.getClass().getSimpleName());
-            //if(ghosts.size()>0 && getClass() instanceof Ghost) {
-                checkGhostHealth();
-                ghostMove();
-                //advEnemyMove();
-            //}
-        }
-    }
-
-    private void ghostMove(){
-        try {
-            Thread.sleep(750);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        for(Ghost ghost: ghosts) {
-            ghost.move();
+        while (enemies.size() > 0) {
+            //System.out.println(Thread.currentThread().getName()+" autoMove");
+            checkHealth();
+            moveEnemies();
             main.refresh();
         }
     }
 
-    private void checkGhostHealth() {
-        for(Ghost ghost: ghosts) {
-            if (ghost.getHealth() <= 0) {
-                ghosts.remove(ghost);
-                System.out.println("GHOST" + ghost.getGhostID() + " has been eliminated!|| LEFT: " + ghosts.size());
+    private void moveEnemies() {
+        try {
+            Thread.sleep(750);
+            for (Actor enemy : enemies) {
+                enemy.move();
+                // main.refresh();
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Koniec");
+            Thread.currentThread().interrupt();
 
-                if (ghosts.size() == 0) {
-                    this.ghostOnMove = false;
-                    System.out.println("All ghosts has been eliminated!");
-                }
-            break;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void checkHealth() {
+        for (Actor enemy : enemies) {
+            if (enemy.getHealth() <= 0) {
+                enemies.remove(enemy);
+                //System.out.println("GHOST" + ghost.getGhostID() + " has been eliminated!|| LEFT: " + ghosts.size());
+                break;
             }
         }
     }
 
-    private void advEnemyMove(){
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        advancedEnemy.advancedMove();
-        main.refresh();
-    }
 
 }
 

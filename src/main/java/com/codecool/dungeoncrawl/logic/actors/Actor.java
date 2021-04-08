@@ -145,5 +145,7 @@ public abstract class Actor implements Drawable {
 
         return myPosition;
     }
+
+    public void move() {}
 }
 

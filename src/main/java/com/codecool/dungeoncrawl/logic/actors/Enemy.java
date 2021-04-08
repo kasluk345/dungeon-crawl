@@ -31,16 +31,18 @@ public class Enemy extends Actor {
         return "enemy";
     }
 
-    public void advancedMove() {
+
+    @Override
+    public void move() {
 
         int[] playerPosition = currentPlayerPosition;
         int[] myPosition = {this.getX(), this.getY()};
-        System.out.println("PLAYER position: " + playerPosition[0] + "," + playerPosition[1]);
-        System.out.println("MY position: " + this.getX() + "," + this.getY());
+        //System.out.println("PLAYER position: " + playerPosition[0] + "," + playerPosition[1]);
+        //System.out.println("MY position: " + this.getX() + "," + this.getY());
 
         int[] newPosition = super.moveToPlayer(currentPlayerPosition, myPosition);
 
-        System.out.println("GO TO : " + newPosition[0] + "," + newPosition[1]);
+        //System.out.println("GO TO : " + newPosition[0] + "," + newPosition[1]);
 
         if (super.checkPosition(this, newPosition)) {
             super.move(newPosition[0], newPosition[1]);

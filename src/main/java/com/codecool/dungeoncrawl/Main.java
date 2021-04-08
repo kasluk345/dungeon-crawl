@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.logic.AutoMove;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.items.Inventory;
 import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import javafx.application.Application;
@@ -20,8 +21,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
 import java.util.ArrayList;
+import java.util.List;
 
-import java.awt.*;
 
 public class Main extends Application {
     GameMap map = MapLoader.loadMap();
@@ -33,6 +34,8 @@ public class Main extends Application {
     Label armorLabel = new Label();
     Label attackLabel = new Label();
     Label defenseLabel = new Label();
+    int[] playerPosition;
+    private Thread enemiesMovementThread;
 
     public static void main(String[] args) {
         launch(args);
@@ -65,12 +68,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         refresh();
 
-        //async move of enemy: Thread - by AutoMove class
-        Runnable ghostMove = new AutoMove(this,map.getGhosts());
-        new Thread(ghostMove).start(); //comment this line to stop ghost
-
-        Runnable enemyAdvancedMove = new AutoMove(this,map.getAdvancedEnemy());
-        new Thread(enemyAdvancedMove).start(); //comment this line to stop
+        startEnemyMovement();
 
         scene.setOnKeyPressed(this::onKeyPressed);
 
@@ -79,6 +77,11 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
+        if (map.getPlayer().getX() == 1 && map.getPlayer().getY() == 7) {
+            map = MapLoader.loadMap2();
+            startEnemyMovement();
+        }
+
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().move(0, -1);
@@ -112,7 +115,7 @@ public class Main extends Application {
     public synchronized void refresh() {
        // System.out.println("PLAYER position: "+map.getPlayer().getX()+","+map.getPlayer().getY());
         context.setFill(Color.BLACK);
-        context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        context.fillRect(0, 0,  canvas.getWidth(), canvas.getHeight());//canvas.getWidth(), canvas.getHeight());
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
                 Cell cell = map.getCell(x, y);
@@ -130,5 +133,15 @@ public class Main extends Application {
         armorLabel.setText("" + map.getPlayer().getArmor());
         attackLabel.setText("" + map.getPlayer().getAttack());
         defenseLabel.setText("" + map.getPlayer().getDefence());
+    }
+
+    public void startEnemyMovement(){
+        if(enemiesMovementThread!= null) {
+            enemiesMovementThread.stop();
+        }
+        //async move of enemy: Thread - by AutoMove class
+        Runnable enemiesAll = new AutoMove(this, map.getEnemies());
+        enemiesMovementThread = new Thread(enemiesAll); //comment this line to stop ghost
+        enemiesMovementThread.start(); //comment this line to stop ghost
     }
 }

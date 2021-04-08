@@ -31,6 +31,7 @@ public class Ghost extends Actor {
         return "ghost";
     }
 
+    @Override
     public void move() {
         //go to random position in range +-3 cell
         randX = random.nextInt(6)-3; //-3,3
@@ -58,23 +59,4 @@ public class Ghost extends Actor {
         return this.id;
     }
 
-    public void moveAdv() {
-        //go to random position in range +-3 cell
-        //randX = random.nextInt(6) - 3; //-3,3
-        //randY = random.nextInt(6) - 3; //-3,3
-        //randX = 0; randY = 0;
-
-        int[] playerPosition = currentPlayerPosition;
-        int[] myPosition = {this.getX(), this.getY()};
-        System.out.println("PLAYER position: "+playerPosition[0]+","+playerPosition[1]);
-        System.out.println("MY position: "+this.getX()+","+this.getY());
-
-        int[] newPosition = super.moveToPlayer(currentPlayerPosition,myPosition);
-
-        System.out.println("GO TO : "+newPosition[0]+","+newPosition[1]);
-
-        if (super.checkPosition(this, newPosition)) {
-            super.move(newPosition[0], newPosition[1]);
-        }
-    }
 }
