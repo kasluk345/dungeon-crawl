@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl;
 
-
+import com.codecool.dungeoncrawl.logic.MapLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,13 +12,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class InventoryWindow extends Stage{
+public class EndWindow extends Stage {
     private final VBox layout;
 
-    public InventoryWindow(String message) {
+    public EndWindow() {
         super();
         super.initModality(Modality.APPLICATION_MODAL);
-        super.setTitle("Inventory");
+        super.setTitle("Game over");
         super.setMinWidth(500);
         super.setMaxWidth(500);
 
@@ -26,13 +26,15 @@ public class InventoryWindow extends Stage{
         Label label = new Label();
 
         Text text = new Text();
-        text.setText(message);
-        text.setFont(Font.font("URW Bookman", 25));
-        text.setFill(Color.DARKMAGENTA);
-        Button closeButton = new Button("Close");
-        closeButton.setOnAction(e -> super.close());
+        text.setText("You died");
+        text.setFont(Font.font("Verdana", 35));
+        text.setFill(Color.DARKRED);
+        Button exitButton = new Button("Exit");
+        exitButton.setOnAction(e -> System.exit(0));
+        Button playAgainButton = new Button("Play Again");
+        playAgainButton.setOnAction(e -> MapLoader.loadMap());
 
-        layout.getChildren().addAll(label, text, closeButton);
+        layout.getChildren().addAll(label, text, playAgainButton, exitButton);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);

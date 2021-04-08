@@ -10,6 +10,8 @@ public abstract class Actor implements Drawable {
     private int attack;
     private int armor;
     private int defence;
+    private boolean playerIsDead = false;
+
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -117,6 +119,14 @@ public abstract class Actor implements Drawable {
             battle.fight(cell.getActor(), ghost);
         }
         return true;
+    }
+
+    public boolean isPlayerIsDead() {
+        return playerIsDead;
+    }
+
+    public void setPlayerIsDead(boolean playerIsDead) {
+        this.playerIsDead = playerIsDead;
     }
 }
 

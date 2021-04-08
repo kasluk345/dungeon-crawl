@@ -127,5 +127,8 @@ public class Main extends Application {
         armorLabel.setText("" + map.getPlayer().getArmor());
         attackLabel.setText("" + map.getPlayer().getAttack());
         defenseLabel.setText("" + map.getPlayer().getDefence());
+        if (map.getPlayer().isPlayerIsDead()) {
+            new EndWindow();
+        }
     }
 }

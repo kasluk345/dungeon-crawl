@@ -9,7 +9,7 @@ import com.codecool.dungeoncrawl.logic.items.Key;
 
 public class Player extends Actor {
     private Inventory inventory = new Inventory();
-    private final static int START_HEALTH = 100;
+    private final static int START_HEALTH = 20;
     private final static int START_ARMOR = 0;
     private final static int START_ATTACK = 20;
     private final static int START_DEFENSE = 0;
@@ -23,7 +23,8 @@ public class Player extends Actor {
         this.setArmor(START_ARMOR);
         this.setAttack(START_ATTACK);
         this.setDefence(START_DEFENSE);
-//        this.setName(StartWindow.handlePlayerName());
+        this.setName(new StartWindow().getName());
+        System.out.println(this.getName());
     }
 
     @Override

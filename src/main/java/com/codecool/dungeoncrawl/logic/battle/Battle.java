@@ -5,7 +5,6 @@ import com.codecool.dungeoncrawl.logic.actors.Actor;
 
 public class Battle {
 
-
     public Battle() {
     }
 
@@ -14,8 +13,11 @@ public class Battle {
         int enemyHealth = getPlayerAttackResult(player, enemy);
 
         if (playerHealth <= 0) {
-            System.out.println("Game over");
-            System.exit(0);
+            player.getCell().setType(CellType.DOOR);
+            player.setPlayerIsDead(true);
+            player.getCell().setActor(null);
+
+
         }
         else if (enemyHealth <= 0) {
             enemy.getCell().setActor(null);
