@@ -12,7 +12,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -73,6 +72,8 @@ public class Main extends Application {
         scene.setOnKeyPressed(this::onKeyPressed);
 
         primaryStage.setTitle("Dungeon Crawl");
+        StartWindow startWindow = new StartWindow();
+        map.getPlayer().setName(startWindow.getName());
         primaryStage.show();
     }
 
@@ -104,7 +105,7 @@ public class Main extends Application {
                 refresh();
                 break;
             case I:
-                if (map.getPlayer().getInventory().toString() == "") {
+                if (map.getPlayer().getInventory().toString().equals("")) {
                     new InventoryWindow("Inventory EMPTY");
                 } else {
                     new InventoryWindow(map.getPlayer().getInventory().toString());
@@ -115,7 +116,7 @@ public class Main extends Application {
     public synchronized void refresh() {
        // System.out.println("PLAYER position: "+map.getPlayer().getX()+","+map.getPlayer().getY());
         context.setFill(Color.BLACK);
-        context.fillRect(0, 0,  canvas.getWidth(), canvas.getHeight());//canvas.getWidth(), canvas.getHeight());
+        context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
                 Cell cell = map.getCell(x, y);
@@ -133,6 +134,9 @@ public class Main extends Application {
         armorLabel.setText("" + map.getPlayer().getArmor());
         attackLabel.setText("" + map.getPlayer().getAttack());
         defenseLabel.setText("" + map.getPlayer().getDefence());
+        if (map.getPlayer().isPlayerIsDead()) {
+            new EndWindow();
+        }
     }
 
     public void startEnemyMovement(){

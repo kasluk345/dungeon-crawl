@@ -42,6 +42,7 @@ public class Tiles {
         tileMap.put("gauntlet", new Tile(9, 22));
         tileMap.put("ghost", new Tile(27, 6));
         tileMap.put("enemy", new Tile(27, 2));
+        tileMap.put("game over", new Tile(18,24));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {

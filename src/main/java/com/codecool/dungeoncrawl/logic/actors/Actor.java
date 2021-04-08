@@ -12,6 +12,8 @@ public abstract class Actor implements Drawable {
     private int attack;
     private int armor;
     private int defence;
+    private boolean playerIsDead = false;
+
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -32,7 +34,6 @@ public abstract class Actor implements Drawable {
         //if player is around enemy, && - to prevent fight between enemies
         if (nextCellType.equals(CellType.NPC) && this.getClass().equals(Player.class)) {
             battle.fight(this, nextCell.getActor());
-            System.out.println("PLAYER attacked!");
         }
     }
 
@@ -127,6 +128,14 @@ public abstract class Actor implements Drawable {
             }
         }
         return null;
+    }
+
+    public boolean isPlayerIsDead() {
+        return playerIsDead;
+    }
+
+    public void setPlayerIsDead(boolean playerIsDead) {
+        this.playerIsDead = playerIsDead;
     }
 
     public int[] moveToPlayer(int[] playerPosition, int[] myPosition) {

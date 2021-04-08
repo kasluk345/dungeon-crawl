@@ -1,19 +1,13 @@
 package com.codecool.dungeoncrawl.logic.items;
 
-import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.CellType;
-import com.codecool.dungeoncrawl.logic.MapLoader;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Inventory {
 
-    public final ArrayList<Item> inventory;
+    public final List<Item> inventory;
 
     public Inventory() {
-
         inventory = new ArrayList<>();
     }
 
@@ -30,34 +24,14 @@ public class Inventory {
     }
 
     public String toString() {
-        String inventoryString = "";
+        StringBuilder inventoryString = new StringBuilder();
 
         for (Item item : inventory) {
-            inventoryString += item.getName() + System.lineSeparator();
+            inventoryString.append(item.getName()).append(System.lineSeparator());
         }
-        return inventoryString;
+        return inventoryString.toString();
     }
 
-
-    public int getSwordsCount() {
-        int counter = 0;
-        for (Item item : inventory) {
-            if (item.getClass().getSimpleName().equals("Sword")) {
-                counter++;
-            }
-        }
-        return counter;
-    }
-
-    public int getShieldsCount() {
-        int counter = 0;
-        for (Item item : inventory) {
-            if (item.getClass().getSimpleName().equals("Shield")) {
-                counter++;
-            }
-        }
-        return counter;
-    }
 
     public ArrayList<Key> getKeysIds() {
         ArrayList<Key> keyIDs = new ArrayList<>();
@@ -67,16 +41,5 @@ public class Inventory {
             }
         }
         return keyIDs;
-    }
-
-
-    public int getArmorCount() {
-        int counter = 0;
-        for (Item item : inventory) {
-            if (item.getClass().getSimpleName().equals("Armor")) {
-                counter++;
-            }
-        }
-        return counter;
     }
 }
