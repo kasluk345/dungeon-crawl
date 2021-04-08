@@ -1,41 +1,63 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.Main;
+import com.codecool.dungeoncrawl.logic.actors.Actor;
+import com.codecool.dungeoncrawl.logic.actors.Enemy;
 import com.codecool.dungeoncrawl.logic.actors.Ghost;
 
-public class AutoMove implements Runnable{
+import java.util.ArrayList;
+import java.util.List;
 
-    private volatile boolean onMove;
-    private Ghost ghost;
-    private Main main;
+public class AutoMove implements Runnable {
 
-    public AutoMove(Main main, Ghost ghost) {
-        this.ghost = ghost;
+    private final List<Actor> enemies;
+    private final Main main;
+
+
+    public AutoMove(Main main, List<Actor> enemies) {
+        this.enemies = enemies;
         this.main = main;
-        this.onMove = true;
     }
+
 
     @Override
     public void run() {
-        while (onMove) {
-            ghostMove();
+        while (enemies.size() > 0) {
+            //System.out.println(Thread.currentThread().getName()+" autoMove");
+            checkHealth();
+            moveEnemies();
+            main.refresh();
         }
     }
 
-    public void stopMove() { onMove = false; }
-
-    public boolean moveState() {
-        return onMove;
-    }
-
-    private void ghostMove(){
+    private void moveEnemies() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(750);
+            for (Actor enemy : enemies) {
+                enemy.move();
+                // main.refresh();
+            }
         } catch (InterruptedException e) {
+            System.out.println("Koniec");
+            Thread.currentThread().interrupt();
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("GHOST position: "+ghost.getX()+","+ghost.getY());
-        ghost.move();
-        main.refresh();
+
     }
+
+    private void checkHealth() {
+        for (Actor enemy : enemies) {
+            if (enemy.getHealth() <= 0) {
+                enemies.remove(enemy);
+                //System.out.println("GHOST" + ghost.getGhostID() + " has been eliminated!|| LEFT: " + ghosts.size());
+                break;
+            }
+        }
+    }
+
+
 }
+
+

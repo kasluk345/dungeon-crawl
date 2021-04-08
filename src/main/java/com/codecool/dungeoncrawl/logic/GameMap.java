@@ -1,10 +1,14 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Enemy;
 import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.Door;
 import com.codecool.dungeoncrawl.logic.items.Item;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameMap {
     private int width;
@@ -14,8 +18,9 @@ public class GameMap {
     private Player player;
     private Item item;
     private Door door;
-    private Ghost ghost;
-    private Enemy enemy;
+    private ArrayList<Actor> ghosts = new ArrayList<Actor>();
+    private Enemy enemyBasic;
+    private Enemy enemyAdvanced;
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
@@ -44,20 +49,28 @@ public class GameMap {
         return player;
     }
 
-    public void setGhost(Ghost ghost) {
-        this.ghost = ghost;
-    }
+/*    public void setGhost(Ghost ghost) { this.ghost = ghost; }
 
-    public Ghost getGhost() {
-        return ghost;
-    }
+    public Ghost getGhost() { return ghost; }*/
+
+    public void setGhosts(Ghost ghost) { this.ghosts.add(ghost); }
+
+    public ArrayList<Actor> getGhosts() { return ghosts; }
 
     public void setEnemy(Enemy enemy) {
-        this.enemy = enemy;
+        if (!enemy.getEnemyType()) {
+            this.enemyBasic = enemy;
+        } else {
+            this.enemyAdvanced = enemy;
+        }
     }
 
     public Enemy getEnemy() {
-        return enemy;
+        return enemyBasic;
+    }
+
+    public Enemy getAdvancedEnemy() {
+        return enemyAdvanced;
     }
 
     public int getWidth() {
@@ -66,5 +79,12 @@ public class GameMap {
 
     public int getHeight() {
         return height;
+    }
+
+    public List<Actor> getEnemies() {
+        List<Actor> enemies = new ArrayList<>();
+        enemies.add(this.getAdvancedEnemy());
+        enemies.addAll(this.getGhosts());
+        return enemies;
     }
 }

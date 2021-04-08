@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.logic;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.items.Door;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Portal;
 
 public class Cell implements Drawable {
     private CellType type;
@@ -10,6 +11,7 @@ public class Cell implements Drawable {
     private Item item;
     private Door door;
     private GameMap gameMap;
+    private Portal portal;
     private int x, y;
 
     Cell(GameMap gameMap, int x, int y, CellType type) {
@@ -47,6 +49,10 @@ public class Cell implements Drawable {
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public void setPortal(Portal portal) {
+        this.portal = portal;
     }
 
     public Cell getNeighbor(int dx, int dy) {

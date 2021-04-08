@@ -4,6 +4,8 @@ import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.battle.Battle;
 
+import static com.codecool.dungeoncrawl.logic.actors.Player.currentPlayerPosition;
+
 public abstract class Actor implements Drawable {
     protected Cell cell;
     private int health;
@@ -11,7 +13,7 @@ public abstract class Actor implements Drawable {
     private int armor;
     private int defence;
     private boolean playerIsDead = false;
-
+    private boolean isNextLevel = false;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -22,17 +24,16 @@ public abstract class Actor implements Drawable {
 
         Cell nextCell = cell.getNeighbor(dx, dy);
         CellType nextCellType = nextCell.getType();
-        Battle battle = new Battle();
+//        Battle battle = new Battle();
 
-
-        if (nextCellType.equals(CellType.FLOOR)
-                || nextCellType.equals(CellType.DOOR)
-        ) {
+        if ((nextCellType.equals(CellType.FLOOR) || nextCellType.equals(CellType.DOOR) || nextCellType.equals(CellType.PORTAL)) && nextCell.getActor() == null){
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
         }
-        if (nextCellType.equals(CellType.NPC)) {
+        //if player is around enemy, && - to prevent fight between enemies
+        if (nextCellType.equals(CellType.NPC) && this.getClass().equals(Player.class)) {
+            Battle battle = new Battle();
             battle.fight(this, nextCell.getActor());
         }
     }
@@ -109,16 +110,25 @@ public abstract class Actor implements Drawable {
         return false;
     }
 
-    public boolean checkAround(Ghost ghost) {
-        int[] playerPosition = Player.getCurrentPlayerPosition();
-        int[] nextPosition ={ghost.getX(),ghost.getY()};
-        //System.out.println("PLAYERR position: "+playerPosition[0]+","+playerPosition[1]+" |GHOST: "+nextPosition[0]+","+nextPosition[1]);
-        if(playerPosition[0]==nextPosition[0] && playerPosition[1]==nextPosition[1]) {
-            System.out.println("WALKA!!!");
-            Battle battle = new Battle();
-            battle.fight(cell.getActor(), ghost);
+    public boolean compareCoords(int[] cord1,int[] cord2) {
+        //convert to String to compare two coordinates
+        String c1 = Integer.toString(cord1[0]) +","+ Integer.toString(cord1[1]);
+        String c2 = Integer.toString(cord2[0]) +","+ Integer.toString(cord2[1]);
+        return c1.equals(c2);
+    }
+
+    public Actor checkIsPlayerAround(Actor actor) {
+        //check if "actor" is close to player (standing on cell around)
+        for(int i=-1;i<2;i++) {
+            for(int j=-1;j<2;j++) {
+                if(actor.getCell().getNeighbor(i,j).getActor() instanceof Player) {
+                    //System.out.print("TU jest PLAYER : ");
+                    //System.out.println(actor.getCell().getNeighbor(i,j).getActor().getX()+","+actor.getCell().getNeighbor(i,j).getActor().getY());
+                    return actor.getCell().getNeighbor(i,j).getActor();
+                }
+            }
         }
-        return true;
+        return null;
     }
 
     public boolean isPlayerIsDead() {
@@ -128,5 +138,32 @@ public abstract class Actor implements Drawable {
     public void setPlayerIsDead(boolean playerIsDead) {
         this.playerIsDead = playerIsDead;
     }
+
+    public boolean isNextLevel() {
+        return isNextLevel;
+    }
+
+    public void setNextLevel(boolean nextLevel) {
+        isNextLevel = nextLevel;
+    }
+
+    public int[] moveToPlayer(int[] playerPosition, int[] myPosition) {
+        int distanceX = currentPlayerPosition[0] - myPosition[0];
+        int distanceY = currentPlayerPosition[1] - myPosition[1];
+
+/*        if(distanceX < 0) {return new int[]{myPosition[0]-1,myPosition[1]};}
+        if(distanceX > 0) {return new int[]{myPosition[0]+1,myPosition[1]};}
+        if(distanceY < 0) {return new int[]{myPosition[0],myPosition[1]-1};}
+        if(distanceY > 0) {return new int[]{myPosition[0],myPosition[1]+1};}*/
+
+        if(distanceX < 0) {return new int[]{-1,0};}
+        if(distanceX > 0) {return new int[]{+1,0};}
+        if(distanceY < 0) {return new int[]{0,-1};}
+        if(distanceY > 0) {return new int[]{0,+1};}
+
+        return myPosition;
+    }
+
+    public void move() {}
 }
 

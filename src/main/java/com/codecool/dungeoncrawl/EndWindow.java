@@ -32,14 +32,11 @@ public class EndWindow extends Stage {
         Button exitButton = new Button("Exit");
         exitButton.setOnAction(e -> System.exit(0));
         Button playAgainButton = new Button("Play Again");
-        playAgainButton.setOnAction(e -> MapLoader.loadMap());
-
         layout.getChildren().addAll(label, text, playAgainButton, exitButton);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
         super.setScene(scene);
         super.showAndWait();
-
     }
 }

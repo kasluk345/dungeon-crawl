@@ -23,9 +23,8 @@ public class Battle {
             enemy.getCell().setActor(null);
             enemy.getCell().setType(CellType.FLOOR);
         }
-
-        System.out.println("Player: "+player.getHealth()+"| enemy "+enemy.getHealth());
-        System.out.println("Player: "+player.getClass().getSimpleName()+"| enemy "+enemy.getClass().getSimpleName());
+        System.out.println("FIGHT| Player: "+player.getClass().getSimpleName()+" VS enemy "+enemy.getClass().getSimpleName());
+        System.out.println("HEALTH| Player: "+player.getHealth()+"| enemy "+enemy.getHealth());
     }
 
 
