@@ -13,7 +13,7 @@ public class Battle {
         int enemyHealth = getPlayerAttackResult(player, enemy);
 
         if (playerHealth <= 0) {
-            player.getCell().setType(CellType.DOOR);
+            player.getCell().setType(CellType.GAMEOVER);
             player.setPlayerIsDead(true);
             player.getCell().setActor(null);
 
