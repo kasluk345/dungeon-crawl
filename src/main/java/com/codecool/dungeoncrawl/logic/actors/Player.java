@@ -9,7 +9,7 @@ import com.codecool.dungeoncrawl.logic.items.Key;
 
 public class Player extends Actor {
     private Inventory inventory = new Inventory();
-    private final static int START_HEALTH = 100;
+    private final static int START_HEALTH = 20;
     private final static int START_ARMOR = 0;
     private final static int START_ATTACK = 20;
     private final static int START_DEFENSE = 0;
@@ -23,7 +23,7 @@ public class Player extends Actor {
         this.setArmor(START_ARMOR);
         this.setAttack(START_ATTACK);
         this.setDefence(START_DEFENSE);
-//        this.setName(StartWindow.handlePlayerName());
+        this.setName(new StartWindow().getName());
     }
 
     @Override
@@ -44,14 +44,6 @@ public class Player extends Actor {
         }
     }
 
-    public int calculateAttack() {
-        return START_ATTACK + inventory.getSwordsCount() * 20;
-    }
-
-    public int calculateArmor() {
-        return START_ARMOR + inventory.getArmorCount() * 50;
-    }
-
     public void pickUpItem() {
         if (cell.getItem().getClass().getSimpleName().equals("Sword")
                 || cell.getItem().getClass().getSimpleName().equals("Shield")
@@ -62,11 +54,11 @@ public class Player extends Actor {
                 || cell.getItem().getClass().getSimpleName().equals("Ring")
         ) {
             inventory.addItem(cell.getItem());
-            cell.setItem(null);
             inventory.displayInventory();
-            this.setAttack(calculateAttack());
-            this.setDefence(calculateDefense());
-            this.setArmor(calculateArmor());
+            this.setAttack(this.getAttack() + cell.getItem().getAttackBoost());
+            this.setDefence(this.getDefence() + cell.getItem().getDefenceBoost());
+            this.setArmor(this.getArmor() + cell.getItem().getArmorBoost());
+            cell.setItem(null);
         }
     }
 
@@ -78,10 +70,6 @@ public class Player extends Actor {
                 } else this.setHealth(100);
             }
         }
-    }
-
-    public int calculateDefense() {
-        return START_DEFENSE + inventory.getShieldsCount() * 20;
     }
 
     public void checkDoor(int dx, int dy) {

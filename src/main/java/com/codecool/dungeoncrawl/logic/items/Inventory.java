@@ -10,10 +10,9 @@ import java.util.stream.Collectors;
 
 public class Inventory {
 
-    public final ArrayList<Item> inventory;
+    public final List<Item> inventory;
 
     public Inventory() {
-
         inventory = new ArrayList<>();
     }
 
@@ -39,26 +38,6 @@ public class Inventory {
     }
 
 
-    public int getSwordsCount() {
-        int counter = 0;
-        for (Item item : inventory) {
-            if (item.getClass().getSimpleName().equals("Sword")) {
-                counter++;
-            }
-        }
-        return counter;
-    }
-
-    public int getShieldsCount() {
-        int counter = 0;
-        for (Item item : inventory) {
-            if (item.getClass().getSimpleName().equals("Shield")) {
-                counter++;
-            }
-        }
-        return counter;
-    }
-
     public ArrayList<Key> getKeysIds() {
         ArrayList<Key> keyIDs = new ArrayList<>();
         for (Item item : inventory) {
@@ -67,16 +46,5 @@ public class Inventory {
             }
         }
         return keyIDs;
-    }
-
-
-    public int getArmorCount() {
-        int counter = 0;
-        for (Item item : inventory) {
-            if (item.getClass().getSimpleName().equals("Armor")) {
-                counter++;
-            }
-        }
-        return counter;
     }
 }
