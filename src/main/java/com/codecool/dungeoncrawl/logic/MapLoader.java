@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.logic;
 
-import com.codecool.dungeoncrawl.logic.actors.Enemy;
+import com.codecool.dungeoncrawl.logic.actors.Dog;
 import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
@@ -35,7 +35,7 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             break;
                         case ',':
-                            cell.setType(CellType.FLOOR);
+                            cell.setType(CellType.FFLOOR);
                             break;
                         case 's':
                             cell.setType(CellType.FLOOR);
@@ -64,6 +64,10 @@ public class MapLoader {
                         case 'd':
                             cell.setType(CellType.LOCKEDDOOR);
                             new Door(cell);
+                            break;
+                        case '!':
+                            cell.setType(CellType.BAD_DOOR);
+                            //new Door(cell);
                             break;
                         case 'h':
                             cell.setType(CellType.FLOOR);
@@ -95,21 +99,21 @@ public class MapLoader {
                             break;
                         case 'e':
                             cell.setType(CellType.FLOOR);
-                            map.setEnemy(new Enemy(cell));
+                            //map.setDog(new Dog(cell)); //basicDog
                             break;
                         case 'f':
                             cell.setType(CellType.FLOOR);
-                            map.setEnemy(new Enemy(cell, true));
+                            map.setDog(new Dog(cell, true));
                             break;
                         case 'p':
                             cell.setType(CellType.PORTAL);
                             new Portal(cell);
                             break;
                         case '&':
-                            cell.setType(CellType.WALL);
+                            cell.setType(CellType.WALL1);
                             break;
                         case '^':
-                            cell.setType(CellType.WALL);
+                            cell.setType(CellType.FORREST);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

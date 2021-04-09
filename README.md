@@ -82,7 +82,7 @@ the important bit is that it should be fun!
 
 12. [OPTIONAL] Make the game sound fun by implementing audio effects, when player or enemies do stuff
     - There is a footstep sound, that plays, whenever the player takes a step
-    - There is an attack sound, whenever player and/or an enemy attacks someone This sound might vary depending on the weapon (sword, axe, arrow)
+    - There is an attack sound, whenever player and/or an dog attacks someone This sound might vary depending on the weapon (sword, axe, arrow)
     - Enemies such as skeletons or ghosts play characteristic sounds randomly every few seconds
     - Add some background music to your game!
 

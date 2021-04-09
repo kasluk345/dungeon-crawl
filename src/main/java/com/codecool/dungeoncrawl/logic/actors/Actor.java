@@ -3,8 +3,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.battle.Battle;
-
-import static com.codecool.dungeoncrawl.logic.actors.Player.currentPlayerPosition;
+import static com.codecool.dungeoncrawl.logic.actors.Player.getCurrentPlayerPosition;
 
 public abstract class Actor implements Drawable {
     protected Cell cell;
@@ -26,7 +25,7 @@ public abstract class Actor implements Drawable {
         CellType nextCellType = nextCell.getType();
 //        Battle battle = new Battle();
 
-        if ((nextCellType.equals(CellType.FLOOR) || nextCellType.equals(CellType.DOOR) || nextCellType.equals(CellType.PORTAL)) && nextCell.getActor() == null){
+        if (((nextCellType.equals(CellType.FLOOR) || nextCellType.equals(CellType.FFLOOR) || nextCellType.equals(CellType.DOOR) || nextCellType.equals(CellType.PORTAL)) && nextCell.getActor() == null)  ){
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
@@ -37,20 +36,6 @@ public abstract class Actor implements Drawable {
             battle.fight(this, nextCell.getActor());
         }
     }
-
-//    public void checkBattle(int dx, int dy) {
-//        Cell nextCell = cell.getNeighbor(dx, dy);
-//        if (nextCell.getActor() != null) {
-//            if (nextCell.getActor().getClass().getSimpleName().equals("Skeleton")) {
-//                Battle battle = new Battle();
-//                battle.fight(this, nextCell.getActor());
-//            }
-
-
-
-
-
-
 
     public Cell getCell() {
         return cell;
@@ -96,14 +81,12 @@ public abstract class Actor implements Drawable {
         this.defence = defence;
     }
 
-    public boolean checkPosition(Actor actor, int[] nextPosition) {
-        int GAME_SIZE_X = 25;
+    public boolean isPositionInGameArea(int[] nextPosition) {
+        int GAME_SIZE_X = 53;
         int GAME_SIZE_Y = 20;
 
-        //System.out.println("NEXT:"+nextPosition[0]+nextPosition[1]);
         if(this.getX()+nextPosition[0] >=0 && this.getX()+nextPosition[0] < GAME_SIZE_X) {
             if(this.getY()+nextPosition[1] >=0 && this.getY()+nextPosition[1] < GAME_SIZE_Y) {
-                //System.out.println("CURRENT: "+this.getX()+","+this.getY());
                 return true;
             }
         }
@@ -145,23 +128,6 @@ public abstract class Actor implements Drawable {
 
     public void setNextLevel(boolean nextLevel) {
         isNextLevel = nextLevel;
-    }
-
-    public int[] moveToPlayer(int[] playerPosition, int[] myPosition) {
-        int distanceX = currentPlayerPosition[0] - myPosition[0];
-        int distanceY = currentPlayerPosition[1] - myPosition[1];
-
-/*        if(distanceX < 0) {return new int[]{myPosition[0]-1,myPosition[1]};}
-        if(distanceX > 0) {return new int[]{myPosition[0]+1,myPosition[1]};}
-        if(distanceY < 0) {return new int[]{myPosition[0],myPosition[1]-1};}
-        if(distanceY > 0) {return new int[]{myPosition[0],myPosition[1]+1};}*/
-
-        if(distanceX < 0) {return new int[]{-1,0};}
-        if(distanceX > 0) {return new int[]{+1,0};}
-        if(distanceY < 0) {return new int[]{0,-1};}
-        if(distanceY > 0) {return new int[]{0,+1};}
-
-        return myPosition;
     }
 
     public void move() {}

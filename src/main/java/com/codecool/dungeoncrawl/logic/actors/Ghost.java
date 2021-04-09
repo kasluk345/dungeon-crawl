@@ -4,10 +4,7 @@ import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.battle.Battle;
-
 import java.util.Random;
-
-import static com.codecool.dungeoncrawl.logic.actors.Player.currentPlayerPosition;
 
 public class Ghost extends Actor {
     private final static int START_HEALTH = 50;
@@ -38,7 +35,7 @@ public class Ghost extends Actor {
         randY = random.nextInt(6)-3; //-3,3
         //randX = 0; randY = 0;
 
-        if (super.checkPosition(this, new int[] {randX,randY})) {
+        if (super.isPositionInGameArea(new int[] {randX,randY})) {
             super.move(randX,randY);
             }
         //if met player, start fight

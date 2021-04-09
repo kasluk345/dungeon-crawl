@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Actor;
-import com.codecool.dungeoncrawl.logic.actors.Enemy;
+import com.codecool.dungeoncrawl.logic.actors.Dog;
 import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.Door;
@@ -19,8 +19,8 @@ public class GameMap {
     private Item item;
     private Door door;
     private ArrayList<Actor> ghosts = new ArrayList<Actor>();
-    private Enemy enemyBasic;
-    private Enemy enemyAdvanced;
+    private Dog dogBasic;
+    private Dog dogAdvanced;
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;
@@ -49,28 +49,24 @@ public class GameMap {
         return player;
     }
 
-/*    public void setGhost(Ghost ghost) { this.ghost = ghost; }
-
-    public Ghost getGhost() { return ghost; }*/
-
     public void setGhosts(Ghost ghost) { this.ghosts.add(ghost); }
 
     public ArrayList<Actor> getGhosts() { return ghosts; }
 
-    public void setEnemy(Enemy enemy) {
-        if (!enemy.getEnemyType()) {
-            this.enemyBasic = enemy;
+    public void setDog(Dog dog) {
+        if (!dog.getEnemyType()) {
+            this.dogBasic = dog;
         } else {
-            this.enemyAdvanced = enemy;
+            this.dogAdvanced = dog;
         }
     }
 
-    public Enemy getEnemy() {
-        return enemyBasic;
+    public Dog getDog() {
+        return dogBasic;
     }
 
-    public Enemy getAdvancedEnemy() {
-        return enemyAdvanced;
+    public Dog getAdvancedDog() {
+        return dogAdvanced;
     }
 
     public int getWidth() {
@@ -81,9 +77,9 @@ public class GameMap {
         return height;
     }
 
-    public List<Actor> getEnemies() {
+    public List<Actor> getCharacters() {
         List<Actor> enemies = new ArrayList<>();
-        enemies.add(this.getAdvancedEnemy());
+        enemies.add(this.getAdvancedDog());
         enemies.addAll(this.getGhosts());
         return enemies;
     }

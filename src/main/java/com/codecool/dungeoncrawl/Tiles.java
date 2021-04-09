@@ -33,6 +33,7 @@ public class Tiles {
         tileMap.put("armor", new Tile(0, 23));
         tileMap.put("locked door", new Tile(10, 9));
         tileMap.put("door", new Tile(16, 8));
+        tileMap.put("bad_door", new Tile(31, 7));
         tileMap.put("key", new Tile(16, 23));
         tileMap.put("health potion", new Tile(18, 25));
         tileMap.put("attack potion", new Tile(16, 30));
@@ -40,10 +41,13 @@ public class Tiles {
         tileMap.put("ring", new Tile(12, 28));
         tileMap.put("helmet", new Tile(3, 22));
         tileMap.put("gauntlet", new Tile(9, 22));
-        tileMap.put("ghost", new Tile(27, 6));
-        tileMap.put("enemy", new Tile(27, 2));
+        tileMap.put("ghost", new Tile(26, 6));
+        tileMap.put("dog", new Tile(21, 8));
         tileMap.put("game over", new Tile(18,24));
         tileMap.put("portal", new Tile(1, 9));
+        tileMap.put("forrest", new Tile(3, 1));
+        tileMap.put("wall1", new Tile(13, 16));
+        tileMap.put("forrest_floor", new Tile(1, 0));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {

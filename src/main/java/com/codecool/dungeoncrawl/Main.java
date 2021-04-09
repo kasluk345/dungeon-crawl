@@ -4,9 +4,6 @@ import com.codecool.dungeoncrawl.logic.AutoMove;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.logic.actors.Actor;
-import com.codecool.dungeoncrawl.logic.items.Inventory;
-import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -18,9 +15,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.scene.control.*;
-import java.util.ArrayList;
-import java.util.List;
+
+import static com.codecool.dungeoncrawl.logic.actors.Dog.isDogHelpAvailable;
 
 
 public class Main extends Application {
@@ -33,8 +29,7 @@ public class Main extends Application {
     Label armorLabel = new Label();
     Label attackLabel = new Label();
     Label defenseLabel = new Label();
-    int[] playerPosition;
-    private Thread enemiesMovementThread;
+    private Thread charactersMovementThread;
 
     public static void main(String[] args) {
         launch(args);
@@ -67,7 +62,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         refresh();
 
-        startEnemyMovement();
+        startCharactersMovement();
 
         scene.setOnKeyPressed(this::onKeyPressed);
 
@@ -80,28 +75,28 @@ public class Main extends Application {
     private void onKeyPressed(KeyEvent keyEvent) {
         if (map.getPlayer().isNextLevel()) {
             map = MapLoader.loadMap("/map2.txt");
-            startEnemyMovement();
+            startCharactersMovement();
         }
 
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().move(0, -1);
-                map.getEnemy().move(0, +1);
+                //map.getDog().move(0, +1);
                 refresh();
                 break;
             case DOWN:
                 map.getPlayer().move(0, 1);
-                map.getEnemy().move(0, -1);
+                //map.getDog().move(0, -1);
                 refresh();
                 break;
             case LEFT:
                 map.getPlayer().move(-1, 0);
-                map.getEnemy().move(+1, 0);
+                //map.getDog().move(+1, 0);
                 refresh();
                 break;
             case RIGHT:
                 map.getPlayer().move(1, 0);
-                map.getEnemy().move(-1,0);
+                //map.getDog().move(-1,0);
                 refresh();
                 break;
             case I:
@@ -110,11 +105,18 @@ public class Main extends Application {
                 } else {
                     new InventoryWindow(map.getPlayer().getInventory().toString());
                 }
+            case G: //if player is close to dog = player can send dog to the target
+                if (isDogHelpAvailable()) {
+                    map.getAdvancedDog().setExtraMove(true);
+                }
+                break;
+            case B: //dog is following to player
+                map.getAdvancedDog().setExtraMove(false);
+                break;
         }
     }
 
     public synchronized void refresh() {
-       // System.out.println("PLAYER position: "+map.getPlayer().getX()+","+map.getPlayer().getY());
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (int x = 0; x < map.getWidth(); x++) {
@@ -131,7 +133,6 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
-        System.out.println(map.getPlayer().getHealth());
         armorLabel.setText("" + map.getPlayer().getArmor());
         attackLabel.setText("" + map.getPlayer().getAttack());
         defenseLabel.setText("" + map.getPlayer().getDefence());
@@ -140,13 +141,14 @@ public class Main extends Application {
         }
     }
 
-    public void startEnemyMovement(){
-        if(enemiesMovementThread!= null) {
-            enemiesMovementThread.stop();
+    public void startCharactersMovement(){
+        if(charactersMovementThread != null) {
+            charactersMovementThread.stop(); //could by done by .interrupt() = required managing with Threads
         }
         //async move of enemy: Thread - by AutoMove class
-        Runnable enemiesAll = new AutoMove(this, map.getEnemies());
-        enemiesMovementThread = new Thread(enemiesAll); //comment this line to stop ghost
-        enemiesMovementThread.start(); //comment this line to stop ghost
+        Runnable enemiesAll = new AutoMove(this, map.getCharacters());
+        charactersMovementThread = new Thread(enemiesAll);
+        charactersMovementThread.start();
     }
+
 }
