@@ -8,18 +8,11 @@ public class Dog extends Actor {
     private final static int START_HEALTH = 40;
     private final static int START_ATTACK = 10;
     private final boolean advancedMovement;
-    private static boolean isClosePlayer=false;
+    private static boolean isClosePlayer = false;
     private boolean extraMove = false;
-    private int[] DOG_TARGET = {22,4};
+    private final int[] DOG_TARGET = {22,4};
 
     public Dog(Cell cell) {
-        super(cell);
-        this.setHealth(START_HEALTH);
-        this.setAttack(START_ATTACK);
-        this.advancedMovement = false;
-    }
-
-    public Dog(Cell cell, boolean advMove) {
         super(cell);
         this.setHealth(START_HEALTH);
         this.setAttack(START_ATTACK);
@@ -59,11 +52,7 @@ public class Dog extends Actor {
     }
 
     private void setIsCloseToPlayer(int distanceX, int distanceY) {
-        if(Math.abs(distanceX) < 2 && Math.abs(distanceY) < 2) {
-            this.isClosePlayer = true;
-        } else {
-            this.isClosePlayer = false;
-        }
+        isClosePlayer = Math.abs(distanceX) < 2 && Math.abs(distanceY) < 2;
     }
 
     public boolean getEnemyType() {
@@ -82,10 +71,7 @@ public class Dog extends Actor {
         } else {
             return DOG_TARGET;
         }
-
     }
-
-
 }
 
 

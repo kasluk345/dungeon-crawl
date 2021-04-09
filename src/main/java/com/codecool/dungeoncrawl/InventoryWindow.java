@@ -38,6 +38,5 @@ public class InventoryWindow extends Stage{
         Scene scene = new Scene(layout);
         super.setScene(scene);
         super.showAndWait();
-
     }
 }

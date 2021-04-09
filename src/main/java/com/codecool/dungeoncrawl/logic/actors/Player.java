@@ -1,15 +1,12 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
-import com.codecool.dungeoncrawl.StartWindow;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
-import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.logic.items.HealthPotion;
 import com.codecool.dungeoncrawl.logic.items.Inventory;
 import com.codecool.dungeoncrawl.logic.items.Key;
 
 public class Player extends Actor {
-    private Inventory inventory = new Inventory();
+    private final Inventory inventory = new Inventory();
     private final static int START_HEALTH = 100;
     private final static int START_ARMOR = 0;
     private final static int START_ATTACK = 20;
@@ -93,7 +90,6 @@ public class Player extends Actor {
     public void setCurrentPlayerPosition(int dx,int dy) {
         currentPlayerPosition[0] = dx;
         currentPlayerPosition[1] = dy;
-        //System.out.println("CURRENt PLAYER position= "+currentPlayerPosition[0]+","+currentPlayerPosition[1]);
     }
 
     public static int[] getCurrentPlayerPosition() {

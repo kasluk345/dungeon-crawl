@@ -1,9 +1,9 @@
 package com.codecool.dungeoncrawl.logic.actors;
+
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.battle.Battle;
-import static com.codecool.dungeoncrawl.logic.actors.Player.getCurrentPlayerPosition;
 
 public abstract class Actor implements Drawable {
     protected Cell cell;
@@ -86,18 +86,9 @@ public abstract class Actor implements Drawable {
         int GAME_SIZE_Y = 20;
 
         if(this.getX()+nextPosition[0] >=0 && this.getX()+nextPosition[0] < GAME_SIZE_X) {
-            if(this.getY()+nextPosition[1] >=0 && this.getY()+nextPosition[1] < GAME_SIZE_Y) {
-                return true;
-            }
+            return this.getY() + nextPosition[1] >= 0 && this.getY() + nextPosition[1] < GAME_SIZE_Y;
         }
         return false;
-    }
-
-    public boolean compareCoords(int[] cord1,int[] cord2) {
-        //convert to String to compare two coordinates
-        String c1 = Integer.toString(cord1[0]) +","+ Integer.toString(cord1[1]);
-        String c2 = Integer.toString(cord2[0]) +","+ Integer.toString(cord2[1]);
-        return c1.equals(c2);
     }
 
     public Actor checkIsPlayerAround(Actor actor) {
@@ -105,8 +96,6 @@ public abstract class Actor implements Drawable {
         for(int i=-1;i<2;i++) {
             for(int j=-1;j<2;j++) {
                 if(actor.getCell().getNeighbor(i,j).getActor() instanceof Player) {
-                    //System.out.print("TU jest PLAYER : ");
-                    //System.out.println(actor.getCell().getNeighbor(i,j).getActor().getX()+","+actor.getCell().getNeighbor(i,j).getActor().getY());
                     return actor.getCell().getNeighbor(i,j).getActor();
                 }
             }

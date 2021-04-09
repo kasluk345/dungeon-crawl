@@ -11,15 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameMap {
-    private int width;
-    private int height;
-    private Cell[][] cells;
+    private final int width;
+    private final int height;
+    private final Cell[][] cells;
 
     private Player player;
     private Item item;
     private Door door;
-    private ArrayList<Actor> ghosts = new ArrayList<Actor>();
-    private Dog dogBasic;
+    private final ArrayList<Actor> ghosts = new ArrayList<>();
     private Dog dogAdvanced;
 
     public GameMap(int width, int height, CellType defaultCellType) {
@@ -49,20 +48,16 @@ public class GameMap {
         return player;
     }
 
-    public void setGhosts(Ghost ghost) { this.ghosts.add(ghost); }
-
-    public ArrayList<Actor> getGhosts() { return ghosts; }
-
-    public void setDog(Dog dog) {
-        if (!dog.getEnemyType()) {
-            this.dogBasic = dog;
-        } else {
-            this.dogAdvanced = dog;
-        }
+    public void setGhosts(Ghost ghost) {
+        this.ghosts.add(ghost);
     }
 
-    public Dog getDog() {
-        return dogBasic;
+    public ArrayList<Actor> getGhosts() {
+        return ghosts;
+    }
+
+    public void setDog(Dog dog) {
+        this.dogAdvanced = dog;
     }
 
     public Dog getAdvancedDog() {

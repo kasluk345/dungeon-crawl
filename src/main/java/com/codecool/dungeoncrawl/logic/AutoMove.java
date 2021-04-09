@@ -32,7 +32,7 @@ public class AutoMove implements Runnable {
                 main.refresh();
             }
         } catch (InterruptedException e) { //to be updated, better solution than .stop()
-            System.out.println("Koniec");
+            System.out.println("End of thread");
             Thread.currentThread().interrupt();
 
         } catch (Exception e) {
@@ -44,13 +44,10 @@ public class AutoMove implements Runnable {
         for (Actor actor : characters) {
             if (actor.getHealth() <= 0) {
                 characters.remove(actor);
-                //System.out.println("GHOST" + ghost.getGhostID() + " has been eliminated!|| LEFT: " + ghosts.size());
                 break;
             }
         }
     }
-
-
 }
 
 

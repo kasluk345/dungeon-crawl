@@ -11,7 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class StartWindow extends Stage {
-    private TextField name = new TextField();
+    private final TextField name = new TextField();
     private final VBox layout;
 
     public StartWindow() {
