@@ -67,7 +67,6 @@ public class MapLoader {
                             break;
                         case '!':
                             cell.setType(CellType.BAD_DOOR);
-                            //new Door(cell);
                             break;
                         case 'h':
                             cell.setType(CellType.FLOOR);
