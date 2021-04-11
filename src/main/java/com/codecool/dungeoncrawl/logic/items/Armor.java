@@ -9,7 +9,7 @@ public class Armor extends Item {
 
     public Armor(Cell cell) {
         super(cell);
-        this.setDefenceBoost(ARMOR_BOOST);
+        this.setArmorBoost(ARMOR_BOOST);
     }
 
     @Override
