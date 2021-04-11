@@ -48,6 +48,7 @@ public class Tiles {
         tileMap.put("forrest", new Tile(3, 1));
         tileMap.put("wall1", new Tile(13, 16));
         tileMap.put("forrest_floor", new Tile(1, 0));
+        tileMap.put("win", new Tile(12,24));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {

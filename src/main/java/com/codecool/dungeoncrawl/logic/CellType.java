@@ -12,7 +12,8 @@ public enum CellType {
     PORTAL("portal"),
     FORREST("forrest"),
     WALL1("wall1"),
-    FFLOOR("forrest_floor");
+    FFLOOR("forrest_floor"),
+    WIN("win");
 
     private final String tileName;
 

@@ -13,6 +13,7 @@ public class Player extends Actor {
     private final static int START_DEFENSE = 0;
     private String name = "";
     private final static int[] currentPlayerPosition= {-1,-1};
+    private boolean isWin = false;
 
     public Player(Cell cell) {
         super(cell);
@@ -26,7 +27,7 @@ public class Player extends Actor {
     public void move(int dx, int dy) {
         super.move(dx, dy);
 
-        setCurrentPlayerPosition(this.getX(),this.getY());
+        setCurrentPlayerPosition(this.getX(), this.getY());
 
         Cell nextCell = cell.getNeighbor(dx, dy);
 
@@ -34,13 +35,12 @@ public class Player extends Actor {
             pickUpItem();
             checkHeal();
             cell.setItem(null);
-        }
-        else if (nextCell.getType().equals(CellType.LOCKEDDOOR)) {
+        } else if (nextCell.getType().equals(CellType.LOCKEDDOOR)) {
             checkDoor(dx, dy);
-        }
-        else if (cell.getType().equals(CellType.PORTAL)) {
+        } else if (cell.getType().equals(CellType.PORTAL)) {
             setNextLevel(true);
-
+        } else if (cell.getType().equals(CellType.WIN)) {
+            setWin(true);
         }
     }
 
@@ -106,5 +106,13 @@ public class Player extends Actor {
 
     public String getName() {
         return name;
+    }
+
+    public boolean isWin() {
+        return isWin;
+    }
+
+    public void setWin(boolean win) {
+        isWin = win;
     }
 }

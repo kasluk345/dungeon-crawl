@@ -25,7 +25,7 @@ public abstract class Actor implements Drawable {
         CellType nextCellType = nextCell.getType();
 //        Battle battle = new Battle();
 
-        if (((nextCellType.equals(CellType.FLOOR) || nextCellType.equals(CellType.FFLOOR) || nextCellType.equals(CellType.DOOR) || nextCellType.equals(CellType.PORTAL)) && nextCell.getActor() == null)  ){
+        if (((nextCellType.equals(CellType.FLOOR) || nextCellType.equals(CellType.FFLOOR) || nextCellType.equals(CellType.DOOR) || nextCellType.equals(CellType.PORTAL)) || nextCellType.equals(CellType.WIN)) && nextCell.getActor() == null){
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;

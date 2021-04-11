@@ -110,6 +110,9 @@ public class MapLoader {
                         case '^':
                             cell.setType(CellType.FORREST);
                             break;
+                        case '$':
+                            cell.setType(CellType.WIN);
+                            break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }

@@ -135,6 +135,9 @@ public class Main extends Application {
         if (map.getPlayer().isPlayerIsDead()) {
             new EndWindow();
         }
+        else if (map.getPlayer().isWin()) {
+            new WinWindow();
+        }
     }
 
     public void startCharactersMovement(){
