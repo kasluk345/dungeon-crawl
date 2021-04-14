@@ -22,9 +22,9 @@ public class GameDatabaseManager {
 
     private DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        String dbName = "test";
-        String user = "test";
-        String password = "test";
+        String dbName = "books";
+        String user = "bookkeeper";
+        String password = "1234";
 
         dataSource.setDatabaseName(dbName);
         dataSource.setUser(user);
