@@ -2,9 +2,7 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
-import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.GameMap;
-import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.*;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -23,7 +21,6 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
-import com.codecool.dungeoncrawl.logic.AutoMove;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
@@ -180,6 +177,9 @@ public class Main extends Application {
         else if (map.getPlayer().isWin()) {
             new WinWindow();
         }
+
+        //save map
+        MapWriter.saveMap(map);
     }
 
     public void startCharactersMovement(){
