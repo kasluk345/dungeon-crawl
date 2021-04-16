@@ -31,7 +31,7 @@ public class GameDatabaseManager {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
 
         System.out.println("Read DB credentials...");
-        readDBdata();
+        readDataDB();
 
         String dbName = DBcredentials.get("dbName");
         String user = DBcredentials.get("user");
@@ -48,10 +48,10 @@ public class GameDatabaseManager {
         return dataSource;
     }
 
-    private void readDBdata() {
+    private void readDataDB() {
 
         try {
-            String shortPath = "src/main/java/com/codecool/dungeoncrawl/dao/DB-credentials.txt";
+            String shortPath = "src/main/resources/DB-credentials.txt";
             File file = new File(shortPath);
             Scanner sc = new Scanner(file);
 
