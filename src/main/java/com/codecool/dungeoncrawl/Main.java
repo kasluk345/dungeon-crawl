@@ -36,11 +36,20 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+
+
+
+
 import static com.codecool.dungeoncrawl.logic.actors.Dog.isDogHelpAvailable;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
 
 public class Main extends Application {
-    GameMap map = MapLoader.loadMap("/map2.txt");
+    GameMap map = MapLoader.loadMap("/map.txt");
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
@@ -145,8 +154,7 @@ public class Main extends Application {
                 map.getAdvancedDog().setExtraMove(false);
                 break;
             case S:
-                Player player = map.getPlayer();
-                dbManager.savePlayer(player);
+                saveGame();
                 break;
         }
     }
@@ -177,9 +185,6 @@ public class Main extends Application {
         else if (map.getPlayer().isWin()) {
             new WinWindow();
         }
-
-        //save map
-        MapWriter.saveMap(map);
     }
 
     public void startCharactersMovement(){
@@ -208,5 +213,16 @@ public class Main extends Application {
             System.exit(1);
         }
         System.exit(0);
+    }
+
+    private void saveGame() {
+        Player player = map.getPlayer();
+        String currentMapState = MapWriter.getSavedMap(map);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis()); //DATE format:  2021-03-24 16:48:05.591
+
+        //dbManager.savePlayer(player);
+        dbManager.savePlayerGame(player, currentMapState, timestamp);
+
+        System.out.println("Game saved at "+timestamp);
     }
 }

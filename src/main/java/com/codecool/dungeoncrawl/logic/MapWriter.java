@@ -2,25 +2,26 @@ package com.codecool.dungeoncrawl.logic;
 
 import java.util.Formatter;
 
-import com.codecool.dungeoncrawl.Tiles;
 import com.codecool.dungeoncrawl.logic.actors.Dog;
 import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.items.*;
 
-import java.io.InputStream;
-import java.util.Scanner;
-
 public class MapWriter {
     static int counter = -1;
 
-    public static void saveMap(GameMap map) {
-        counter += 1;
+    public static String getSavedMap(GameMap map) {
+        return saveMap(map);
+    }
 
-        if (counter == 0) { //test zapisz tylko raz
-            saveCurrentMapTXT(readCurrentMap(map));
-        }
+    private static String saveMap(GameMap map) {
+        //counter += 1;
+        //if (counter == 0) { //test zapisz tylko raz
+            String currentMapState = readCurrentMap(map); //return currentMapState in String
+            saveCurrentMapTXT(currentMapState); //save String into TXT file
+            return currentMapState;
+       // }
     }
 
 
@@ -80,7 +81,7 @@ public class MapWriter {
     private static char getObjectOnFLOOR(Cell cell) {
         //ACTORS
         if(cell.getActor() != null) {
-            System.out.println(cell.getActor().getClass().getSimpleName());
+            //System.out.println(cell.getActor().getClass().getSimpleName());
             if (cell.getActor() instanceof Skeleton) { //skeleton is set by NPC, not as Actor class
                 return 's';
             } else if (cell.getActor() instanceof Player) {
@@ -129,7 +130,7 @@ public class MapWriter {
             } catch (Exception e) {
                 System.out.println("Error while saving the map");
             }
-            System.out.println("The map has been saved!");
+            System.out.println("The map has been saved! (path: ["+shortPath+"]");
     }
 
 
