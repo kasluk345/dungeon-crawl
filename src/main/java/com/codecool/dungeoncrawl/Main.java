@@ -227,6 +227,7 @@ public class Main extends Application {
         //dbManager.savePlayer(player);
         dbManager.savePlayerGame(player, currentMapState, timestamp);
 
+
         System.out.println("Game saved at "+timestamp);
     }
 }

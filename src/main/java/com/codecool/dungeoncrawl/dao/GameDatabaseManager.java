@@ -1,7 +1,9 @@
 package com.codecool.dungeoncrawl.dao;
 
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.items.Inventory;
 import com.codecool.dungeoncrawl.model.GameState;
+import com.codecool.dungeoncrawl.model.InventoryModel;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 import org.postgresql.ds.PGSimpleDataSource;
 import java.io.File;
@@ -16,12 +18,15 @@ import java.sql.SQLException;
 public class GameDatabaseManager {
     private PlayerDao playerDao;
     private GameStateDao gameStateDao;
+    private InventoryDao inventoryDao;
+
     private HashMap<String,String> DBcredentials = new HashMap<>();
 
     public void setup() throws SQLException {
         DataSource dataSource = connect();
         playerDao = new PlayerDaoJdbc(dataSource);
         gameStateDao = new GameStateDaoJdbc(dataSource);
+        inventoryDao = new InventoryDaoJdbc(dataSource);
     }
 
     public void savePlayer(Player player) {
@@ -35,14 +40,19 @@ public class GameDatabaseManager {
 
         if(registeredPlayer == null) {
             playerDao.add(currentPlayer);
+            GameState gameState = new GameState(currentMap, currentData, currentPlayer);
+            gameStateDao.add(gameState);
+            InventoryModel inventory = new InventoryModel(currentPlayer, player.getInventory());
+            inventoryDao.add(inventory);
         } else {
             currentPlayer = registeredPlayer;
             playerDao.update(currentPlayer);
+            GameState gameState = new GameState(currentMap, currentData, currentPlayer);
+            gameStateDao.update(gameState);
+            InventoryModel inventory = new InventoryModel(currentPlayer, player.getInventory());
+            inventoryDao.update(inventory);
         }
-        System.out.println("CURRENT player is: "+registeredPlayer.getPlayerName() +" ID="+currentPlayer.getId());
-
-        GameState gameState = new GameState(currentMap, currentData, currentPlayer);
-        gameStateDao.add(gameState);
+        System.out.println("CURRENT player is: "+currentPlayer.getPlayerName() +" ID="+currentPlayer.getId());
 
     }
 
@@ -52,11 +62,11 @@ public class GameDatabaseManager {
         for(PlayerModel player: players) {
             //System.out.println("checking: " + player.getPlayerName());
             if(currentPlayer.getPlayerName().equals(player.getPlayerName())) {
-                System.out.println("Player with name: " + player.getPlayerName() + " is in DB!");
+                System.out.println("\t Player with name: " + player.getPlayerName() + " is in DB!");
                 return player;
             }
         }
-        System.out.println("Player with name: "+currentPlayer.getPlayerName()+" is NOT in DB!");
+        System.out.println("\t Player with name: "+currentPlayer.getPlayerName()+" is NOT in DB!");
         return null;
 
     }

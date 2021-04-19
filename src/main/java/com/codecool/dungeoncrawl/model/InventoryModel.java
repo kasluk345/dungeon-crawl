@@ -13,4 +13,24 @@ public class InventoryModel extends BaseModel {
         this.playerId = playerModel.getId();
     }
 
+    public InventoryModel(int playerID, String inventory){
+        this.inventory = inventory;
+        this.playerId = playerID;
+    }
+
+    public String getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(String inventory) {
+        this.inventory = inventory;
+    }
+
+    public int getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
+    }
 }
