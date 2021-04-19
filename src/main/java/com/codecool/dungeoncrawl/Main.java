@@ -156,6 +156,10 @@ public class Main extends Application {
             case S:
                 saveGame();
                 break;
+            case R:
+                System.out.println("Game Loaded");
+                map = MapLoader.loadMap("/savedMap.txt");
+                break;
         }
     }
 

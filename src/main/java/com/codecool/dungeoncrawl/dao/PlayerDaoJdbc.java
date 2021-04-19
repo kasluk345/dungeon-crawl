@@ -65,6 +65,7 @@ public class PlayerDaoJdbc implements PlayerDao {
                 int y = resultSet.getInt(5);
 
                 PlayerModel player = new PlayerModel(player_name,x,y);
+                player.setId(id);
 
                 return player;
 
