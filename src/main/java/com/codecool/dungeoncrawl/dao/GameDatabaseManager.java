@@ -52,8 +52,7 @@ public class GameDatabaseManager {
             InventoryModel inventory = new InventoryModel(currentPlayer, player.getInventory());
             inventoryDao.update(inventory);
         }
-        System.out.println("CURRENT player is: "+currentPlayer.getPlayerName() +" ID="+currentPlayer.getId());
-
+        System.out.println("CURRENT player is: "+currentPlayer.getPlayerName() +", ID="+currentPlayer.getId());
     }
 
     public PlayerModel isPlayerInDB(PlayerModel currentPlayer) {
@@ -68,9 +67,33 @@ public class GameDatabaseManager {
         }
         System.out.println("\t Player with name: "+currentPlayer.getPlayerName()+" is NOT in DB!");
         return null;
-
     }
 
+    public void readPlayerGame(Player player) {
+        PlayerModel currentPlayer = new PlayerModel(player);
+        PlayerModel registeredPlayer= isPlayerInDB(currentPlayer);
+
+        if(registeredPlayer == null) {
+            System.out.println("You do not have any saved game!!!");
+        } else {
+            currentPlayer = registeredPlayer;
+            PlayerModel readPlayer = playerDao.get(currentPlayer.getId());
+            System.out.println("======================================================");
+            System.out.println(readPlayer.toString());
+            System.out.println();
+            GameState readGameState = gameStateDao.get(currentPlayer.getId());
+            System.out.println(readGameState.toString());
+            System.out.println();
+            InventoryModel readInventory = inventoryDao.get(currentPlayer.getId());
+            System.out.println(readInventory.toString());
+            System.out.println();
+            System.out.println("\nRead data for player: "+currentPlayer.getPlayerName() +", ID="+currentPlayer.getId());
+            System.out.println("======================================================");
+        }
+    }
+
+
+    ///can be in another class
     private DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
 

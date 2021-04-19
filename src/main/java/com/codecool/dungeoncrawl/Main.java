@@ -157,8 +157,7 @@ public class Main extends Application {
                 saveGame();
                 break;
             case R:
-                System.out.println("Game Loaded");
-                map = MapLoader.loadMap("/savedMap.txt");
+                readGame();
                 break;
         }
     }
@@ -224,10 +223,18 @@ public class Main extends Application {
         String currentMapState = MapWriter.getSavedMap(map);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis()); //DATE format:  2021-03-24 16:48:05.591
 
-        //dbManager.savePlayer(player);
+        //dbManager.savePlayer(player); - init version to be removed
         dbManager.savePlayerGame(player, currentMapState, timestamp);
 
-
         System.out.println("Game saved at "+timestamp);
+    }
+
+    private void readGame() {
+        Player player = map.getPlayer();
+        System.out.println("Loading game...");
+        map = MapLoader.loadMap("/savedMap.txt");
+        dbManager.readPlayerGame(player);
+        System.out.println("Loading game... ...END!");
+
     }
 }

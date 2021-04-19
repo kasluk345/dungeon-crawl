@@ -46,22 +46,21 @@ public class InventoryDaoJdbc implements InventoryDao{
     }
 
     @Override
-    public InventoryModel get(int inventory_id) {
-        System.out.println("");
+    public InventoryModel get(int player_id) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT id,inventory,player_id FROM inventory WHERE id=?";
+            String sql = "SELECT id,inventory,player_id FROM inventory WHERE player_id=?";
             PreparedStatement statement = conn.prepareStatement(sql);
 
-            statement.setInt(1, inventory_id);
+            statement.setInt(1, player_id);
             ResultSet resultSet = statement.executeQuery();
 
             if(resultSet.next()){
                 int id = resultSet.getInt(1);
                 String inventory = resultSet.getString(2);
-                int player_id = resultSet.getInt(3);
+                int playerId = resultSet.getInt(3);
 
                 InventoryModel inv = new InventoryModel(id,inventory);
-                inv.setId(player_id);
+                inv.setId(playerId);
 
                 return inv;
 
@@ -86,7 +85,6 @@ public class InventoryDaoJdbc implements InventoryDao{
                 int id = resultSet.getInt(1);
                 String inventory = resultSet.getString(2);
                 int player_id = resultSet.getInt(3);
-
 
                 InventoryModel inv = new InventoryModel(player_id,inventory);
                 inv.setId(id);
