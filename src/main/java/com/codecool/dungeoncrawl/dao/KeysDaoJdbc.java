@@ -35,10 +35,20 @@ public class KeysDaoJdbc implements KeysDao {
     public void update(KeysModel keysModel) {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "UPDATE keys SET keys=? WHERE inventory_id=?";
-            PreparedStatement statement = conn.prepareStatement(sql);
+            PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, keysModel.getKeysIds());
             statement.setInt(2, keysModel.getInventoryId());
+            System.out.println(keysModel.getInventoryId());
             statement.executeUpdate();
+            ResultSet resultSet = statement.getGeneratedKeys();
+            resultSet.next();
+            keysModel.setId(resultSet.getInt(1));
+
+//            String sql1 = "SELECT id FROM keys WHERE inventory_id=?";
+//            PreparedStatement statement1 = conn.prepareStatement(sql1);
+//            statement1.setInt(1, keysModel.getInventoryId());
+//            ResultSet resultSet = statement1.executeQuery();
+//            keysModel.setId(resultSet.getInt(1));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

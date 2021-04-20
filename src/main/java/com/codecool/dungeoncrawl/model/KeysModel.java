@@ -11,7 +11,8 @@ public class KeysModel extends BaseModel {
     private int inventoryId;
 
     public KeysModel(InventoryModel inventoryModel, Inventory inventory) {
-        this.keysIds = inventory.getKeysIds().toString();
+        this.keysIds = inventory.getKeyIdsAsString(inventory.getKeysIds());
+        System.out.println(this.keysIds + "key Ids z KeyModel");
         this.inventoryId = inventoryModel.getId();
     }
 

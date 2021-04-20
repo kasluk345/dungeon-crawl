@@ -35,10 +35,18 @@ public class InventoryDaoJdbc implements InventoryDao{
     public void update(InventoryModel inventory) {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "UPDATE inventory SET iventory=? WHERE player_id=?";
-            PreparedStatement statement = conn.prepareStatement(sql);
+            PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, inventory.getInventory());
             statement.setInt(2, inventory.getPlayerId());
             statement.executeUpdate();
+            ResultSet resultSet = statement.getGeneratedKeys();
+            resultSet.next();
+            inventory.setId(resultSet.getInt(1));
+//            String sql1 = "SELECT id FROM inventory WHERE player_id=?";
+//            PreparedStatement statement1 = conn.prepareStatement(sql1);
+//            statement1.setInt(1, inventory.getPlayerId());
+//            ResultSet resultSet = statement1.executeQuery();
+//            inventory.setId(resultSet.getInt(1));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

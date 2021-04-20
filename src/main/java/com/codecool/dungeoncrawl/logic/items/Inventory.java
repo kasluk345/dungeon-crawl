@@ -44,6 +44,10 @@ public class Inventory {
     }
 
     public String getKeyIdsAsString(List<Key> keyIds) {
-        return getKeysIds().toString();
+        String keyIdsAsString = "";
+        for (Key key : keyIds){
+            keyIdsAsString += key.getId() + " ";
+        }
+        return keyIdsAsString;
     }
 }
