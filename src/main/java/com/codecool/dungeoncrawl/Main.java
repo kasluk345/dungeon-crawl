@@ -58,7 +58,7 @@ public class Main extends Application {
     Label armorLabel = new Label();
     Label attackLabel = new Label();
     Label defenseLabel = new Label();
-    private Thread charactersMovementThread;
+//    private Thread charactersMovementThread;
 
     GameDatabaseManager dbManager;
 
@@ -95,7 +95,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         refresh();
 
-        startCharactersMovement();
+//        startCharactersMovement();
 
         scene.setOnKeyPressed(this::onKeyPressed);
 
@@ -119,7 +119,7 @@ public class Main extends Application {
     private void onKeyPressed(KeyEvent keyEvent) {
         if (map.getPlayer().isNextLevel()) {
             map = MapLoader.loadMap("/map2.txt");
-            startCharactersMovement();
+//            startCharactersMovement();
         }
 
         switch (keyEvent.getCode()) {
@@ -190,15 +190,15 @@ public class Main extends Application {
         }
     }
 
-    public void startCharactersMovement(){
-        if(charactersMovementThread != null) {
-            charactersMovementThread.stop(); //could by done by .interrupt() = required managing with Threads
-        }
-        //async move of enemy: Thread - by AutoMove class
-        Runnable enemiesAll = new AutoMove(this, map.getCharacters());
-        charactersMovementThread = new Thread(enemiesAll);
-        charactersMovementThread.start();
-    }
+//    public void startCharactersMovement(){
+//        if(charactersMovementThread != null) {
+//            charactersMovementThread.stop(); //could by done by .interrupt() = required managing with Threads
+//        }
+//        //async move of enemy: Thread - by AutoMove class
+//        Runnable enemiesAll = new AutoMove(this, map.getCharacters());
+//        charactersMovementThread = new Thread(enemiesAll);
+//        charactersMovementThread.start();
+//    }
 
     private void setupDbManager() {
         dbManager = new GameDatabaseManager();

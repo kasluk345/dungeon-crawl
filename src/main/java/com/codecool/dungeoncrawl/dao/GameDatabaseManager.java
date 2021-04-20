@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.Inventory;
 import com.codecool.dungeoncrawl.model.GameState;
 import com.codecool.dungeoncrawl.model.InventoryModel;
+import com.codecool.dungeoncrawl.model.KeysModel;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 import org.postgresql.ds.PGSimpleDataSource;
 import java.io.File;
@@ -19,6 +20,7 @@ public class GameDatabaseManager {
     private PlayerDao playerDao;
     private GameStateDao gameStateDao;
     private InventoryDao inventoryDao;
+    private KeysDao keysDao;
 
     private HashMap<String,String> DBcredentials = new HashMap<>();
 
@@ -27,6 +29,7 @@ public class GameDatabaseManager {
         playerDao = new PlayerDaoJdbc(dataSource);
         gameStateDao = new GameStateDaoJdbc(dataSource);
         inventoryDao = new InventoryDaoJdbc(dataSource);
+        keysDao = new KeysDaoJdbc(dataSource);
     }
 
     public void savePlayer(Player player) {
@@ -34,26 +37,31 @@ public class GameDatabaseManager {
         playerDao.add(model);
     }
 
-    public void savePlayerGame(Player player,String currentMap, Timestamp currentData) {
+    public void savePlayerGame(Player player, String currentMap, Timestamp currentData) {
         PlayerModel currentPlayer = new PlayerModel(player);
-        PlayerModel registeredPlayer= isPlayerInDB(currentPlayer);
+        PlayerModel registeredPlayer = isPlayerInDB(currentPlayer);
 
-        if(registeredPlayer == null) {
+        if (registeredPlayer == null) {
             playerDao.add(currentPlayer);
             GameState gameState = new GameState(currentMap, currentData, currentPlayer);
             gameStateDao.add(gameState);
-            InventoryModel inventory = new InventoryModel(currentPlayer, player.getInventory());
-            inventoryDao.add(inventory);
+            InventoryModel inventoryModel = new InventoryModel(currentPlayer, player.getInventory());
+            inventoryDao.add(inventoryModel);
+            KeysModel keysModel = new KeysModel(inventoryModel, player.getInventory());
+            keysDao.add(keysModel);
         } else {
             currentPlayer = registeredPlayer;
             playerDao.update(currentPlayer);
             GameState gameState = new GameState(currentMap, currentData, currentPlayer);
             gameStateDao.update(gameState);
-            InventoryModel inventory = new InventoryModel(currentPlayer, player.getInventory());
-            inventoryDao.update(inventory);
+            InventoryModel inventoryModel = new InventoryModel(currentPlayer, player.getInventory());
+            inventoryDao.update(inventoryModel);
+            KeysModel keysModel = new KeysModel(inventoryModel, player.getInventory());
+            keysDao.update(keysModel);
+            System.out.println("CURRENT player is: " + currentPlayer.getPlayerName() + ", ID=" + currentPlayer.getId());
         }
-        System.out.println("CURRENT player is: "+currentPlayer.getPlayerName() +", ID="+currentPlayer.getId());
     }
+
 
     public PlayerModel isPlayerInDB(PlayerModel currentPlayer) {
         System.out.println("READING all players: ");

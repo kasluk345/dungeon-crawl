@@ -7,10 +7,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KeysModel extends BaseModel {
-    private List<Key> keysIds;
+    private String keysIds;
     private int inventoryId;
 
-    public KeysModel(Inventory inventory, InventoryModel inventoryModel) {
-        this.keysIds = inventory.getKeysIds();
+    public KeysModel(InventoryModel inventoryModel, Inventory inventory) {
+        this.keysIds = inventory.getKeysIds().toString();
+        this.inventoryId = inventoryModel.getId();
+    }
+
+    public KeysModel(int inventoryId, String keysIds){
+        this.keysIds = keysIds;
+        this.inventoryId = inventoryId;
+    }
+
+
+    public String getKeysIds() {
+        return keysIds;
+    }
+
+    public void setKeysIds(String keysIds) {
+        this.keysIds = keysIds;
+    }
+
+    public int getInventoryId() {
+        return inventoryId;
     }
 }

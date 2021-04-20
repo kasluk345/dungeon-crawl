@@ -18,7 +18,7 @@ public class InventoryDaoJdbc implements InventoryDao{
     @Override
     public void add(InventoryModel inventory) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "INSERT INTO inventory (inventory, player_id) VALUES (?, ?)";
+            String sql = "INSERT INTO inventory (iventory, player_id) VALUES (?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, inventory.getInventory());
             statement.setInt(2, inventory.getPlayerId());
@@ -34,7 +34,7 @@ public class InventoryDaoJdbc implements InventoryDao{
     @Override
     public void update(InventoryModel inventory) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "UPDATE inventory SET inventory=? WHERE player_id=?";
+            String sql = "UPDATE inventory SET iventory=? WHERE player_id=?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, inventory.getInventory());
             statement.setInt(2, inventory.getPlayerId());

@@ -34,12 +34,16 @@ public class Inventory {
 
 
     public ArrayList<Key> getKeysIds() {
-        ArrayList<Key> keyIDs = new ArrayList<>();
+        ArrayList<Key> keyIds = new ArrayList<>();
         for (Item item : inventory) {
             if (item.getClass().getSimpleName().equals("Key")) {
-                keyIDs.add((Key) item);
+                keyIds.add((Key) item);
             }
         }
-        return keyIDs;
+        return keyIds;
+    }
+
+    public String getKeyIdsAsString(List<Key> keyIds) {
+        return getKeysIds().toString();
     }
 }
