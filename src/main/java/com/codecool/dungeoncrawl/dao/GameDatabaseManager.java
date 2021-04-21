@@ -55,10 +55,10 @@ public class GameDatabaseManager {
             GameState gameState = new GameState(currentMap, currentData, currentPlayer);
             gameStateDao.update(gameState);
             InventoryModel inventoryModel = new InventoryModel(currentPlayer, player.getInventory());
-//            inventoryModel.setId(27);
+            inventoryModel.setId(inventoryDao.getInventoryId(currentPlayer.getId()));
             inventoryDao.update(inventoryModel);
             KeysModel keysModel = new KeysModel(inventoryModel, player.getInventory());
-//            keysModel.setId(21);
+            keysModel.setId(keysDao.getKeysId(inventoryModel.getId()));
             keysDao.update(keysModel);
             System.out.println("CURRENT player is: " + currentPlayer.getPlayerName() + ", ID=" + currentPlayer.getId());
         }

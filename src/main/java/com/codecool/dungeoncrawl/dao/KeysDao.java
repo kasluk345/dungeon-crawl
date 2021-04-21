@@ -10,4 +10,5 @@ public interface KeysDao {
     void update(KeysModel keysModel);
     KeysModel get(int id);
     List<KeysModel> getAll();
+    int getKeysId(int id);
 }

@@ -43,7 +43,7 @@ create table keys
     id serial not null
         constraint keys_pk
             primary key,
-    keys integer,
+    keys text,
     inventory_id integer
         constraint fk_inventory_id
             references inventory
