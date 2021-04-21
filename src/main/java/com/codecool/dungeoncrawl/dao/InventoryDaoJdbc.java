@@ -74,7 +74,6 @@ public class InventoryDaoJdbc implements InventoryDao{
 
     @Override
     public List<InventoryModel> getAll() {
-        System.out.println("");
         try (Connection conn = dataSource.getConnection()) {
             String sql = "SELECT id,inventory,player_id FROM inventory";
             PreparedStatement statement = conn.prepareStatement(sql);

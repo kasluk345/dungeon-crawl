@@ -4,6 +4,7 @@ package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.*;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.model.PlayerModel;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -24,28 +25,11 @@ import java.sql.SQLException;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-
-
-
 
 
 import static com.codecool.dungeoncrawl.logic.actors.Dog.isDogHelpAvailable;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.text.SimpleDateFormat;
 
 
 public class Main extends Application {
@@ -157,7 +141,7 @@ public class Main extends Application {
                 saveGame();
                 break;
             case R:
-                readGame();
+                loadGame();
                 break;
         }
     }
@@ -222,19 +206,16 @@ public class Main extends Application {
         Player player = map.getPlayer();
         String currentMapState = MapWriter.getSavedMap(map);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis()); //DATE format:  2021-03-24 16:48:05.591
-
-        //dbManager.savePlayer(player); - init version to be removed
         dbManager.savePlayerGame(player, currentMapState, timestamp);
-
         System.out.println("Game saved at "+timestamp);
     }
 
-    private void readGame() {
+    private void loadGame() {
         Player player = map.getPlayer();
+        PlayerModel playerModel = new PlayerModel(player);
         System.out.println("Loading game...");
-        map = MapLoader.loadMap("/savedMap.txt");
-        dbManager.readPlayerGame(player);
+        map = MapLoader.loadMap(dbManager, playerModel);
+        dbManager.loadPlayerGame(player);
         System.out.println("Loading game... ...END!");
-
     }
 }

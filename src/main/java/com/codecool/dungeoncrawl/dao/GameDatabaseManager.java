@@ -79,7 +79,7 @@ public class GameDatabaseManager {
         return null;
     }
 
-    public void readPlayerGame(Player player) {
+    public void loadPlayerGame(Player player) {
         PlayerModel currentPlayer = new PlayerModel(player);
         PlayerModel registeredPlayer= isPlayerInDB(currentPlayer);
 
@@ -88,18 +88,25 @@ public class GameDatabaseManager {
         } else {
             currentPlayer = registeredPlayer;
             PlayerModel readPlayer = playerDao.get(currentPlayer.getId());
+            GameState readGameState = gameStateDao.get(currentPlayer.getId());
+            InventoryModel readInventory = inventoryDao.get(currentPlayer.getId());
+            //PRINT DATA FROM DB IN CONSOLE
             System.out.println("======================================================");
             System.out.println(readPlayer.toString());
             System.out.println();
-            GameState readGameState = gameStateDao.get(currentPlayer.getId());
             System.out.println(readGameState.toString());
             System.out.println();
-            InventoryModel readInventory = inventoryDao.get(currentPlayer.getId());
             System.out.println(readInventory.toString());
             System.out.println();
             System.out.println("\nRead data for player: "+currentPlayer.getPlayerName() +", ID="+currentPlayer.getId());
             System.out.println("======================================================");
+
+            //TODO: return and load this data into main
         }
+    }
+
+    public GameState getGameState(int id) {
+        return this.gameStateDao.get(id);
     }
 
 

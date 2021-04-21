@@ -1,3 +1,4 @@
+
 package com.codecool.dungeoncrawl.logic;
 
 import java.util.Formatter;
@@ -9,19 +10,15 @@ import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.items.*;
 
 public class MapWriter {
-    static int counter = -1;
-
     public static String getSavedMap(GameMap map) {
         return saveMap(map);
     }
 
     private static String saveMap(GameMap map) {
-        //counter += 1;
-        //if (counter == 0) { //test zapisz tylko raz
-            String currentMapState = readCurrentMap(map); //return currentMapState in String
-            saveCurrentMapTXT(currentMapState); //save String into TXT file
-            return currentMapState;
-       // }
+        String currentMapState = readCurrentMap(map); //return currentMapState in String
+        saveCurrentMapTXT(currentMapState); //save String into TXT file
+        return currentMapState;
+
     }
 
 
@@ -123,14 +120,14 @@ public class MapWriter {
     public static void saveCurrentMapTXT(String currentMap) {
         String shortPath = "src/main/resources/savedMap.txt";
 
-            try {
-                Formatter savedMap = new Formatter(shortPath);
-                savedMap.format("%s", currentMap);
-                savedMap.close();
-            } catch (Exception e) {
-                System.out.println("Error while saving the map");
-            }
-            System.out.println("The map has been saved! (path: ["+shortPath+"]");
+        try {
+            Formatter savedMap = new Formatter(shortPath);
+            savedMap.format("%s", currentMap);
+            savedMap.close();
+        } catch (Exception e) {
+            System.out.println("Error while saving the map");
+        }
+        System.out.println("The map has been saved! (path: ["+shortPath+"]");
     }
 
 

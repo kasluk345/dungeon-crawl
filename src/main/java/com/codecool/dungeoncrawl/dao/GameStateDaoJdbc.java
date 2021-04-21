@@ -75,7 +75,27 @@ public class GameStateDaoJdbc implements GameStateDao {
     }
 
     @Override
-    public List<GameState> getAll() {
-        return null;
+    public List<GameState> getAll() { //NOT VERIFIED
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id,current_map,saved_at,player_id FROM game_state";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            List<GameState> allGameStates = new ArrayList<>();
+            while(resultSet.next()){
+                int id = resultSet.getInt(1);
+                String current_map = resultSet.getString(2);
+                Timestamp saved_at = resultSet.getTimestamp(3);
+                int player_id = resultSet.getInt(4);
+
+                GameState gameState = new GameState(current_map,saved_at,player_id);
+                gameState.setId(id);
+                allGameStates.add(gameState);
+            }
+            return allGameStates;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
