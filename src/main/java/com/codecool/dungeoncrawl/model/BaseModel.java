@@ -4,15 +4,13 @@ import java.lang.reflect.Field;
 
 public class BaseModel {
     // null means not saved
-    protected Integer id;
+    protected int id;
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public void setId(int id) { this.id = id; }
 
     @Override
     public String toString() {
