@@ -128,22 +128,19 @@ public class MapLoader {
         return map;
     }
 
-    public static GameMap loadMap(GameDatabaseManager dbManager, PlayerModel playerModel) {
-        playerModel.setId(1);
-        GameState readGameState = dbManager.getGameState(playerModel.getId());
-
-        String mapTXT = readGameState.getCurrentMap();
-
-        String[] mapTxtSplitted = mapTXT.split(System.lineSeparator());
-        String[] firstLine = mapTxtSplitted[0].split(" ");
+    public static GameMap loadMap2(String loadedMap) {
+        String[] mapTxtSplitted = loadedMap.split(System.lineSeparator()); //map as Array of Strings
+        String[] firstLine = mapTxtSplitted[0].split(" "); //first line with size of map (see map.txt)
         int width = Integer.parseInt(firstLine[0]);
         int height = Integer.parseInt(firstLine[1]);
+        //create Array of String with size corresponding to real game size (-first line)
+        String[] onlyMap = new String[height];
+        System.arraycopy(mapTxtSplitted,1,onlyMap,0,mapTxtSplitted.length-1);
 
         GameMap map = new GameMap(width, height, CellType.EMPTY);
-        for (int y = 1; y < height; y++) {
-            String line = mapTxtSplitted[y];
+        for (int y = 0; y < height; y++) {
+            String line = onlyMap[y];
             for (int x = 0; x < width; x++) {
-
                 Cell cell = map.getCell(x, y);
                 switch (line.charAt(x)) {
                     case ' ':

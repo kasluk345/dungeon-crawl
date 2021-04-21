@@ -22,6 +22,10 @@ public class GameDatabaseManager {
     private InventoryDao inventoryDao;
     private KeysDao keysDao;
 
+    private PlayerModel readPlayer;
+    private GameState readGameState;
+    private InventoryModel readInventory;
+
     private HashMap<String,String> DBcredentials = new HashMap<>();
 
     public void setup() throws SQLException {
@@ -79,17 +83,23 @@ public class GameDatabaseManager {
         return null;
     }
 
-    public void loadPlayerGame(Player player) {
+    public boolean loadPlayerGame(Player player) {
         PlayerModel currentPlayer = new PlayerModel(player);
         PlayerModel registeredPlayer= isPlayerInDB(currentPlayer);
 
         if(registeredPlayer == null) {
             System.out.println("You do not have any saved game!!!");
+            return false;
         } else {
             currentPlayer = registeredPlayer;
             PlayerModel readPlayer = playerDao.get(currentPlayer.getId());
             GameState readGameState = gameStateDao.get(currentPlayer.getId());
             InventoryModel readInventory = inventoryDao.get(currentPlayer.getId());
+
+            this.readPlayer = readPlayer;
+            this.readGameState = readGameState;
+            this.readInventory = readInventory;
+
             //PRINT DATA FROM DB IN CONSOLE
             System.out.println("======================================================");
             System.out.println(readPlayer.toString());
@@ -102,11 +112,16 @@ public class GameDatabaseManager {
             System.out.println("======================================================");
 
             //TODO: return and load this data into main
+            return true;
         }
     }
 
     public GameState getGameState(int id) {
         return this.gameStateDao.get(id);
+    }
+
+    public GameState getReadGameState() {
+        return this.readGameState;
     }
 
 
