@@ -4,6 +4,7 @@ package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.*;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.items.Inventory;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -33,6 +34,7 @@ import java.sql.Timestamp;
 
 
 public class Main extends Application {
+    String playerNamePlaceholder;
     GameMap map = MapLoader.loadMap("/map.txt");
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
@@ -85,7 +87,8 @@ public class Main extends Application {
 
         primaryStage.setTitle("Dungeon Crawl");
         StartWindow startWindow = new StartWindow();
-        map.getPlayer().setName(startWindow.getName());
+        playerNamePlaceholder = startWindow.getName();
+        map.getPlayer().setName(playerNamePlaceholder);
         primaryStage.show();
     }
 
@@ -204,6 +207,7 @@ public class Main extends Application {
 
     private void saveGame() {
         Player player = map.getPlayer();
+        map.getPlayer().setName(playerNamePlaceholder);
         String currentMapState = MapWriter.getSavedMap(map);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis()); //DATE format:  2021-03-24 16:48:05.591
         dbManager.savePlayerGame(player, currentMapState, timestamp);
@@ -212,13 +216,16 @@ public class Main extends Application {
 
     private void loadGame() {
         Player player = map.getPlayer();
-        PlayerModel playerModel = new PlayerModel(player);
+        map.getPlayer().setName(playerNamePlaceholder);
+        System.out.println(playerNamePlaceholder + " placeholder");
         System.out.println("Loading game...");
 
         if(dbManager.loadPlayerGame(player)) {
             String loadedMap = dbManager.getReadGameState().getCurrentMap();
             map = MapLoader.loadMap2(loadedMap);
-            System.out.println(loadedMap);
+            String inventory = dbManager.getReadInventory().getInventory();
+//            String keys = dbManager.getReadKeys().getKeysIds();
+            player.setInventory(inventory);
         }
         refresh();
         System.out.println("Loading game... ...END!");

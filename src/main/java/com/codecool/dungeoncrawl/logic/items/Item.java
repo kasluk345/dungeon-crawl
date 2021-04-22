@@ -53,7 +53,7 @@ public abstract class Item implements Drawable {
         String adjective = POSSIBLE_ADJECTIVES[RANDOM.nextInt(POSSIBLE_ADJECTIVES.length)];
         String itemType = this.getClass().getSimpleName();
 
-        return adjective + " " + itemType;
+        return adjective + "-" + itemType;
     }
 
     public String getName() {

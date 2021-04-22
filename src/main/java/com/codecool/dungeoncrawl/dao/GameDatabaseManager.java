@@ -25,6 +25,7 @@ public class GameDatabaseManager {
     private PlayerModel readPlayer;
     private GameState readGameState;
     private InventoryModel readInventory;
+    private KeysModel readKeys;
 
     private HashMap<String,String> DBcredentials = new HashMap<>();
 
@@ -34,11 +35,6 @@ public class GameDatabaseManager {
         gameStateDao = new GameStateDaoJdbc(dataSource);
         inventoryDao = new InventoryDaoJdbc(dataSource);
         keysDao = new KeysDaoJdbc(dataSource);
-    }
-
-    public void savePlayer(Player player) {
-        PlayerModel model = new PlayerModel(player);
-        playerDao.add(model);
     }
 
     public void savePlayerGame(Player player, String currentMap, Timestamp currentData) {
@@ -57,6 +53,7 @@ public class GameDatabaseManager {
             currentPlayer = registeredPlayer;
             playerDao.update(currentPlayer);
             GameState gameState = new GameState(currentMap, currentData, currentPlayer);
+            System.out.println(currentMap + "debug z update");
             gameStateDao.update(gameState);
             InventoryModel inventoryModel = new InventoryModel(currentPlayer, player.getInventory());
             inventoryModel.setId(inventoryDao.getInventoryId(currentPlayer.getId()));
@@ -95,21 +92,23 @@ public class GameDatabaseManager {
             PlayerModel readPlayer = playerDao.get(currentPlayer.getId());
             GameState readGameState = gameStateDao.get(currentPlayer.getId());
             InventoryModel readInventory = inventoryDao.get(currentPlayer.getId());
+//            KeysModel readKeys = keysDao.get(readInventory.getId());
 
             this.readPlayer = readPlayer;
             this.readGameState = readGameState;
             this.readInventory = readInventory;
+//            this.readKeys = readKeys;
 
-            //PRINT DATA FROM DB IN CONSOLE
-            System.out.println("======================================================");
-            System.out.println(readPlayer.toString());
-            System.out.println();
-            System.out.println(readGameState.toString());
-            System.out.println();
-            System.out.println(readInventory.toString());
-            System.out.println();
-            System.out.println("\nRead data for player: "+currentPlayer.getPlayerName() +", ID="+currentPlayer.getId());
-            System.out.println("======================================================");
+//            //PRINT DATA FROM DB IN CONSOLE
+//            System.out.println("======================================================");
+//            System.out.println(readPlayer.toString());
+//            System.out.println();
+//            System.out.println(readGameState.toString());
+//            System.out.println();
+//            System.out.println(readInventory.toString());
+//            System.out.println();
+//            System.out.println("\nRead data for player: "+currentPlayer.getPlayerName() +", ID="+currentPlayer.getId());
+//            System.out.println("======================================================");
 
             //TODO: return and load this data into main
             return true;
@@ -164,5 +163,21 @@ public class GameDatabaseManager {
         } catch (FileNotFoundException e) {
             System.out.println("Error - File Not Found");
         }
+    }
+
+    public PlayerDao getPlayerDao() {
+        return playerDao;
+    }
+
+    public PlayerModel getReadPlayer() {
+        return readPlayer;
+    }
+
+    public InventoryModel getReadInventory() {
+        return readInventory;
+    }
+
+    public KeysModel getReadKeys() {
+        return readKeys;
     }
 }

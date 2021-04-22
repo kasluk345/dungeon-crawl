@@ -23,7 +23,6 @@ public class PlayerModel extends BaseModel {
 
     public PlayerModel(Player player) {
         this.playerName = player.getName();
-        System.out.println(this.playerName + " z player Model constructor");
         this.x = player.getX();
         this.y = player.getY();
         this.hp = player.getHealth();

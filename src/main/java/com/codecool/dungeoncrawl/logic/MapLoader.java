@@ -71,6 +71,10 @@ public class MapLoader {
                             cell.setType(CellType.LOCKEDDOOR);
                             new Door(cell);
                             break;
+                        case 'o':
+                            cell.setType(CellType.DOOR);
+                            new Door(cell);
+                            break;
                         case '!':
                             cell.setType(CellType.BAD_DOOR);
                             break;
@@ -181,6 +185,10 @@ public class MapLoader {
                         break;
                     case 'd':
                         cell.setType(CellType.LOCKEDDOOR);
+                        new Door(cell);
+                        break;
+                    case 'o':
+                        cell.setType(CellType.DOOR);
                         new Door(cell);
                         break;
                     case '!':
