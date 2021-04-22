@@ -92,12 +92,12 @@ public class GameDatabaseManager {
             PlayerModel readPlayer = playerDao.get(currentPlayer.getId());
             GameState readGameState = gameStateDao.get(currentPlayer.getId());
             InventoryModel readInventory = inventoryDao.get(currentPlayer.getId());
-            KeysModel readKeys = keysDao.get(readInventory.getId());
+//            KeysModel readKeys = keysDao.get(readInventory.getId());
 
             this.readPlayer = readPlayer;
             this.readGameState = readGameState;
             this.readInventory = readInventory;
-            this.readKeys = readKeys;
+//            this.readKeys = readKeys;
 
 //            //PRINT DATA FROM DB IN CONSOLE
 //            System.out.println("======================================================");

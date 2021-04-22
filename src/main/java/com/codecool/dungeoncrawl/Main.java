@@ -224,7 +224,7 @@ public class Main extends Application {
             String loadedMap = dbManager.getReadGameState().getCurrentMap();
             map = MapLoader.loadMap2(loadedMap);
             String inventory = dbManager.getReadInventory().getInventory();
-            String keys = dbManager.getReadKeys().getKeysIds();
+//            String keys = dbManager.getReadKeys().getKeysIds();
             player.setInventory(inventory);
         }
         refresh();
