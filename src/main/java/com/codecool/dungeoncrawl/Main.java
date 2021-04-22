@@ -218,6 +218,7 @@ public class Main extends Application {
         if(dbManager.loadPlayerGame(player)) {
             String loadedMap = dbManager.getReadGameState().getCurrentMap();
             map = MapLoader.loadMap2(loadedMap);
+            System.out.println(loadedMap);
         }
         refresh();
         System.out.println("Loading game... ...END!");

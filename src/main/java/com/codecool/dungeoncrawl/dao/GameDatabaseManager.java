@@ -73,7 +73,7 @@ public class GameDatabaseManager {
         System.out.println("READING all players: ");
         List<PlayerModel> players = playerDao.getAll();
         for(PlayerModel player: players) {
-            //System.out.println("checking: " + player.getPlayerName());
+            System.out.println("checking: " + player.getPlayerName());
             if(currentPlayer.getPlayerName().equals(player.getPlayerName())) {
                 System.out.println("\t Player with name: " + player.getPlayerName() + " is in DB!");
                 return player;
