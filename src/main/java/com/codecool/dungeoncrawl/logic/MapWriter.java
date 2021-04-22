@@ -40,6 +40,9 @@ public class MapWriter {
                     case LOCKEDDOOR:
                         currentMap += 'd';
                         break;
+                    case DOOR:
+                        currentMap += 'o';
+                        break;
                     case BAD_DOOR:
                         currentMap += '!';
                         break;

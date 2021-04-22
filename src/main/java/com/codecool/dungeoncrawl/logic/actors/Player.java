@@ -6,7 +6,7 @@ import com.codecool.dungeoncrawl.logic.items.Inventory;
 import com.codecool.dungeoncrawl.logic.items.Key;
 
 public class Player extends Actor {
-    private final Inventory inventory = new Inventory();
+    private Inventory inventory = new Inventory();
     private final static int START_HEALTH = 100;
     private final static int START_ARMOR = 0;
     private final static int START_ATTACK = 20;
@@ -86,6 +86,15 @@ public class Player extends Actor {
     public Inventory getInventory() {
         return inventory;
     }
+
+    public void setInventory(String inventory){
+        String[] inventorySplited = inventory.split(" ");
+        for (String item : inventorySplited){
+            System.out.println(item);
+        }
+
+    }
+
 
     public void setCurrentPlayerPosition(int dx,int dy) {
         currentPlayerPosition[0] = dx;
