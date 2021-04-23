@@ -11,6 +11,10 @@ public class Shield extends Item{
         this.setDefenceBoost(DEFENCE_BOOST);
     }
 
+    public Shield(String name) {
+        super(name);
+    }
+
     @Override
     public String getTileName() {
         return "shield";

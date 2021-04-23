@@ -2,8 +2,7 @@ package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
-import com.codecool.dungeoncrawl.logic.items.Inventory;
-import com.codecool.dungeoncrawl.logic.items.Key;
+import com.codecool.dungeoncrawl.logic.items.*;
 
 public class Player extends Actor {
     private Inventory inventory = new Inventory();
@@ -74,8 +73,9 @@ public class Player extends Actor {
 
     public void checkDoor(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
-
+        System.out.println("Debug - Player - checkDoor (line 76,78)");
         for (Key key : inventory.getKeysIds()) {
+            System.out.println(key.getId() +" | "+nextCell.getDoor().getId());
             if (key.getId() == nextCell.getDoor().getId()) {
                 nextCell.setType(CellType.DOOR);
                 inventory.removeItem(key);
@@ -87,11 +87,58 @@ public class Player extends Actor {
         return inventory;
     }
 
-    public void setInventory(String inventory){
-        String[] inventorySplited = inventory.split(" ");
-        for (String item : inventorySplited){
-            System.out.println(item);
+    public void setInventory(String inventory, String keysID){
+        //System.out.println("S\n"+inventory+"Q");
+        String[] keys = {""};
+        Item item;
+        int index = 0;
+        if(!keysID.equals("")) {
+            System.out.println("KEYS ID: " + keysID);
+            keys = keysID.split(" ");
         }
+
+        Inventory loadedInventory = new Inventory();
+        String[] inventorySplitted = inventory.split(System.lineSeparator());
+
+        System.out.println("");
+        for (String itemFullName : inventorySplitted){
+            String itemType = itemFullName.split("-")[1];
+
+            if (itemType.equals("Key")) {
+                // System.out.println("KEY with ID="+keys[index]);
+                item = new Key(Integer.parseInt(keys[index]), itemFullName);
+                loadedInventory.addItem(item);
+                index++;
+            } else if (itemType.equals("Shield")) {
+                item = new Shield(itemFullName);
+                loadedInventory.addItem(item);
+            } else if (itemType.equals("Sword")) {
+                item = new Sword(itemFullName);
+                loadedInventory.addItem(item);
+            } else if (itemType.equals("Armor")) {
+                item = new Armor(itemFullName);
+                loadedInventory.addItem(item);
+            } else if (itemType.equals("Gauntlet")) {
+                item = new Gauntlet(itemFullName);
+                loadedInventory.addItem(item);
+            } else if (itemType.equals("Helmet")) {
+                item = new Helmet(itemFullName);
+                loadedInventory.addItem(item);
+            } else if (itemType.equals("Ring")) {
+                item = new Ring(itemFullName);
+                loadedInventory.addItem(item);
+            } else if (itemType.equals("AttackPotion")) {
+                item = new AttackPotion(itemFullName);
+                loadedInventory.addItem(item);
+            } else if (itemType.equals("DefensePotion")) {
+                item = new DefensePotion(itemFullName);
+                loadedInventory.addItem(item);
+            } else if (itemType.equals("HealthPotion")) {
+                item = new HealthPotion(itemFullName);
+                loadedInventory.addItem(item);
+            }
+        }
+        this.inventory=loadedInventory;
 
     }
 

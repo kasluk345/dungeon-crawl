@@ -12,6 +12,11 @@ public class Key extends Item{
         this.id = count++;
     }
 
+    public Key(int id,String name) {
+        super(name);
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

@@ -7,7 +7,10 @@ public class Gauntlet extends Item{
     public Gauntlet(Cell cell) {
         super(cell);
         this.setArmorBoost(ARMOR_BOOST);
+    }
 
+    public Gauntlet(String name) {
+        super(name);
     }
 
     @Override

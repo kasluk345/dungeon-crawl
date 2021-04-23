@@ -12,6 +12,10 @@ public class AttackPotion extends Item{
         this.setAttackBoost(ATTACK_BOOST);
     }
 
+    public AttackPotion(String name) {
+        super(name);
+    }
+
     @Override
     public String getTileName() {
         return "attack potion";

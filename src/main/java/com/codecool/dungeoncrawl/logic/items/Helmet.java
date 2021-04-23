@@ -10,6 +10,10 @@ public class Helmet extends Item{
         this.setArmorBoost(ARMOR_BOOST);
     }
 
+    public Helmet(String name) {
+        super(name);
+    }
+
     @Override
     public String getTileName() {
         return "helmet";

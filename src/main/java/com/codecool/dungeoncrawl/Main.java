@@ -220,12 +220,20 @@ public class Main extends Application {
         System.out.println(playerNamePlaceholder + " placeholder");
         System.out.println("Loading game...");
 
-        if(dbManager.loadPlayerGame(player)) {
+        if(dbManager.loadPlayerGame(map.getPlayer())) {
             String loadedMap = dbManager.getReadGameState().getCurrentMap();
             map = MapLoader.loadMap2(loadedMap);
+
+            String keys = dbManager.getReadKeys().getKeysIds();
+
             String inventory = dbManager.getReadInventory().getInventory();
-//            String keys = dbManager.getReadKeys().getKeysIds();
-            player.setInventory(inventory);
+            map.getPlayer().setInventory(inventory,keys); //player.setInventory nie przypisuje inventory do aktualnego playera :o
+            System.out.println("LOADED INVENTORY: "+System.lineSeparator()+player.getInventory().toString());
+
+
+
+
+
         }
         refresh();
         System.out.println("Loading game... ...END!");

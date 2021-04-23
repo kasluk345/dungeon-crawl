@@ -38,7 +38,7 @@ public abstract class Item implements Drawable {
             "Kachite",
             "Jetrite",
     };
-    protected final String name;
+    protected String name;
     private int attackBoost = 0;
     private int armorBoost = 0;
     private int defenceBoost = 0;
@@ -48,6 +48,12 @@ public abstract class Item implements Drawable {
         this.name = generateName();
         cell.setItem(this);
     }
+
+    public Item(String name) {
+        this.name = name;
+    }
+
+    public Item() { }
 
     protected String generateName(){
         String adjective = POSSIBLE_ADJECTIVES[RANDOM.nextInt(POSSIBLE_ADJECTIVES.length)];

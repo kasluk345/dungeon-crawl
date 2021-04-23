@@ -11,6 +11,10 @@ public class Sword extends Item{
         this.setAttackBoost(ATTACK_BOOST);
     }
 
+    public Sword(String name) {
+        super(name);
+    }
+
     @Override
     public String getTileName() {
         return "sword";

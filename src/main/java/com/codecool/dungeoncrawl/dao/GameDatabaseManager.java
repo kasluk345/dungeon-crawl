@@ -53,7 +53,6 @@ public class GameDatabaseManager {
             currentPlayer = registeredPlayer;
             playerDao.update(currentPlayer);
             GameState gameState = new GameState(currentMap, currentData, currentPlayer);
-            System.out.println(currentMap + "debug z update");
             gameStateDao.update(gameState);
             InventoryModel inventoryModel = new InventoryModel(currentPlayer, player.getInventory());
             inventoryModel.setId(inventoryDao.getInventoryId(currentPlayer.getId()));
@@ -67,10 +66,10 @@ public class GameDatabaseManager {
 
 
     public PlayerModel isPlayerInDB(PlayerModel currentPlayer) {
-        System.out.println("READING all players: ");
+        System.out.println("Checking all players: ");
         List<PlayerModel> players = playerDao.getAll();
         for(PlayerModel player: players) {
-            System.out.println("checking: " + player.getPlayerName());
+           // System.out.println("checking: " + player.getPlayerName());
             if(currentPlayer.getPlayerName().equals(player.getPlayerName())) {
                 System.out.println("\t Player with name: " + player.getPlayerName() + " is in DB!");
                 return player;
@@ -92,12 +91,12 @@ public class GameDatabaseManager {
             PlayerModel readPlayer = playerDao.get(currentPlayer.getId());
             GameState readGameState = gameStateDao.get(currentPlayer.getId());
             InventoryModel readInventory = inventoryDao.get(currentPlayer.getId());
-//            KeysModel readKeys = keysDao.get(readInventory.getId());
+            KeysModel readKeys = keysDao.get(readInventory.getId());
 
             this.readPlayer = readPlayer;
             this.readGameState = readGameState;
             this.readInventory = readInventory;
-//            this.readKeys = readKeys;
+            this.readKeys = readKeys;
 
 //            //PRINT DATA FROM DB IN CONSOLE
 //            System.out.println("======================================================");

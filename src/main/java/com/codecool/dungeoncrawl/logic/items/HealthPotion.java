@@ -8,6 +8,10 @@ public class HealthPotion extends Item{
         super(cell);
     }
 
+    public HealthPotion(String name) {
+        super(name);
+    }
+
     @Override
     public String getTileName() {
         return "health potion";
