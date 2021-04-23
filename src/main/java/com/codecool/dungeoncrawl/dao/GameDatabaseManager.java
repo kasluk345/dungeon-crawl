@@ -42,6 +42,7 @@ public class GameDatabaseManager {
         PlayerModel registeredPlayer = isPlayerInDB(currentPlayer);
 
         if (registeredPlayer == null) {
+            System.out.println("NEW PLAYER created: "+currentPlayer.getPlayerName());
             playerDao.add(currentPlayer);
             GameState gameState = new GameState(currentMap, currentData, currentPlayer);
             gameStateDao.add(gameState);
@@ -66,7 +67,7 @@ public class GameDatabaseManager {
 
 
     public PlayerModel isPlayerInDB(PlayerModel currentPlayer) {
-        System.out.println("Checking all players: ");
+/*        System.out.println("Checking all players: ");
         List<PlayerModel> players = playerDao.getAll();
         for(PlayerModel player: players) {
            // System.out.println("checking: " + player.getPlayerName());
@@ -76,7 +77,8 @@ public class GameDatabaseManager {
             }
         }
         System.out.println("\t Player with name: "+currentPlayer.getPlayerName()+" is NOT in DB!");
-        return null;
+        return null;*/
+        return playerDao.get(currentPlayer.getPlayerName());
     }
 
     public boolean loadPlayerGame(Player player) {

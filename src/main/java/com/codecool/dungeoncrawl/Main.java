@@ -230,10 +230,6 @@ public class Main extends Application {
             map.getPlayer().setInventory(inventory,keys); //player.setInventory nie przypisuje inventory do aktualnego playera :o
             System.out.println("LOADED INVENTORY: "+System.lineSeparator()+player.getInventory().toString());
 
-
-
-
-
         }
         refresh();
         System.out.println("Loading game... ...END!");

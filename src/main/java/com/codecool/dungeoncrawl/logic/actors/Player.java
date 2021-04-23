@@ -77,7 +77,7 @@ public class Player extends Actor {
         System.out.println("keyID | doorID");
         for (Key key : inventory.getKeysIds()) {
             System.out.println(key.getId() +"    |    "+nextCell.getDoor().getId());
-            if (key.getId() == nextCell.getDoor().getId()) { //add "|| 1==1" to temp solve for issue with key
+            if (key.getId() == nextCell.getDoor().getId() || 1==1) { //add "|| 1==1" to temp solve for issue with key
                 nextCell.setType(CellType.DOOR);
                 inventory.removeItem(key);
             }
