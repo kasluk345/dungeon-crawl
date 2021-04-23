@@ -74,9 +74,10 @@ public class Player extends Actor {
     public void checkDoor(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
         System.out.println("Debug - Player - checkDoor (line 76,78)");
+        System.out.println("keyID | doorID");
         for (Key key : inventory.getKeysIds()) {
-            System.out.println(key.getId() +" | "+nextCell.getDoor().getId());
-            if (key.getId() == nextCell.getDoor().getId()) {
+            System.out.println(key.getId() +"    |    "+nextCell.getDoor().getId());
+            if (key.getId() == nextCell.getDoor().getId()) { //add "|| 1==1" to temp solve for issue with key
                 nextCell.setType(CellType.DOOR);
                 inventory.removeItem(key);
             }
