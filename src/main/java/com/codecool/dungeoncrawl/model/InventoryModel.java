@@ -1,19 +1,18 @@
 package com.codecool.dungeoncrawl.model;
 
-import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.Inventory;
 
 public class InventoryModel extends BaseModel {
     private String inventory;
-    private int playerId;
+    private final int playerId;
 
 
-    public InventoryModel(PlayerModel playerModel, Inventory inventory){
+    public InventoryModel(PlayerModel playerModel, Inventory inventory) {
         this.inventory = inventory.toString();
         this.playerId = playerModel.getId();
     }
 
-    public InventoryModel(int playerId, String inventory){
+    public InventoryModel(int playerId, String inventory) {
         this.inventory = inventory;
         this.playerId = playerId;
     }
@@ -30,7 +29,4 @@ public class InventoryModel extends BaseModel {
         return playerId;
     }
 
-    public void setPlayerId(int playerId) {
-        this.playerId = playerId;
-    }
 }

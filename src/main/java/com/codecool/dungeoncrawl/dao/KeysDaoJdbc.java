@@ -1,6 +1,5 @@
 package com.codecool.dungeoncrawl.dao;
 
-import com.codecool.dungeoncrawl.model.InventoryModel;
 import com.codecool.dungeoncrawl.model.KeysModel;
 
 import javax.sql.DataSource;
@@ -9,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KeysDaoJdbc implements KeysDao {
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
     public KeysDaoJdbc(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -38,7 +37,6 @@ public class KeysDaoJdbc implements KeysDao {
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, keysModel.getKeysIds());
             statement.setInt(2, keysModel.getInventoryId());
-            System.out.println(keysModel.getInventoryId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -56,10 +54,9 @@ public class KeysDaoJdbc implements KeysDao {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                KeysModel keysModel = new KeysModel(
+                return new KeysModel(
                         resultSet.getInt(1),
                         resultSet.getString(2));
-                return keysModel;
             } else {
                 return null;
             }
@@ -70,7 +67,6 @@ public class KeysDaoJdbc implements KeysDao {
 
     @Override
     public List<KeysModel> getAll() {
-        System.out.println("");
         try (Connection conn = dataSource.getConnection()) {
             String sql = "SELECT id, keys, inventory_id FROM keys";
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -100,11 +96,12 @@ public class KeysDaoJdbc implements KeysDao {
             ResultSet resultSet = statement.executeQuery();
 
 
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 return resultSet.getInt(1);
             } else {
-                throw new RuntimeException("Nie znaleziono id klucza");
-            }        } catch (SQLException e) {
+                throw new RuntimeException("Key ID not found");
+            }
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

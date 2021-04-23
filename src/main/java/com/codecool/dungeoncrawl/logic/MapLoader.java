@@ -1,16 +1,11 @@
 
 package com.codecool.dungeoncrawl.logic;
 
-import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
-import com.codecool.dungeoncrawl.dao.GameStateDao;
-import com.codecool.dungeoncrawl.dao.GameStateDaoJdbc;
 import com.codecool.dungeoncrawl.logic.actors.Dog;
 import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.items.*;
-import com.codecool.dungeoncrawl.model.GameState;
-import com.codecool.dungeoncrawl.model.PlayerModel;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -139,7 +134,7 @@ public class MapLoader {
         int height = Integer.parseInt(firstLine[1]);
         //create Array of String with size corresponding to real game size (-first line)
         String[] onlyMap = new String[height];
-        System.arraycopy(mapTxtSplitted,1,onlyMap,0,mapTxtSplitted.length-1);
+        System.arraycopy(mapTxtSplitted, 1, onlyMap, 0, mapTxtSplitted.length - 1);
 
         GameMap map = new GameMap(width, height, CellType.EMPTY);
         for (int y = 0; y < height; y++) {

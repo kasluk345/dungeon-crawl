@@ -10,7 +10,9 @@ public class BaseModel {
         return id;
     }
 
-    public void setId(int id) { this.id = id; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {

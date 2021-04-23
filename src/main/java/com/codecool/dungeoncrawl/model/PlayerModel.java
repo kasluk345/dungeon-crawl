@@ -3,13 +3,13 @@ package com.codecool.dungeoncrawl.model;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 
 public class PlayerModel extends BaseModel {
-    private String playerName;
-    private int hp;
+    private final String playerName;
+    private final int hp;
     private int x;
-    private int y;
-    private int attack;
+    private final int y;
+    private final int attack;
     private int armor;
-    private int defence;
+    private final int defence;
 
     public PlayerModel(String playerName, int x, int y, int hp, int attack, int armor, int defence) {
         this.playerName = playerName;
@@ -36,10 +36,6 @@ public class PlayerModel extends BaseModel {
         return playerName;
     }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
     public int getX() {
         return x;
     }
@@ -52,25 +48,14 @@ public class PlayerModel extends BaseModel {
         return y;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
-
     public int getHp() {
         return hp;
-    }
-
-    public void setHp(int hp) {
-        this.hp = hp;
     }
 
     public int getAttack() {
         return attack;
     }
 
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
 
     public int getArmor() {
         return armor;
@@ -84,7 +69,4 @@ public class PlayerModel extends BaseModel {
         return defence;
     }
 
-    public void setDefense(int defense) {
-        this.defence = defense;
-    }
 }

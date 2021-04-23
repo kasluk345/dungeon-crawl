@@ -11,7 +11,7 @@ public class Player extends Actor {
     private final static int START_ATTACK = 20;
     private final static int START_DEFENSE = 0;
     private String name = "";
-    private final static int[] currentPlayerPosition= {-1,-1};
+    private final static int[] currentPlayerPosition = {-1, -1};
     private boolean isWin = false;
 
     public Player(Cell cell) {
@@ -73,11 +73,8 @@ public class Player extends Actor {
 
     public void checkDoor(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
-        System.out.println("Debug - Player - checkDoor (line 76,78)");
-        System.out.println("keyID | doorID");
         for (Key key : inventory.getKeysIds()) {
-            System.out.println(key.getId() +"    |    "+nextCell.getDoor().getId());
-            if (key.getId() == nextCell.getDoor().getId() || 1==1) { //add "|| 1==1" to temp solve for issue with key
+            if (key.getId() == nextCell.getDoor().getId() || 1 == 1) { //add "|| 1==1" to temp solve for issue with key
                 nextCell.setType(CellType.DOOR);
                 inventory.removeItem(key);
             }
@@ -88,63 +85,76 @@ public class Player extends Actor {
         return inventory;
     }
 
-    public void setInventory(String inventory, String keysID){
-        //System.out.println("S\n"+inventory+"Q");
+    public void checkInventory(String inventory, String keysID) {
+        if (inventory.length() > 1) {
+            setInventory(inventory, keysID);
+        }
+    }
+
+    public void setInventory(String inventory, String keysID) {
         String[] keys = {""};
         Item item;
         int index = 0;
-        if(!keysID.equals("")) {
-            System.out.println("KEYS ID: " + keysID);
+        if (keysID.length() > 0) {
             keys = keysID.split(" ");
         }
 
         Inventory loadedInventory = new Inventory();
         String[] inventorySplitted = inventory.split(System.lineSeparator());
 
-        System.out.println("");
-        for (String itemFullName : inventorySplitted){
+        for (String itemFullName : inventorySplitted) {
             String itemType = itemFullName.split("-")[1];
 
-            if (itemType.equals("Key")) {
-                // System.out.println("KEY with ID="+keys[index]);
-                item = new Key(Integer.parseInt(keys[index]), itemFullName);
-                loadedInventory.addItem(item);
-                index++;
-            } else if (itemType.equals("Shield")) {
-                item = new Shield(itemFullName);
-                loadedInventory.addItem(item);
-            } else if (itemType.equals("Sword")) {
-                item = new Sword(itemFullName);
-                loadedInventory.addItem(item);
-            } else if (itemType.equals("Armor")) {
-                item = new Armor(itemFullName);
-                loadedInventory.addItem(item);
-            } else if (itemType.equals("Gauntlet")) {
-                item = new Gauntlet(itemFullName);
-                loadedInventory.addItem(item);
-            } else if (itemType.equals("Helmet")) {
-                item = new Helmet(itemFullName);
-                loadedInventory.addItem(item);
-            } else if (itemType.equals("Ring")) {
-                item = new Ring(itemFullName);
-                loadedInventory.addItem(item);
-            } else if (itemType.equals("AttackPotion")) {
-                item = new AttackPotion(itemFullName);
-                loadedInventory.addItem(item);
-            } else if (itemType.equals("DefensePotion")) {
-                item = new DefensePotion(itemFullName);
-                loadedInventory.addItem(item);
-            } else if (itemType.equals("HealthPotion")) {
-                item = new HealthPotion(itemFullName);
-                loadedInventory.addItem(item);
+            switch (itemType) {
+                case "Key":
+                    item = new Key(Integer.parseInt(keys[index]), itemFullName);
+                    loadedInventory.addItem(item);
+                    index++;
+                    break;
+                case "Shield":
+                    item = new Shield(itemFullName);
+                    loadedInventory.addItem(item);
+                    break;
+                case "Sword":
+                    item = new Sword(itemFullName);
+                    loadedInventory.addItem(item);
+                    break;
+                case "Armor":
+                    item = new Armor(itemFullName);
+                    loadedInventory.addItem(item);
+                    break;
+                case "Gauntlet":
+                    item = new Gauntlet(itemFullName);
+                    loadedInventory.addItem(item);
+                    break;
+                case "Helmet":
+                    item = new Helmet(itemFullName);
+                    loadedInventory.addItem(item);
+                    break;
+                case "Ring":
+                    item = new Ring(itemFullName);
+                    loadedInventory.addItem(item);
+                    break;
+                case "AttackPotion":
+                    item = new AttackPotion(itemFullName);
+                    loadedInventory.addItem(item);
+                    break;
+                case "DefensePotion":
+                    item = new DefensePotion(itemFullName);
+                    loadedInventory.addItem(item);
+                    break;
+                case "HealthPotion":
+                    item = new HealthPotion(itemFullName);
+                    loadedInventory.addItem(item);
+                    break;
             }
         }
-        this.inventory=loadedInventory;
+        this.inventory = loadedInventory;
 
     }
 
 
-    public void setCurrentPlayerPosition(int dx,int dy) {
+    public void setCurrentPlayerPosition(int dx, int dy) {
         currentPlayerPosition[0] = dx;
         currentPlayerPosition[1] = dy;
     }

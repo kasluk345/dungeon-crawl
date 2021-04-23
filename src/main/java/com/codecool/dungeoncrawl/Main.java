@@ -4,17 +4,14 @@ package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.*;
 import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.logic.items.Inventory;
-import com.codecool.dungeoncrawl.model.PlayerModel;
+import com.codecool.dungeoncrawl.logic.items.Door;
+import com.codecool.dungeoncrawl.logic.items.Key;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -22,15 +19,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
-
-import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.GameMap;
-import com.codecool.dungeoncrawl.logic.MapLoader;
-
+import java.sql.Timestamp;
 
 import static com.codecool.dungeoncrawl.logic.actors.Dog.isDogHelpAvailable;
-
-import java.sql.Timestamp;
 
 
 public class Main extends Application {
@@ -44,7 +35,7 @@ public class Main extends Application {
     Label armorLabel = new Label();
     Label attackLabel = new Label();
     Label defenseLabel = new Label();
-//    private Thread charactersMovementThread;
+    private Thread charactersMovementThread;
 
     GameDatabaseManager dbManager;
 
@@ -81,7 +72,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         refresh();
 
-//        startCharactersMovement();
+        //startCharactersMovement(); // TURN OFF MOVE 1/3
 
         scene.setOnKeyPressed(this::onKeyPressed);
 
@@ -92,21 +83,10 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
-    private void onKeyReleased(KeyEvent keyEvent) {
-        KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
-        KeyCombination exitCombinationWin = new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN);
-        if (exitCombinationMac.match(keyEvent)
-                || exitCombinationWin.match(keyEvent)
-                || keyEvent.getCode() == KeyCode.ESCAPE) {
-            exit();
-        }
-    }
-
     private void onKeyPressed(KeyEvent keyEvent) {
         if (map.getPlayer().isNextLevel()) {
             map = MapLoader.loadMap("/map2.txt");
-//            startCharactersMovement();
+            //startCharactersMovement();// TURN OFF MOVE 2/3
         }
 
         switch (keyEvent.getCode()) {
@@ -146,6 +126,9 @@ public class Main extends Application {
             case R:
                 loadGame();
                 break;
+            case E:
+                exit();
+                break;
         }
     }
 
@@ -155,10 +138,9 @@ public class Main extends Application {
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
                 Cell cell = map.getCell(x, y);
-                if (cell.getActor() != null ) {
+                if (cell.getActor() != null) {
                     Tiles.drawTile(context, cell.getActor(), x, y);
-                }
-                else if (cell.getItem() != null ) {
+                } else if (cell.getItem() != null) {
                     Tiles.drawTile(context, cell.getItem(), x, y);
                 } else {
                     Tiles.drawTile(context, cell, x, y);
@@ -171,21 +153,20 @@ public class Main extends Application {
         defenseLabel.setText("" + map.getPlayer().getDefence());
         if (map.getPlayer().isPlayerIsDead()) {
             new EndWindow();
-        }
-        else if (map.getPlayer().isWin()) {
+        } else if (map.getPlayer().isWin()) {
             new WinWindow();
         }
     }
 
-//    public void startCharactersMovement(){
-//        if(charactersMovementThread != null) {
-//            charactersMovementThread.stop(); //could by done by .interrupt() = required managing with Threads
-//        }
-//        //async move of enemy: Thread - by AutoMove class
-//        Runnable enemiesAll = new AutoMove(this, map.getCharacters());
-//        charactersMovementThread = new Thread(enemiesAll);
-//        charactersMovementThread.start();
-//    }
+    public void startCharactersMovement() {
+        if (charactersMovementThread != null) {
+            charactersMovementThread.stop(); //could by done by .interrupt() = required managing with Threads
+        }
+        //async move of enemy: Thread - by AutoMove class
+        Runnable enemiesAll = new AutoMove(this, map.getCharacters());
+        charactersMovementThread = new Thread(enemiesAll);
+        charactersMovementThread.start();
+    }
 
     private void setupDbManager() {
         dbManager = new GameDatabaseManager();
@@ -211,27 +192,27 @@ public class Main extends Application {
         String currentMapState = MapWriter.getSavedMap(map);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis()); //DATE format:  2021-03-24 16:48:05.591
         dbManager.savePlayerGame(player, currentMapState, timestamp);
-        System.out.println("Game saved at "+timestamp);
+        System.out.println("Game saved at " + timestamp);
     }
 
     private void loadGame() {
-        Player player = map.getPlayer();
+        Key.setCount(0);
+        Door.setCount(0);
         map.getPlayer().setName(playerNamePlaceholder);
-        System.out.println(playerNamePlaceholder + " placeholder");
         System.out.println("Loading game...");
-
-        if(dbManager.loadPlayerGame(map.getPlayer())) {
+        if (dbManager.loadPlayerGame(map.getPlayer())) {
             String loadedMap = dbManager.getReadGameState().getCurrentMap();
             map = MapLoader.loadMap2(loadedMap);
-
             String keys = dbManager.getReadKeys().getKeysIds();
-
+            map.getPlayer().setHealth(dbManager.getReadPlayer().getHp());
+            map.getPlayer().setAttack(dbManager.getReadPlayer().getAttack());
+            map.getPlayer().setArmor(dbManager.getReadPlayer().getArmor());
+            map.getPlayer().setDefence(dbManager.getReadPlayer().getDefense());
             String inventory = dbManager.getReadInventory().getInventory();
-            map.getPlayer().setInventory(inventory,keys); //player.setInventory nie przypisuje inventory do aktualnego playera :o
-            System.out.println("LOADED INVENTORY: "+System.lineSeparator()+player.getInventory().toString());
-
+            map.getPlayer().checkInventory(inventory, keys);
         }
         refresh();
+        //startCharactersMovement();// TURN OFF MOVE 3/3
         System.out.println("Loading game... ...END!");
     }
 }

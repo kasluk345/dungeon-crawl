@@ -1,20 +1,19 @@
 package com.codecool.dungeoncrawl.dao;
 
 import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.logic.items.Inventory;
 import com.codecool.dungeoncrawl.model.GameState;
 import com.codecool.dungeoncrawl.model.InventoryModel;
 import com.codecool.dungeoncrawl.model.KeysModel;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 import org.postgresql.ds.PGSimpleDataSource;
+
+import javax.sql.DataSource;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
-import java.io.FileNotFoundException;
-import javax.sql.DataSource;
-import java.sql.SQLException;
 
 public class GameDatabaseManager {
     private PlayerDao playerDao;
@@ -27,7 +26,7 @@ public class GameDatabaseManager {
     private InventoryModel readInventory;
     private KeysModel readKeys;
 
-    private HashMap<String,String> DBcredentials = new HashMap<>();
+    private final HashMap<String, String> DBcredentials = new HashMap<>();
 
     public void setup() throws SQLException {
         DataSource dataSource = connect();
@@ -42,7 +41,6 @@ public class GameDatabaseManager {
         PlayerModel registeredPlayer = isPlayerInDB(currentPlayer);
 
         if (registeredPlayer == null) {
-            System.out.println("NEW PLAYER created: "+currentPlayer.getPlayerName());
             playerDao.add(currentPlayer);
             GameState gameState = new GameState(currentMap, currentData, currentPlayer);
             gameStateDao.add(gameState);
@@ -61,31 +59,19 @@ public class GameDatabaseManager {
             KeysModel keysModel = new KeysModel(inventoryModel, player.getInventory());
             keysModel.setId(keysDao.getKeysId(inventoryModel.getId()));
             keysDao.update(keysModel);
-            System.out.println("CURRENT player is: " + currentPlayer.getPlayerName() + ", ID=" + currentPlayer.getId());
         }
     }
 
 
     public PlayerModel isPlayerInDB(PlayerModel currentPlayer) {
-/*        System.out.println("Checking all players: ");
-        List<PlayerModel> players = playerDao.getAll();
-        for(PlayerModel player: players) {
-           // System.out.println("checking: " + player.getPlayerName());
-            if(currentPlayer.getPlayerName().equals(player.getPlayerName())) {
-                System.out.println("\t Player with name: " + player.getPlayerName() + " is in DB!");
-                return player;
-            }
-        }
-        System.out.println("\t Player with name: "+currentPlayer.getPlayerName()+" is NOT in DB!");
-        return null;*/
         return playerDao.get(currentPlayer.getPlayerName());
     }
 
     public boolean loadPlayerGame(Player player) {
         PlayerModel currentPlayer = new PlayerModel(player);
-        PlayerModel registeredPlayer= isPlayerInDB(currentPlayer);
+        PlayerModel registeredPlayer = isPlayerInDB(currentPlayer);
 
-        if(registeredPlayer == null) {
+        if (registeredPlayer == null) {
             System.out.println("You do not have any saved game!!!");
             return false;
         } else {
@@ -99,31 +85,25 @@ public class GameDatabaseManager {
             this.readGameState = readGameState;
             this.readInventory = readInventory;
             this.readKeys = readKeys;
-
-//            //PRINT DATA FROM DB IN CONSOLE
-//            System.out.println("======================================================");
-//            System.out.println(readPlayer.toString());
-//            System.out.println();
-//            System.out.println(readGameState.toString());
-//            System.out.println();
-//            System.out.println(readInventory.toString());
-//            System.out.println();
-//            System.out.println("\nRead data for player: "+currentPlayer.getPlayerName() +", ID="+currentPlayer.getId());
-//            System.out.println("======================================================");
-
-            //TODO: return and load this data into main
             return true;
         }
-    }
-
-    public GameState getGameState(int id) {
-        return this.gameStateDao.get(id);
     }
 
     public GameState getReadGameState() {
         return this.readGameState;
     }
 
+    public PlayerModel getReadPlayer() {
+        return readPlayer;
+    }
+
+    public InventoryModel getReadInventory() {
+        return readInventory;
+    }
+
+    public KeysModel getReadKeys() {
+        return readKeys;
+    }
 
     ///can be in another class
     private DataSource connect() throws SQLException {
@@ -154,31 +134,14 @@ public class GameDatabaseManager {
             File file = new File(shortPath);
             Scanner sc = new Scanner(file);
 
-            while(sc.hasNext()) {
+            while (sc.hasNext()) {
                 String[] data = sc.nextLine().split(":");
-                //System.out.println(data[0]+"="+data[1]); //!display password in console!
-                DBcredentials.put(data[0],data[1]);
+                DBcredentials.put(data[0], data[1]);
             }
             System.out.println("Successfully read DB data from the file");
             sc.close();
         } catch (FileNotFoundException e) {
             System.out.println("Error - File Not Found");
         }
-    }
-
-    public PlayerDao getPlayerDao() {
-        return playerDao;
-    }
-
-    public PlayerModel getReadPlayer() {
-        return readPlayer;
-    }
-
-    public InventoryModel getReadInventory() {
-        return readInventory;
-    }
-
-    public KeysModel getReadKeys() {
-        return readKeys;
     }
 }

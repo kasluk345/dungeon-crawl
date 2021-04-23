@@ -12,7 +12,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class InventoryWindow extends Stage{
+public class InventoryWindow extends Stage {
     private final VBox layout;
 
     public InventoryWindow(String message) {

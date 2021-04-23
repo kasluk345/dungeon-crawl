@@ -21,9 +21,8 @@ public class MapWriter {
 
     }
 
-
     private static String readCurrentMap(GameMap map) {
-        String currentMap = map.getWidth() + " " + map.getHeight() + System.lineSeparator();
+        StringBuilder currentMap = new StringBuilder(map.getWidth() + " " + map.getHeight() + System.lineSeparator());
 
         //read map horizontally, line by line
         for (int x = 0; x < map.getHeight(); x++) {
@@ -32,56 +31,57 @@ public class MapWriter {
 
                 switch (cell.getType()) {
                     case EMPTY:
-                        currentMap += ' ';
+                        currentMap.append(' ');
                         break;
                     case WALL:
-                        currentMap += '#';
+                        currentMap.append('#');
                         break;
                     case LOCKEDDOOR:
-                        currentMap += 'd';
+                        currentMap.append('d');
                         break;
                     case DOOR:
-                        currentMap += 'o';
+                        currentMap.append('o');
                         break;
                     case BAD_DOOR:
-                        currentMap += '!';
+                        currentMap.append('!');
                         break;
                     case PORTAL:
-                        currentMap += 'p';
+                        currentMap.append('p');
                         break;
                     case WALL1:
-                        currentMap += '&';
+                        currentMap.append('&');
                         break;
                     case FORREST:
-                        currentMap += '^';
+                        currentMap.append('^');
                         break;
                     case WIN:
-                        currentMap += '$';
+                        currentMap.append('$');
                         break;
                     case FFLOOR:
-                        currentMap += ',';
+                        currentMap.append(',');
                         break;
                     case NPC:
-                        currentMap += 's'; //skeleton
+                        currentMap.append('s'); //skeleton
                         break;
                     case FLOOR:
-                        currentMap += getObjectOnFLOOR(cell);  //on FLOOR can be Item or Actor
+                        currentMap.append(getObjectOnFLOOR(cell));  //on FLOOR can be Item or Actor
                         break;
                     default:
-                        currentMap += '?';
+                        currentMap.append('?');
                         //throw new RuntimeException("Unrecognized character: ");
                 }
                 //enter after last sign in line
-                if (y == map.getWidth() - 1) { currentMap += System.lineSeparator(); }
+                if (y == map.getWidth() - 1) {
+                    currentMap.append(System.lineSeparator());
+                }
             }
         }
-        return currentMap;
+        return currentMap.toString();
     }
 
     private static char getObjectOnFLOOR(Cell cell) {
         //ACTORS
-        if(cell.getActor() != null) {
-            //System.out.println(cell.getActor().getClass().getSimpleName());
+        if (cell.getActor() != null) {
             if (cell.getActor() instanceof Skeleton) { //skeleton is set by NPC, not as Actor class
                 return 's';
             } else if (cell.getActor() instanceof Player) {
@@ -93,7 +93,7 @@ public class MapWriter {
             }
         }
         //ITEMS
-        if(cell.getItem()!= null ) {
+        if (cell.getItem() != null) {
             if (cell.getItem() instanceof Sword) {
                 return 'm';
             } else if (cell.getItem() instanceof Shield) {
@@ -130,9 +130,7 @@ public class MapWriter {
         } catch (Exception e) {
             System.out.println("Error while saving the map");
         }
-        System.out.println("The map has been saved! (path: ["+shortPath+"]");
+        System.out.println("The map has been saved! (path: [" + shortPath + "]");
     }
-
-
 }
 

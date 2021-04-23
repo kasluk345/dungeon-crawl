@@ -63,7 +63,7 @@ public class PlayerDaoJdbc implements PlayerDao {
             statement.setInt(1, player_id);
             ResultSet resultSet = statement.executeQuery();
 
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 int id = resultSet.getInt(1);
                 String player_name = resultSet.getString(2);
                 int x = resultSet.getInt(3);
@@ -73,7 +73,7 @@ public class PlayerDaoJdbc implements PlayerDao {
                 int armor = resultSet.getInt(7);
                 int defence = resultSet.getInt(8);
 
-                PlayerModel player = new PlayerModel(player_name,x,y,hp,attack,armor,defence);
+                PlayerModel player = new PlayerModel(player_name, x, y, hp, attack, armor, defence);
                 player.setId(id);
 
                 return player;
@@ -94,7 +94,7 @@ public class PlayerDaoJdbc implements PlayerDao {
             ResultSet resultSet = statement.executeQuery();
 
             List<PlayerModel> allPlayers = new ArrayList<>();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 int id = resultSet.getInt(1);
                 String player_name = resultSet.getString(2);
                 int x = resultSet.getInt(3);
@@ -104,7 +104,7 @@ public class PlayerDaoJdbc implements PlayerDao {
                 int armor = resultSet.getInt(7);
                 int defence = resultSet.getInt(8);
 
-                PlayerModel player = new PlayerModel(player_name,x,y,hp,attack,armor,defence);
+                PlayerModel player = new PlayerModel(player_name, x, y, hp, attack, armor, defence);
                 player.setId(id);
                 allPlayers.add(player);
             }
@@ -125,7 +125,7 @@ public class PlayerDaoJdbc implements PlayerDao {
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
 
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 int id = resultSet.getInt(1);
                 String player_name = resultSet.getString(2);
                 int x = resultSet.getInt(3);
@@ -135,7 +135,7 @@ public class PlayerDaoJdbc implements PlayerDao {
                 int armor = resultSet.getInt(7);
                 int defence = resultSet.getInt(8);
 
-                PlayerModel player = new PlayerModel(player_name,x,y,hp,attack,armor,defence);
+                PlayerModel player = new PlayerModel(player_name, x, y, hp, attack, armor, defence);
                 player.setId(id);
 
                 return player;

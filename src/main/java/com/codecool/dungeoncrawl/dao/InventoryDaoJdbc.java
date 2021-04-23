@@ -1,15 +1,14 @@
 package com.codecool.dungeoncrawl.dao;
 
 import com.codecool.dungeoncrawl.model.InventoryModel;
-import com.codecool.dungeoncrawl.model.PlayerModel;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InventoryDaoJdbc implements InventoryDao{
-    private DataSource dataSource;
+public class InventoryDaoJdbc implements InventoryDao {
+    private final DataSource dataSource;
 
     public InventoryDaoJdbc(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -54,12 +53,12 @@ public class InventoryDaoJdbc implements InventoryDao{
             statement.setInt(1, player_id);
             ResultSet resultSet = statement.executeQuery();
 
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 int id = resultSet.getInt(1);
                 String inventory = resultSet.getString(2);
                 int playerId = resultSet.getInt(3);
 
-                InventoryModel inv = new InventoryModel(id,inventory);
+                InventoryModel inv = new InventoryModel(id, inventory);
                 inv.setId(playerId);
 
                 return inv;
@@ -80,12 +79,12 @@ public class InventoryDaoJdbc implements InventoryDao{
             ResultSet resultSet = statement.executeQuery();
 
             List<InventoryModel> allInventories = new ArrayList<>();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 int id = resultSet.getInt(1);
                 String inventory = resultSet.getString(2);
                 int player_id = resultSet.getInt(3);
 
-                InventoryModel inv = new InventoryModel(player_id,inventory);
+                InventoryModel inv = new InventoryModel(player_id, inventory);
                 inv.setId(id);
                 allInventories.add(inv);
             }
@@ -104,17 +103,16 @@ public class InventoryDaoJdbc implements InventoryDao{
             statement.setInt(1, playerId);
             ResultSet resultSet = statement.executeQuery();
 
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 return resultSet.getInt(1);
             } else {
-                throw new RuntimeException("Nie znaleziono id");
+                throw new RuntimeException("ID not found");
             }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
 
 
 }
