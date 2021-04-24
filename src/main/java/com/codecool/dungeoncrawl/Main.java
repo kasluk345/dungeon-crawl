@@ -72,7 +72,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         refresh();
 
-        //startCharactersMovement(); // TURN OFF MOVE 1/3
+        startCharactersMovement(); // TURN OFF MOVE 1/3
 
         scene.setOnKeyPressed(this::onKeyPressed);
 
@@ -86,7 +86,7 @@ public class Main extends Application {
     private void onKeyPressed(KeyEvent keyEvent) {
         if (map.getPlayer().isNextLevel()) {
             map = MapLoader.loadMap("/map2.txt");
-            //startCharactersMovement();// TURN OFF MOVE 2/3
+            startCharactersMovement();// TURN OFF MOVE 2/3
         }
 
         switch (keyEvent.getCode()) {
@@ -199,7 +199,7 @@ public class Main extends Application {
         Key.setCount(0);
         Door.setCount(0);
         map.getPlayer().setName(playerNamePlaceholder);
-        System.out.println("Loading game...");
+        System.out.print(System.lineSeparator()+"Loading game...");
         if (dbManager.loadPlayerGame(map.getPlayer())) {
             String loadedMap = dbManager.getReadGameState().getCurrentMap();
             map = MapLoader.loadMap2(loadedMap);
@@ -212,7 +212,7 @@ public class Main extends Application {
             map.getPlayer().checkInventory(inventory, keys);
         }
         refresh();
-        //startCharactersMovement();// TURN OFF MOVE 3/3
-        System.out.println("Loading game... ...END!");
+        startCharactersMovement();// TURN OFF MOVE 3/3
+        System.out.println(" ...END!");
     }
 }

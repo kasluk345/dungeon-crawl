@@ -30,6 +30,8 @@ public class GameDatabaseManager {
 
     public void setup() throws SQLException {
         DataSource dataSource = connect();
+
+        //CodeReview: could be returned by separated methods(line86-89) , without additional fields here
         playerDao = new PlayerDaoJdbc(dataSource);
         gameStateDao = new GameStateDaoJdbc(dataSource);
         inventoryDao = new InventoryDaoJdbc(dataSource);
